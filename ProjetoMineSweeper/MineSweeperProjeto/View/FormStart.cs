@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Library;
 
 namespace MineSweeperProjeto.View
 {
@@ -46,7 +47,7 @@ namespace MineSweeperProjeto.View
 		}
 
 		// Informa o Controlador a dificuldade escolhida
-		private void UCDifficulty_WarnMainFormDifficultyChoice(Program.Dificuldade dificuldade)
+		private void UCDifficulty_WarnMainFormDifficultyChoice(Dificuldade dificuldade)
 		{
 			if (ChangeDifficultyInGame != null)
 				ChangeDifficultyInGame(dificuldade);

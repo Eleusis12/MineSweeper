@@ -11,6 +11,7 @@ using MineSweeperProjeto.Controller;
 using MineSweeperProjeto.Model;
 using static MineSweeperProjeto.Program;
 using MineSweeperProjeto.Helpers;
+using Library;
 
 namespace MineSweeperProjeto.View
 {

@@ -14,6 +14,7 @@ using System.Drawing.Text;
 using System.Runtime.InteropServices;
 using static MineSweeperProjeto.Program;
 using MineSweeperProjeto.Helpers;
+using Library;
 
 namespace MineSweeperProjeto
 {

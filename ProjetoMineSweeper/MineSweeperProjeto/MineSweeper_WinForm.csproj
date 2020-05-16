@@ -55,9 +55,6 @@
     <Compile Include="Controller\Controlador.cs" />
     <Compile Include="Helpers\Delegates.cs" />
     <Compile Include="Helpers\Sound.cs" />
-    <Compile Include="Model\Tile.cs" />
-    <Compile Include="Model\TileGrid.cs" />
-    <Compile Include="Model\User.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -511,6 +508,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\Recursos\Another Assets\icons8-pastel-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Library\Library.csproj">
+      <Project>{1d612d52-88fd-4091-ad0e-ce06ec155cea}</Project>
+      <Name>Library</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -11,9 +11,6 @@ namespace MineSweeperProjeto
 {
 	public static class Program
 	{
-		// Enum
-		public enum Dificuldade { Facil, Medio, Dificil }
-
 		public static TileGrid M_Grelha { get; private set; }
 
 		public static FormMinesweeper V_MineSweeperGame { get; private set; }

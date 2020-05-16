@@ -13,6 +13,7 @@ using MineSweeperProjeto.Properties;
 using MineSweeperProjeto.View;
 using static MineSweeperProjeto.Program;
 using Timer = System.Windows.Forms.Timer;
+using Library;
 
 namespace MineSweeperProjeto.Controller
 {
@@ -78,6 +79,9 @@ namespace MineSweeperProjeto.Controller
 		{
 			M_Grelha.Matriz = new Dictionary<Point, Tile>();
 			M_Grelha.Abertos = new HashSet<Tile>();
+			M_Grelha.NumeroElementosAbertos = 0;
+			M_Grelha.Fim = false;
+
 			SetModel(dificuldade);
 
 			V_MineSweeperGame.ResetBoardView();

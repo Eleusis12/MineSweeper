@@ -290,6 +290,12 @@
   <ItemGroup>
     <Content Include="Assets\Font\Seven Segment.ttf" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Library\Library.csproj">
+      <Project>{1d612d52-88fd-4091-ad0e-ce06ec155cea}</Project>
+      <Name>Library</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
