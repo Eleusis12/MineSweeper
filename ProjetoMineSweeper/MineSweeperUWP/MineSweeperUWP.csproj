@@ -1,0 +1,304 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{F84448D2-05E7-4A51-814B-D5A6D3256E8D}</ProjectGuid>
+    <OutputType>AppContainerExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MineSweeperUWP</RootNamespace>
+    <AssemblyName>MineSweeperUWP</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.18362.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
+    <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
+    <OutputPath>bin\ARM64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DificuldadePage.xaml.cs">
+      <DependentUpon>DificuldadePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LeaderBoardPage.xaml.cs">
+      <DependentUpon>LeaderBoardPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\MineSweeper.xaml.cs">
+      <DependentUpon>MineSweeper.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OptionsPage.xaml.cs">
+      <DependentUpon>OptionsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RegisterPage.xaml.cs">
+      <DependentUpon>RegisterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VencedorPage.xaml.cs">
+      <DependentUpon>VencedorPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Another Assets\16-163420_light-color-gradient-background.jpg" />
+    <Content Include="Assets\Another Assets\3ec61e9a-b3f7-47e7-87c0-4f1e27cfcf4e.png" />
+    <Content Include="Assets\Another Assets\back-button-logo-png-3.png" />
+    <Content Include="Assets\Another Assets\grey_sliderLeft.png" />
+    <Content Include="Assets\Another Assets\icons8-leaderboard-50.png" />
+    <Content Include="Assets\Another Assets\icons8-pastel-64.png" />
+    <Content Include="Assets\Another Assets\minesweeper-classic-mines-classical-minesweeper-android-android_burned.png" />
+    <Content Include="Assets\Another Assets\MineSweeper.png" />
+    <Content Include="Assets\Another Assets\MineSweeperSoldier.png" />
+    <Content Include="Assets\Another Assets\mio-staging_mio-design_1584058305895_assets_0B4tcF52UnWX4QUFITTBqbG1kWXc_usability-bidirectionality-guidelines-when3%282%29.png" />
+    <Content Include="Assets\Another Assets\UeGbja.jpg" />
+    <Content Include="Assets\Another Assets\user.png" />
+    <Content Include="Assets\Another Assets\user128.png" />
+    <Content Include="Assets\Another Assets\user24.png" />
+    <Content Include="Assets\Another Assets\user64.png" />
+    <Content Include="Assets\Another Assets\x-simbolo_318-1407.jpg" />
+    <Content Include="Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="Assets\sounds\click.wav" />
+    <Content Include="Assets\sounds\flag.wav" />
+    <Content Include="Assets\sounds\GameOver.wav" />
+    <Content Include="Assets\sounds\GameWin.wav" />
+    <Content Include="Assets\tiles\bomb.jpg" />
+    <Content Include="Assets\tiles\bomb_ambient.jpg" />
+    <Content Include="Assets\tiles\bomb_normal.jpg" />
+    <Content Include="Assets\tiles\bomb_specular.jpg" />
+    <Content Include="Assets\tiles\disabled.jpg" />
+    <Content Include="Assets\tiles\disabled_ambient.jpg" />
+    <Content Include="Assets\tiles\disabled_normal.jpg" />
+    <Content Include="Assets\tiles\disabled_specular.jpg" />
+    <Content Include="Assets\tiles\flag.jpg" />
+    <Content Include="Assets\tiles\flag_ambient.jpg" />
+    <Content Include="Assets\tiles\flag_normal.jpg" />
+    <Content Include="Assets\tiles\flag_specular.jpg" />
+    <Content Include="Assets\tiles\question.jpg" />
+    <Content Include="Assets\tiles\question_ambient.jpg" />
+    <Content Include="Assets\tiles\question_normal.jpg" />
+    <Content Include="Assets\tiles\question_specular.jpg" />
+    <Content Include="Assets\tiles\tile_0.jpg" />
+    <Content Include="Assets\tiles\tile_0_ambient.jpg" />
+    <Content Include="Assets\tiles\tile_0_normal.jpg" />
+    <Content Include="Assets\tiles\tile_0_specular.jpg" />
+    <Content Include="Assets\tiles\tile_1.jpg" />
+    <Content Include="Assets\tiles\tile_1_ambient.jpg" />
+    <Content Include="Assets\tiles\tile_1_normal.jpg" />
+    <Content Include="Assets\tiles\tile_1_specular.jpg" />
+    <Content Include="Assets\tiles\tile_2.jpg" />
+    <Content Include="Assets\tiles\tile_2_ambient.jpg" />
+    <Content Include="Assets\tiles\tile_2_normal.jpg" />
+    <Content Include="Assets\tiles\tile_2_specular.jpg" />
+    <Content Include="Assets\tiles\tile_3.jpg" />
+    <Content Include="Assets\tiles\tile_3_ambient.jpg" />
+    <Content Include="Assets\tiles\tile_3_normal.jpg" />
+    <Content Include="Assets\tiles\tile_3_specular.jpg" />
+    <Content Include="Assets\tiles\tile_4.jpg" />
+    <Content Include="Assets\tiles\tile_4_ambient.jpg" />
+    <Content Include="Assets\tiles\tile_4_normal.jpg" />
+    <Content Include="Assets\tiles\tile_4_specular.jpg" />
+    <Content Include="Assets\tiles\tile_5.jpg" />
+    <Content Include="Assets\tiles\tile_5_ambient.jpg" />
+    <Content Include="Assets\tiles\tile_5_normal.jpg" />
+    <Content Include="Assets\tiles\tile_5_specular.jpg" />
+    <Content Include="Assets\tiles\tile_6.jpg" />
+    <Content Include="Assets\tiles\tile_6_ambient.jpg" />
+    <Content Include="Assets\tiles\tile_6_normal.jpg" />
+    <Content Include="Assets\tiles\tile_6_specular.jpg" />
+    <Content Include="Assets\tiles\tile_7.jpg" />
+    <Content Include="Assets\tiles\tile_7_ambient.jpg" />
+    <Content Include="Assets\tiles\tile_7_normal.jpg" />
+    <Content Include="Assets\tiles\tile_7_specular.jpg" />
+    <Content Include="Assets\tiles\tile_8.jpg" />
+    <Content Include="Assets\tiles\tile_8_ambient.jpg" />
+    <Content Include="Assets\tiles\tile_8_normal.jpg" />
+    <Content Include="Assets\tiles\tile_8_specular.jpg" />
+    <Content Include="Assets\tiles\unopened.jpg" />
+    <Content Include="Assets\tiles\unopened_ambient.jpg" />
+    <Content Include="Assets\tiles\unopened_displacement.jpg" />
+    <Content Include="Assets\tiles\unopened_normal.jpg" />
+    <Content Include="Assets\tiles\unopened_specular.jpg" />
+    <Content Include="Assets\Title\Mine-Sweeper.png" />
+    <Content Include="Properties\Default.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="Views\DificuldadePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LeaderBoardPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MineSweeper.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OptionsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RegisterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\VencedorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>6.2.9</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp">
+      <Version>6.0.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Font\RUBBBB__.TTF" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Font\Seven Segment.ttf" />
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

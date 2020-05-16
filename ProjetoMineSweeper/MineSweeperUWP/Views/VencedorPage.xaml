@@ -1,0 +1,15 @@
+﻿<Page
+    x:Class="MineSweeperUWP.View.VencedorPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MineSweeperUWP.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.Background>
+        <AcrylicBrush TintColor="#CC373737" />
+    </Page.Background>
+    <Grid>
+        <Button Style="{StaticResource NavigationBackButtonNormalStyle}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,1460,960" />
+    </Grid>
+</Page>
