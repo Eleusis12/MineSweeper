@@ -53,8 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\Controlador.cs" />
-    <Compile Include="Helpers\Delegates.cs" />
-    <Compile Include="Helpers\Sound.cs" />
+    <Compile Include="HelpersNetFramework\Sound.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

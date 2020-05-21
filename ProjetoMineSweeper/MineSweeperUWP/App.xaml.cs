@@ -1,4 +1,6 @@
-﻿using MineSweeperUWP.View;
+﻿using MineSweeperProjeto.Model;
+using MineSweeperUWP.View;
+using MineSweeperUWP.Controller;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,19 +29,25 @@ namespace MineSweeperUWP
 
 	sealed partial class App : Application
 	{
-		//Models
+		// Models
+		public TileGrid M_Grelha { get; private set; }
 
 		//Views
-		public static MineSweeper V_MineSweeperGame { get; private set; }
+		public MineSweeper V_MineSweeperGame { get; private set; }
 
-		public static MainPage V_StartForm { get; private set; }
-		public static DificuldadePage V_DifficultyForm { get; private set; }
-		public static LeaderBoardPage V_LeaderBoard { get; private set; }
-		public static OptionsPage V_OptionsForm { get; private set; }
-		public static Register V_RegisterForm { get; private set; }
-		public static Login V_LoginPage { get; private set; }
+		public MainPage V_StartForm { get; private set; }
+		public DificuldadePage V_DifficultyForm { get; private set; }
 
-		public static VencedorPage V_Vencedor { get; private set; }
+		public LeaderBoardPage V_LeaderBoard { get; private set; }
+		public OptionsPage V_OptionsForm { get; private set; }
+		public Register V_RegisterForm { get; private set; }
+		public Login V_LoginPage { get; private set; }
+
+		public VencedorPage V_Vencedor { get; private set; }
+
+		// Controller
+		public GameController C_Master { get; private set; }
+
 		// Controllers
 
 		//public static FormVencedor V_Vencedor { get; private set; }
@@ -53,6 +61,8 @@ namespace MineSweeperUWP
 		{
 			this.InitializeComponent();
 			this.Suspending += OnSuspending;
+
+			M_Grelha = new TileGrid();
 		}
 
 		/// <summary>
@@ -98,7 +108,16 @@ namespace MineSweeperUWP
 			//No final do método OnLaunched instanciam-se as Views os Controllers//Views
 			V_StartForm = rootFrame.Content as MainPage;
 			V_DifficultyForm = rootFrame.Content as DificuldadePage;
-			//ControllersC_Soma = newControllerSoma();
+			V_MineSweeperGame = rootFrame.Content as MineSweeper;
+
+			V_LeaderBoard = rootFrame.Content as LeaderBoardPage;
+			V_OptionsForm = rootFrame.Content as OptionsPage;
+			V_RegisterForm = rootFrame.Content as Register;
+			V_LoginPage = rootFrame.Content as Login;
+			V_Vencedor = rootFrame.Content as VencedorPage;
+
+			//Controllers
+			C_Master = new GameController();
 		}
 
 		/// <summary>

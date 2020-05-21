@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
+
 using Windows.Foundation.Collections;
 using Windows.UI;
 using Windows.UI.Xaml;
@@ -16,6 +16,11 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 
 using Microsoft.Toolkit.Uwp;
+using MineSweeperProjeto.Helpers;
+using Windows.Devices.Input;
+using Windows.UI.Xaml.Media.Imaging;
+using Library;
+using System.Drawing;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -26,86 +31,223 @@ namespace MineSweeperUWP.View
 	/// </summary>
 	public sealed partial class MineSweeper : Page
 	{
+		public event NotificationTaskHandler AskToRevealAllPieces;
+
+		public event NotificationTaskHandler AskToResetBoard;
+
+		public event PointerEventHandler LeftButtonPressed;
+
+		public event PointerEventHandler RightButtonPressed;
+
 		private Size Tamanho;
+		private Dificuldade dificuldade { get; set; }
+
+		private App Program { get; }
+
 		private List<Button> listaBotoes;
+
+		private Grid gridPrincipal;
+		private int[,] _Matriz;
 
 		public MineSweeper()
 		{
+			Program = App.Current as App;
+
+			listaBotoes = new List<Button>();
+
 			Tamanho.Height = 9;
 			Tamanho.Width = 9;
-			//GenerateGrid();
+
+			_Matriz = new int[(int)Tamanho.Height, (int)Tamanho.Width];
+
 			this.InitializeComponent();
-			//IniciaComponentes();
 		}
 
-		//private void GenerateGrid()
-		//{
-		//	StackPanel brickStackPanel = new StackPanel();
-		//	brickStackPanel.BorderThickness = new Thickness(1, 1, 1, 1);
-		//	brickStackPanel.BorderBrush = new SolidColorBrush(Colors.Gray);
+		public void ResetBoardView()
+		{
+			foreach (Button Botao in GetButtons())
+			{
+				ChangeButtonBackGround(Botao, @"Assets\tiles\unopened.jpg");
+			}
+		}
 
-		//	for (int bx = 0; bx < 8; bx++)
-		//	{
-		//		StackPanel rowStackPanel = new StackPanel();
-		//		rowStackPanel.Orientation = Orientation.Horizontal;
-		//		for (int by = 0; by < 12; by++)
-		//		{
-		//			Ellipse pixel = new Ellipse();
-		//			pixel.Fill = new SolidColorBrush(Colors.Gray);
-		//			pixel.Height = 4;
-		//			pixel.Width = 4;
-		//			//pixel.Stroke = new SolidColorBrush(Colors.Black);
-		//			rowStackPanel.Children.Add(pixel);
+		/// <summary>
+		///  Muda A imagem de fundo do botão para a Imagem Bitmap pretendida
+		/// </summary>
+		public void ChangeButtonBackGround(Button botaoAtual, string file)
+		{
+			botaoAtual.Background = new ImageBrush { ImageSource = new BitmapImage(new Uri(this.BaseUri, file)), Stretch = Stretch.None };
+		}
 
-		//			Rectangle pixel1 = new Rectangle();
-		//			pixel1.Fill = new SolidColorBrush(Colors.White);
-		//			pixel1.Height = 1;
-		//			pixel1.Width = 1;
-		//			rowStackPanel.Children.Add(pixel1);
-		//		}
-		//		brickStackPanel.Children.Add(rowStackPanel);
-		//	}
-		//}
+		public void AlteraDificuldadeNoView(Dificuldade _dificuldade)
+		{
+			this.dificuldade = Program.M_Grelha.dificuldade;
+			Tamanho = Program.C_Master.GetTamanho(this.dificuldade);
+			//if (Tamanho.Width == 30 && Tamanho.Height == 16)
+			//{
+			//	this.Size = new Size(new Point(635, 470));
+			//	FLPPainelBotoes.Size = new Size(new Point(604, 324));
+			//}
 
-		//private void IniciaComponentes()
-		//{
-		//	// Determinar o valor do lado de cada quadrado (provavelmente não vai funcionar)
-		//	//int larguraLado = (int)(FLPPainelBotoes.Height / Tamanho.Height);
-		//	//int comprimentoLado = (int)((FLPPainelBotoes.Width) / Tamanho.Width);
+			_InicializaGrid();
+			_InicializaTabuleiro();
+		}
 
-		//	for (int i = 0; i < Tamanho.Height; i++)
-		//	{
-		//		for (int j = 0; j < Tamanho.Width; j++)
-		//		{
-		//			// TODO: Mudar caracteristicas do botão
-		//			// Caracteristicas de cada botão
+		/// <summary>
+		/// Retorna um a um cada botao (testando funcionamento de yield)
+		/// </summary>
+		public IEnumerable<Button> GetButtons()
+		{
+			foreach (var botao in listaBotoes)
+			{
+				yield return botao;
+			}
+		}
 
-		//			Button button = new Button();
-		//			button.Height = comprimentoLado;
-		//			button.Width = larguraLado;
-		//			//button.Size = new Size(comprimentoLado, larguraLado);
-		//			//button.Location = new Point(localizacao.X + comprimentoLado * i, localizacao.Y + larguraLado * j);
-		//			button.Click += Button_Click;
-		//			button.Name = string.Format($"{i}-{j}");
-		//			//button.FlatStyle = FlatStyle.Popup;
-		//			//button.BackColor = Color.Transparent;
-		//			//button.Margin = new Padding(0);
-		//			//button.Padding = new Padding(0);
-		//			// Tag é meio que inútil neste caso , eliminar quando estiver na fase de revisão de código.
-		//			button.Tag = i.ToString() + "," + j.ToString();
+		private void _InicializaGrid()
+		{
+			ColumnDefinition umaColuna = null;
+			RowDefinition umaLinha = null;
 
-		//			//button.BackgroundImageLayout = ImageLayout.Stretch;
-		//			//button.FlatAppearance.BorderSize = 0;
-		//			//button.TabStop = false;
+			try
+			{
+				gridPrincipal = new Grid();
 
-		//			//button.Show();
-		//			//button.BringToFront();
+				for (int i = 0; i < Tamanho.Height; i++)
+				{
+					umaColuna = new ColumnDefinition();
 
-		//			//FLPPainelBotoes.Controls.Add(button);
-		//			listaBotoes.Add(button);
-		//		}
-		//	}
-		//	FLPPainelBotoes.SendToBack();
-		//}
+					umaColuna.Width = new GridLength(0, GridUnitType.Auto);
+					gridPrincipal.ColumnDefinitions.Add(umaColuna);
+				}
+
+				for (int i = 0; i < Tamanho.Width; i++)
+				{
+					umaLinha = new RowDefinition();
+					umaLinha.Height = new GridLength(0, GridUnitType.Auto);
+
+					gridPrincipal.RowDefinitions.Add(umaLinha);
+				}
+
+				sppagina.Children.Add(gridPrincipal);
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+		}
+
+		private void _InicializaTabuleiro()
+		{
+			Button button = null;
+			try
+			{
+				for (int i = 0; i < Tamanho.Height; i++)
+				{
+					for (int j = 0; j < Tamanho.Width; j++)
+					{
+						button = new Button
+						{
+							Name = string.Format($"{i}-{j}"),
+							//Background = new ImageBrush { ImageSource = new BitmapImage(new Uri(this.BaseUri, @"Assets\tiles\unopened.jpg")), Stretch = Stretch.None }
+						};
+
+						button.PointerPressed += ButtonMouseClick; ;
+						listaBotoes.Add(button);
+						gridPrincipal.Children.Add(button);
+						Grid.SetColumn(button, j);
+						Grid.SetRow(button, i);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+		}
+
+		public void ButtonMouseClick(object sender, PointerRoutedEventArgs e)
+		{
+			if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
+			{
+				var properties = e.GetCurrentPoint(this).Properties;
+				if (properties.IsLeftButtonPressed)
+				{
+					// Left button pressed
+					if (LeftButtonPressed != null)
+					{
+						LeftButtonPressed((sender as Button), e);
+					}
+				}
+				else if (properties.IsRightButtonPressed)
+				{
+					// Right button pressed
+					if (LeftButtonPressed != null)
+					{
+						RightButtonPressed((sender as Button), e);
+					}
+				}
+			}
+			//switch (e.Button)
+			//{
+			//	case MouseButtons.Left:
+			//		LeftClick((sender as Button), e);
+			//		break;
+
+			//	case MouseButtons.Right:
+			//		RightClick((sender as Button), e);
+			//		break;
+			//}
+		}
+
+		public void AtualizaTempo(string _tempo)
+		{
+			// Atualiza o Temporizador
+			LBLTimer.Text = _tempo;
+		}
+
+		public void AtualizaNumeroMinasDisponiveis(int _num)
+		{
+			LBLMinas.Text = _num.ToString();
+		}
+
+		/// <summary>
+		/// Dá uma forma 3d ao botão smile
+		/// </summary>
+
+		public void Cheater_MouseClick(object sender, MouseEventArgs e)
+		{
+			if (AskToRevealAllPieces != null)
+			{
+				AskToRevealAllPieces();
+			}
+		}
+
+		public void Reset_MouseClick(object sender, MouseEventArgs e)
+		{
+			if (AskToResetBoard != null)
+			{
+				AskToResetBoard();
+			}
+		}
+
+		public Button GetButton(Point _point)
+		{
+			// DEBUG: Testar linq e lambda
+			//var Botao = listaBotoes.Where(x => x.Name == string.Format($"{_point.X}-{_point.Y}"));
+			// TESTAR:
+			var Botao = (from Button item in listaBotoes
+						 where (item.Name == string.Format($"{_point.X}-{_point.Y}"))
+						 select item).First();
+			return Botao;
+		}
+
+		public void BTSmile_Click(object sender, EventArgs e)
+		{
+			if (AskToResetBoard != null)
+			{
+				AskToResetBoard();
+			}
+		}
 	}
 }

@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static MineSweeperProjeto.Program;
+
 using Library;
 
 namespace MineSweeperProjeto.Helpers
