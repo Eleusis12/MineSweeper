@@ -142,6 +142,16 @@ namespace MineSweeperProjeto.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap close {
+            get {
+                object obj = ResourceManager.GetObject("close", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap disabled {
             get {
                 object obj = ResourceManager.GetObject("disabled", resourceCulture);
@@ -279,6 +289,26 @@ namespace MineSweeperProjeto.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap magnifying_glass {
+            get {
+                object obj = ResourceManager.GetObject("magnifying-glass", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap magnifying_glass1 {
+            get {
+                object obj = ResourceManager.GetObject("magnifying-glass1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Mine_Sweeper {
             get {
                 object obj = ResourceManager.GetObject("Mine_Sweeper", resourceCulture);
@@ -363,6 +393,16 @@ namespace MineSweeperProjeto.Properties {
             get {
                 object obj = ResourceManager.GetObject("RUBBBB__", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap search {
+            get {
+                object obj = ResourceManager.GetObject("search", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -832,6 +872,16 @@ namespace MineSweeperProjeto.Properties {
         internal static System.Drawing.Bitmap x_simbolo_318_1407 {
             get {
                 object obj = ResourceManager.GetObject("x_simbolo_318_1407", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap x_simbolo_318_14071 {
+            get {
+                object obj = ResourceManager.GetObject("x_simbolo_318_14071", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

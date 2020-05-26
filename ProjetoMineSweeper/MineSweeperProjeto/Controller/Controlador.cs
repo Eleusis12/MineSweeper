@@ -14,6 +14,7 @@ using MineSweeperProjeto.View;
 using static MineSweeperProjeto.Program;
 using Timer = System.Windows.Forms.Timer;
 using Library;
+using G12.MineSweep.Common.ServerEndPoint;
 
 namespace MineSweeperProjeto.Controller
 {
@@ -43,6 +44,9 @@ namespace MineSweeperProjeto.Controller
 			V_MineSweeperGame.AskToResetBoard += V_MineSweeperGame_AskToResetBoard;
 			V_StartForm.ChangeDifficultyInGame += V_GameMode_ChangeDifficulty;
 			V_StartForm.TurnSoundEffectsInGame += V_StartForm_TurnSoundEffectsInGame;
+			V_StartForm.AskListViewItems += V_StartForm_AskListViewItems;
+			V_StartForm.AskUserData += V_StartForm_AskUserData;
+			V_Login.SendCredentials += V_Login_SendCredentials;
 
 			Temporizador = new Timer();
 			//V_JOGO.ResetTileGrid += Reset;
@@ -50,6 +54,36 @@ namespace MineSweeperProjeto.Controller
 			SetupTimer();
 		}
 
+		private void V_StartForm_AskUserData(string username)
+		{
+			Server.ConsultaPerfil(username);
+		}
+
+		private void V_Login_SendCredentials(string username, string password)
+		{
+			try
+			{
+				if (Server.Login(username, password) == true)
+				{
+					M_Status.Logado = true;
+				}
+			}
+			catch (Exception)
+			{
+				throw;
+			}
+		}
+
+		// Efetua Operrações com o server
+		private void V_StartForm_AskListViewItems()
+		{
+			// TODO: Pedir ao Server Top 10
+			M_Status.Logado = true;
+		}
+
+		// --------------------------------------------------------
+
+		// Efetua Prepara o Model para permitir o Jogo
 		public void SetupModel()
 		{
 			M_Grelha.NumeroAleatorio = new Random();
@@ -57,34 +91,17 @@ namespace MineSweeperProjeto.Controller
 			M_Grelha.Abertos = new HashSet<Tile>();
 		}
 
+		public void V_GameMode_ChangeDifficulty(Dificuldade dificuldade)
+		{
+			AlteraDificuldade(dificuldade);
+			V_MineSweeperGame.AtualizaNumeroMinasDisponiveis(M_Grelha.NumMinasTotal);
+		}
+
 		public void AlteraDificuldade(Dificuldade _dificuldade)
 		{
 			this.dificuldade = _dificuldade;
 			SetModel(dificuldade);
 			V_MineSweeperGame.AlteraDificuldadeNoView(this.dificuldade);
-		}
-
-		public void V_MineSweeperGame_AskToResetBoard()
-		{
-			ResetModel();
-			Temporizador.Stop();
-			Temporizador.Dispose();
-			Temporizador = new Timer();
-			SetupTimer();
-			V_MineSweeperGame.AtualizaNumeroMinasDisponiveis(M_Grelha.NumMinasTotal);
-			//SetupTimer();
-		}
-
-		public void ResetModel()
-		{
-			M_Grelha.Matriz = new Dictionary<Point, Tile>();
-			M_Grelha.Abertos = new HashSet<Tile>();
-			M_Grelha.NumeroElementosAbertos = 0;
-			M_Grelha.Fim = false;
-
-			SetModel(dificuldade);
-
-			V_MineSweeperGame.ResetBoardView();
 		}
 
 		public void SetModel(Dificuldade dificuldade)
@@ -135,13 +152,6 @@ namespace MineSweeperProjeto.Controller
 		{
 			return (_pontoTemporario.X >= 0 && _pontoTemporario.X < M_Grelha.Tamanho.Height && _pontoTemporario.Y >= 0
 									&& _pontoTemporario.Y < M_Grelha.Tamanho.Width);
-		}
-
-		public Tile GetTile(Point _point)
-		{
-			Tile temp;
-			M_Grelha.Matriz.TryGetValue(_point, out temp);
-			return temp;
 		}
 
 		private void LoadTileGrid()
@@ -213,6 +223,50 @@ namespace MineSweeperProjeto.Controller
 			}
 		}
 
+		// --------------------------------------------------------
+
+		// Dá um Reset ao Jogo
+		public void V_MineSweeperGame_AskToResetBoard()
+		{
+			ResetModel();
+			Temporizador.Stop();
+			Temporizador.Dispose();
+			Temporizador = new Timer();
+			SetupTimer();
+			V_MineSweeperGame.AtualizaNumeroMinasDisponiveis(M_Grelha.NumMinasTotal);
+			//SetupTimer();
+		}
+
+		public void ResetModel()
+		{
+			M_Grelha.Matriz = new Dictionary<Point, Tile>();
+			M_Grelha.Abertos = new HashSet<Tile>();
+			M_Grelha.NumeroElementosAbertos = 0;
+			M_Grelha.Fim = false;
+
+			SetModel(dificuldade);
+
+			V_MineSweeperGame.ResetBoardView();
+		}
+
+		// --------------------------------------------------------
+
+		// Procura e retorna um tile de acordo com o seu ponto
+		public Tile GetTile(Point _point)
+		{
+			Tile temp;
+			try
+			{
+				M_Grelha.Matriz.TryGetValue(_point, out temp);
+			}
+			catch (ArgumentNullException e)
+			{
+				throw e;
+			}
+
+			return temp;
+		}
+
 		public Size GetTamanho(Dificuldade _dificuldade)
 		{
 			Size _tamanho = new Size();
@@ -234,7 +288,7 @@ namespace MineSweeperProjeto.Controller
 					break;
 
 				default:
-					throw new InvalidOperationException("Dificuldade não implementada");
+					throw new ArgumentException("Dificuldade não implementada");
 			}
 			return _tamanho;
 		}
@@ -261,12 +315,14 @@ namespace MineSweeperProjeto.Controller
 			}
 			M_Grelha.Abertos.Add(currentTile);
 
-			foreach (var item in M_Grelha.Matriz)
-			{
-				Debug.WriteLine("Ponto:" + item.Value.Ponto + ":" + item.Value.Aberto);
-			}
-			Debug.WriteLine("Numero de elementos abertos: " + M_Grelha.NumeroElementosAbertos);
-			Debug.WriteLine((M_Grelha.Matriz.Count - M_Grelha.NumMinasTotal));
+			//foreach (var item in M_Grelha.Matriz)
+			//{
+			//	Debug.WriteLine("Ponto:" + item.Value.Ponto + ":" + item.Value.Aberto);
+			//}
+			//Debug.WriteLine("Numero de elementos abertos: " + M_Grelha.NumeroElementosAbertos);
+			//Debug.WriteLine((M_Grelha.Matriz.Count - M_Grelha.NumMinasTotal));
+
+			//
 			if (M_Grelha.NumeroElementosAbertos < (M_Grelha.Matriz.Count - M_Grelha.NumMinasTotal))
 			{
 				M_Grelha.Fim = false;
@@ -279,22 +335,18 @@ namespace MineSweeperProjeto.Controller
 			}
 			else
 			{
-				throw new ArgumentOutOfRangeException("numero Elementos Abertos > numero Elementos na Matriz");
+				throw new ArgumentOutOfRangeException("Número Elementos Abertos > numero Elementos na Matriz");
 			}
 		}
 
+		// Switch do botão de áudio
 		public void V_StartForm_TurnSoundEffectsInGame()
 		{
 			// Faz um flip ao valor do boolean
 			M_Grelha.SoundOnOrOFF = !M_Grelha.SoundOnOrOFF;
 		}
 
-		public void V_GameMode_ChangeDifficulty(Dificuldade dificuldade)
-		{
-			AlteraDificuldade(dificuldade);
-			V_MineSweeperGame.AtualizaNumeroMinasDisponiveis(M_Grelha.NumMinasTotal);
-		}
-
+		// Temporizador
 		public void SetupTimer()
 		{
 			V_MineSweeperGame.AtualizaTempo("00:00");
@@ -304,6 +356,25 @@ namespace MineSweeperProjeto.Controller
 			M_Grelha.timerCounter = 0;
 		}
 
+		public string GetTimeString()
+		{
+			//create time span from our counter
+			TimeSpan time = TimeSpan.FromSeconds(M_Grelha.timerCounter);
+
+			//format that into a string
+			string timeString = time.ToString(@"mm\:ss");
+
+			//return it
+			return timeString;
+		}
+
+		public void TimerTick(object sender, EventArgs e)
+		{
+			M_Grelha.timerCounter++;
+			V_MineSweeperGame.AtualizaTempo(GetTimeString());
+		}
+
+		//----------------------------------------------------------------------
 		//public void Reset(object sender, MouseEventArgs e)
 		//{
 		//	foreach (Button Botao in V_JOGO.GetButtons())
@@ -542,6 +613,7 @@ namespace MineSweeperProjeto.Controller
 			}
 		}
 
+		// Fim do jogo
 		public void GanhouJogo()
 		{
 			Temporizador.Stop();
@@ -589,22 +661,6 @@ namespace MineSweeperProjeto.Controller
 			y = Convert.ToInt32(parts[1]);
 		}
 
-		public string GetTimeString()
-		{
-			//create time span from our counter
-			TimeSpan time = TimeSpan.FromSeconds(M_Grelha.timerCounter);
-
-			//format that into a string
-			string timeString = time.ToString(@"mm\:ss");
-
-			//return it
-			return timeString;
-		}
-
-		public void TimerTick(object sender, EventArgs e)
-		{
-			M_Grelha.timerCounter++;
-			V_MineSweeperGame.AtualizaTempo(GetTimeString());
-		}
+		// -------------------------------------------------------------------------------------------------------
 	}
 }

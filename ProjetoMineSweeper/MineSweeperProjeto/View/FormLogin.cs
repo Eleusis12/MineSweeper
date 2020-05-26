@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MineSweeperProjeto.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,8 @@ namespace MineSweeperProjeto.View
 {
 	public partial class FormLogin : Form
 	{
+		public event AccountCredentialsExtractionHandler SendCredentials;
+
 		public FormLogin()
 		{
 			InitializeComponent();
@@ -22,6 +25,19 @@ namespace MineSweeperProjeto.View
 			// TODO: Solução temporária
 			FormRegister V_Resgister = new FormRegister();
 			V_Resgister.ShowDialog();
+			this.Close();
+		}
+
+		private void BTLogin_Click(object sender, EventArgs e)
+		{
+			if (SendCredentials != null)
+			{
+				SendCredentials(TBUsername.Text, TBPassword.Text);
+			}
+		}
+
+		private void BTClose_Click(object sender, EventArgs e)
+		{
 			this.Close();
 		}
 	}

@@ -30,28 +30,28 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRegister));
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.TBFirstName = new System.Windows.Forms.TextBox();
-			this.label2 = new System.Windows.Forms.Label();
-			this.label3 = new System.Windows.Forms.Label();
-			this.pictureBox1 = new System.Windows.Forms.PictureBox();
-			this.label1 = new System.Windows.Forms.Label();
-			this.TBLastName = new System.Windows.Forms.TextBox();
-			this.label4 = new System.Windows.Forms.Label();
-			this.TBUsername = new System.Windows.Forms.TextBox();
-			this.label5 = new System.Windows.Forms.Label();
-			this.TBPassword = new System.Windows.Forms.TextBox();
+			this.BTUploadPic = new System.Windows.Forms.Button();
+			this.PBProfilePic = new System.Windows.Forms.PictureBox();
+			this.label7 = new System.Windows.Forms.Label();
+			this.CBCountry = new System.Windows.Forms.ComboBox();
+			this.label8 = new System.Windows.Forms.Label();
 			this.label6 = new System.Windows.Forms.Label();
 			this.TBEmail = new System.Windows.Forms.TextBox();
-			this.CBCountry = new System.Windows.Forms.ComboBox();
-			this.label7 = new System.Windows.Forms.Label();
+			this.label5 = new System.Windows.Forms.Label();
+			this.TBPassword = new System.Windows.Forms.TextBox();
+			this.label4 = new System.Windows.Forms.Label();
+			this.TBUsername = new System.Windows.Forms.TextBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.TBLastName = new System.Windows.Forms.TextBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.TBFirstName = new System.Windows.Forms.TextBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.BTRegister = new System.Windows.Forms.Button();
-			this.label8 = new System.Windows.Forms.Label();
-			this.PBProfilePic = new System.Windows.Forms.PictureBox();
-			this.BTUploadPic = new System.Windows.Forms.Button();
 			this.label9 = new System.Windows.Forms.Label();
 			this.groupBox1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.PBProfilePic)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// groupBox1
@@ -78,15 +78,141 @@
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			// 
-			// TBFirstName
+			// BTUploadPic
 			// 
-			this.TBFirstName.BackColor = System.Drawing.Color.White;
-			this.TBFirstName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.TBFirstName.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.TBFirstName.Location = new System.Drawing.Point(29, 44);
-			this.TBFirstName.Name = "TBFirstName";
-			this.TBFirstName.Size = new System.Drawing.Size(249, 20);
-			this.TBFirstName.TabIndex = 1;
+			this.BTUploadPic.Location = new System.Drawing.Point(559, 224);
+			this.BTUploadPic.Name = "BTUploadPic";
+			this.BTUploadPic.Size = new System.Drawing.Size(75, 23);
+			this.BTUploadPic.TabIndex = 16;
+			this.BTUploadPic.Text = "Upload";
+			this.BTUploadPic.UseVisualStyleBackColor = true;
+			this.BTUploadPic.Click += new System.EventHandler(this.BTUploadPic_Click);
+			// 
+			// PBProfilePic
+			// 
+			this.PBProfilePic.Image = global::MineSweeperProjeto.Properties.Resources.user64;
+			this.PBProfilePic.Location = new System.Drawing.Point(573, 168);
+			this.PBProfilePic.Name = "PBProfilePic";
+			this.PBProfilePic.Size = new System.Drawing.Size(50, 50);
+			this.PBProfilePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.PBProfilePic.TabIndex = 15;
+			this.PBProfilePic.TabStop = false;
+			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label7.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.label7.Location = new System.Drawing.Point(29, 224);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(33, 17);
+			this.label7.TabIndex = 14;
+			this.label7.Text = "País";
+			// 
+			// CBCountry
+			// 
+			this.CBCountry.FormattingEnabled = true;
+			this.CBCountry.Location = new System.Drawing.Point(29, 248);
+			this.CBCountry.Name = "CBCountry";
+			this.CBCountry.Size = new System.Drawing.Size(121, 21);
+			this.CBCountry.TabIndex = 14;
+			// 
+			// label8
+			// 
+			this.label8.AutoSize = true;
+			this.label8.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label8.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.label8.Location = new System.Drawing.Point(559, 149);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(75, 17);
+			this.label8.TabIndex = 13;
+			this.label8.Text = "Fotografia";
+			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label6.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.label6.Location = new System.Drawing.Point(29, 71);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(43, 17);
+			this.label6.TabIndex = 13;
+			this.label6.Text = "Email";
+			// 
+			// TBEmail
+			// 
+			this.TBEmail.BackColor = System.Drawing.Color.White;
+			this.TBEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.TBEmail.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.TBEmail.Location = new System.Drawing.Point(29, 95);
+			this.TBEmail.Name = "TBEmail";
+			this.TBEmail.Size = new System.Drawing.Size(530, 20);
+			this.TBEmail.TabIndex = 12;
+			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.label5.Location = new System.Drawing.Point(29, 173);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(235, 17);
+			this.label5.TabIndex = 11;
+			this.label5.Text = "Password (minimo de 8 caracteres)";
+			// 
+			// TBPassword
+			// 
+			this.TBPassword.BackColor = System.Drawing.Color.White;
+			this.TBPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.TBPassword.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.TBPassword.Location = new System.Drawing.Point(29, 197);
+			this.TBPassword.Name = "TBPassword";
+			this.TBPassword.PasswordChar = '*';
+			this.TBPassword.Size = new System.Drawing.Size(219, 20);
+			this.TBPassword.TabIndex = 10;
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.label4.Location = new System.Drawing.Point(29, 122);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(71, 17);
+			this.label4.TabIndex = 9;
+			this.label4.Text = "Username";
+			// 
+			// TBUsername
+			// 
+			this.TBUsername.BackColor = System.Drawing.Color.White;
+			this.TBUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.TBUsername.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.TBUsername.Location = new System.Drawing.Point(29, 146);
+			this.TBUsername.Name = "TBUsername";
+			this.TBUsername.Size = new System.Drawing.Size(219, 20);
+			this.TBUsername.TabIndex = 8;
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.label1.Location = new System.Drawing.Point(307, 20);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(93, 17);
+			this.label1.TabIndex = 7;
+			this.label1.Text = "Último Nome";
+			// 
+			// TBLastName
+			// 
+			this.TBLastName.BackColor = System.Drawing.Color.White;
+			this.TBLastName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.TBLastName.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.TBLastName.Location = new System.Drawing.Point(310, 40);
+			this.TBLastName.Name = "TBLastName";
+			this.TBLastName.Size = new System.Drawing.Size(252, 20);
+			this.TBLastName.TabIndex = 6;
+			this.TBLastName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox_KeyPress);
 			// 
 			// label2
 			// 
@@ -98,6 +224,17 @@
 			this.label2.Size = new System.Drawing.Size(104, 17);
 			this.label2.TabIndex = 5;
 			this.label2.Text = "Primeiro Nome";
+			// 
+			// TBFirstName
+			// 
+			this.TBFirstName.BackColor = System.Drawing.Color.White;
+			this.TBFirstName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.TBFirstName.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.TBFirstName.Location = new System.Drawing.Point(29, 44);
+			this.TBFirstName.Name = "TBFirstName";
+			this.TBFirstName.Size = new System.Drawing.Size(249, 20);
+			this.TBFirstName.TabIndex = 1;
+			this.TBFirstName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox_KeyPress);
 			// 
 			// label3
 			// 
@@ -122,109 +259,6 @@
 			this.pictureBox1.TabIndex = 8;
 			this.pictureBox1.TabStop = false;
 			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-			this.label1.Location = new System.Drawing.Point(307, 20);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(93, 17);
-			this.label1.TabIndex = 7;
-			this.label1.Text = "Último Nome";
-			// 
-			// TBLastName
-			// 
-			this.TBLastName.BackColor = System.Drawing.Color.White;
-			this.TBLastName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.TBLastName.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.TBLastName.Location = new System.Drawing.Point(310, 40);
-			this.TBLastName.Name = "TBLastName";
-			this.TBLastName.Size = new System.Drawing.Size(252, 20);
-			this.TBLastName.TabIndex = 6;
-			// 
-			// label4
-			// 
-			this.label4.AutoSize = true;
-			this.label4.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-			this.label4.Location = new System.Drawing.Point(29, 122);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(71, 17);
-			this.label4.TabIndex = 9;
-			this.label4.Text = "Username";
-			// 
-			// TBUsername
-			// 
-			this.TBUsername.BackColor = System.Drawing.Color.White;
-			this.TBUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.TBUsername.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.TBUsername.Location = new System.Drawing.Point(29, 146);
-			this.TBUsername.Name = "TBUsername";
-			this.TBUsername.Size = new System.Drawing.Size(219, 20);
-			this.TBUsername.TabIndex = 8;
-			// 
-			// label5
-			// 
-			this.label5.AutoSize = true;
-			this.label5.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-			this.label5.Location = new System.Drawing.Point(29, 173);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(235, 17);
-			this.label5.TabIndex = 11;
-			this.label5.Text = "Password (minimo de 8 caracteres)";
-			// 
-			// TBPassword
-			// 
-			this.TBPassword.BackColor = System.Drawing.Color.White;
-			this.TBPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.TBPassword.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.TBPassword.Location = new System.Drawing.Point(29, 197);
-			this.TBPassword.Name = "TBPassword";
-			this.TBPassword.Size = new System.Drawing.Size(219, 20);
-			this.TBPassword.TabIndex = 10;
-			// 
-			// label6
-			// 
-			this.label6.AutoSize = true;
-			this.label6.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label6.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-			this.label6.Location = new System.Drawing.Point(29, 71);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(43, 17);
-			this.label6.TabIndex = 13;
-			this.label6.Text = "Email";
-			// 
-			// TBEmail
-			// 
-			this.TBEmail.BackColor = System.Drawing.Color.White;
-			this.TBEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.TBEmail.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.TBEmail.Location = new System.Drawing.Point(29, 95);
-			this.TBEmail.Name = "TBEmail";
-			this.TBEmail.Size = new System.Drawing.Size(530, 20);
-			this.TBEmail.TabIndex = 12;
-			// 
-			// CBCountry
-			// 
-			this.CBCountry.FormattingEnabled = true;
-			this.CBCountry.Location = new System.Drawing.Point(29, 248);
-			this.CBCountry.Name = "CBCountry";
-			this.CBCountry.Size = new System.Drawing.Size(121, 21);
-			this.CBCountry.TabIndex = 14;
-			// 
-			// label7
-			// 
-			this.label7.AutoSize = true;
-			this.label7.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label7.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-			this.label7.Location = new System.Drawing.Point(29, 224);
-			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(33, 17);
-			this.label7.TabIndex = 14;
-			this.label7.Text = "País";
-			// 
 			// BTRegister
 			// 
 			this.BTRegister.BackColor = System.Drawing.SystemColors.AppWorkspace;
@@ -236,36 +270,9 @@
 			this.BTRegister.Name = "BTRegister";
 			this.BTRegister.Size = new System.Drawing.Size(534, 23);
 			this.BTRegister.TabIndex = 10;
-			this.BTRegister.Text = "Register";
+			this.BTRegister.Text = "Registar";
 			this.BTRegister.UseVisualStyleBackColor = false;
-			// 
-			// label8
-			// 
-			this.label8.AutoSize = true;
-			this.label8.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label8.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-			this.label8.Location = new System.Drawing.Point(559, 149);
-			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(75, 17);
-			this.label8.TabIndex = 13;
-			this.label8.Text = "Fotografia";
-			// 
-			// PBProfilePic
-			// 
-			this.PBProfilePic.Location = new System.Drawing.Point(559, 169);
-			this.PBProfilePic.Name = "PBProfilePic";
-			this.PBProfilePic.Size = new System.Drawing.Size(75, 50);
-			this.PBProfilePic.TabIndex = 15;
-			this.PBProfilePic.TabStop = false;
-			// 
-			// BTUploadPic
-			// 
-			this.BTUploadPic.Location = new System.Drawing.Point(559, 224);
-			this.BTUploadPic.Name = "BTUploadPic";
-			this.BTUploadPic.Size = new System.Drawing.Size(75, 23);
-			this.BTUploadPic.TabIndex = 16;
-			this.BTUploadPic.Text = "Upload";
-			this.BTUploadPic.UseVisualStyleBackColor = true;
+			this.BTRegister.Click += new System.EventHandler(this.BTRegister_Click);
 			// 
 			// label9
 			// 
@@ -290,10 +297,11 @@
 			this.Controls.Add(this.groupBox1);
 			this.Name = "FormRegister";
 			this.Text = "Register";
+			this.Load += new System.EventHandler(this.FormRegister_Load);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.PBProfilePic)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

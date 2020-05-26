@@ -99,7 +99,7 @@ namespace MineSweeperUWP
 					// When the navigation stack isn't restored navigate to the first page,
 					// configuring the new page by passing required information as a navigation
 					// parameter
-					rootFrame.Navigate(typeof(MainPage), e.Arguments);
+					rootFrame.Navigate(typeof(MineSweeper), e.Arguments);
 				}
 				ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(1500, 1500));
 				// Ensure the current window is active

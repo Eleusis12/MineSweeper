@@ -26,13 +26,13 @@ namespace MineSweeperProjeto.View
 			{
 				WarnMainFormSoundEffectsChoice();
 			}
-			if (BTSoundEffects.Text == "Efeitos Sonoros: OFF")
+			if (BTSoundEffects.Text == "Efeitos Sonoros: Desligado")
 			{
-				BTSoundEffects.Text = "Efeitos Sonoros: ON";
+				BTSoundEffects.Text = "Efeitos Sonoros: Ligado";
 			}
 			else
 			{
-				BTSoundEffects.Text = "Efeitos Sonoros: OFF";
+				BTSoundEffects.Text = "Efeitos Sonoros: Desligado";
 			}
 		}
 	}

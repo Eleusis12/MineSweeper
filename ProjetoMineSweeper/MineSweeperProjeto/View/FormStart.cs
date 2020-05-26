@@ -19,10 +19,15 @@ namespace MineSweeperProjeto.View
 
 		public event NotificationTaskHandler TurnSoundEffectsInGame;
 
+		public event NotificationTaskHandler AskListViewItems;
+
+		public event UsernameExtractionHandler AskUserData;
+
 		public UserControlDifficulty UCDifficulty { get; set; }
 		public UserControlMainMenu UCMainMenu { get; set; }
 		public UserControlOptions UCOptions { get; set; }
 		public UserControlLeaderBoard UCLeaderBoard { get; set; }
+		public UserControlSearch UCSearch { get; set; }
 
 		public Panel PanelContainer
 		{
@@ -64,8 +69,11 @@ namespace MineSweeperProjeto.View
 			UCOptions = new UserControlOptions();
 			UCDifficulty = new UserControlDifficulty();
 			UCLeaderBoard = new UserControlLeaderBoard();
+			UCSearch = new UserControlSearch();
 			UCDifficulty.WarnMainFormDifficultyChoice += UCDifficulty_WarnMainFormDifficultyChoice;
 			UCOptions.WarnMainFormSoundEffectsChoice += UCOptions_WarnMainFormSoundEffectsChoice;
+			UCLeaderBoard.AskTop10 += UCLeaderBoard_AskTop10;
+			UCSearch.AskUserData += UCSearch_AskUserData;
 
 			// Apresenta o Main Menu ao utilizador
 			UCMainMenu = new UserControlMainMenu();
@@ -74,19 +82,35 @@ namespace MineSweeperProjeto.View
 			PNLContainer.Controls.Add(UCMainMenu);
 		}
 
+		//  O utilizador pretende retrodecer uma página
+		private void BTBack_Click(object sender, EventArgs e)
+		{
+			PNLContainer.Controls["UserControlMainMenu"].BringToFront();
+			BTBack.Visible = false;
+		}
+
+		private void UCLeaderBoard_AskTop10()
+		{
+			if (AskListViewItems != null)
+			{
+				AskListViewItems();
+			}
+		}
+
+		private void UCSearch_AskUserData(string username)
+		{
+			if (AskUserData != null)
+			{
+				AskUserData(username);
+			}
+		}
+
 		private void UCOptions_WarnMainFormSoundEffectsChoice()
 		{
 			if (TurnSoundEffectsInGame != null)
 			{
 				TurnSoundEffectsInGame();
 			}
-		}
-
-		//  O utilizador pretende retrodecer uma página
-		private void BTBack_Click(object sender, EventArgs e)
-		{
-			PNLContainer.Controls["UserControlMainMenu"].BringToFront();
-			BTBack.Visible = false;
 		}
 	}
 }

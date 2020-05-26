@@ -32,13 +32,15 @@
 			this.BTOnline = new System.Windows.Forms.Button();
 			this.BTExit = new System.Windows.Forms.Button();
 			this.BTOptions = new System.Windows.Forms.Button();
-			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.LBLStatus = new System.Windows.Forms.Label();
-			this.PBPerfil = new System.Windows.Forms.PictureBox();
+			this.PBSearch = new System.Windows.Forms.PictureBox();
 			this.PBLeaderBoard = new System.Windows.Forms.PictureBox();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.PBPerfil)).BeginInit();
+			this.PBPerfil = new System.Windows.Forms.PictureBox();
+			this.pictureBox1 = new System.Windows.Forms.PictureBox();
+			((System.ComponentModel.ISupportInitialize)(this.PBSearch)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.PBLeaderBoard)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.PBPerfil)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// BTSinglePlayer
@@ -52,7 +54,7 @@
 			this.BTSinglePlayer.Name = "BTSinglePlayer";
 			this.BTSinglePlayer.Size = new System.Drawing.Size(190, 27);
 			this.BTSinglePlayer.TabIndex = 6;
-			this.BTSinglePlayer.Text = "SinglePlayer";
+			this.BTSinglePlayer.Text = "Um jogador";
 			this.BTSinglePlayer.UseVisualStyleBackColor = false;
 			this.BTSinglePlayer.Click += new System.EventHandler(this.BTSinglePlayer_Click);
 			// 
@@ -82,7 +84,7 @@
 			this.BTExit.Name = "BTExit";
 			this.BTExit.Size = new System.Drawing.Size(90, 27);
 			this.BTExit.TabIndex = 6;
-			this.BTExit.Text = "Exit";
+			this.BTExit.Text = "Sair";
 			this.BTExit.UseVisualStyleBackColor = false;
 			this.BTExit.Click += new System.EventHandler(this.BTExit_Click);
 			// 
@@ -97,19 +99,9 @@
 			this.BTOptions.Name = "BTOptions";
 			this.BTOptions.Size = new System.Drawing.Size(90, 27);
 			this.BTOptions.TabIndex = 6;
-			this.BTOptions.Text = "Options";
+			this.BTOptions.Text = "Opções";
 			this.BTOptions.UseVisualStyleBackColor = false;
 			this.BTOptions.Click += new System.EventHandler(this.BTOptions_Click);
-			// 
-			// pictureBox1
-			// 
-			this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-			this.pictureBox1.Image = global::MineSweeperProjeto.Properties.Resources.Mine_Sweeper;
-			this.pictureBox1.Location = new System.Drawing.Point(6, 14);
-			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(305, 63);
-			this.pictureBox1.TabIndex = 7;
-			this.pictureBox1.TabStop = false;
 			// 
 			// LBLStatus
 			// 
@@ -121,16 +113,16 @@
 			this.LBLStatus.TabIndex = 9;
 			this.LBLStatus.Text = "Offline";
 			// 
-			// PBPerfil
+			// PBSearch
 			// 
-			this.PBPerfil.BackColor = System.Drawing.Color.Transparent;
-			this.PBPerfil.Image = global::MineSweeperProjeto.Properties.Resources.user;
-			this.PBPerfil.Location = new System.Drawing.Point(335, 14);
-			this.PBPerfil.Name = "PBPerfil";
-			this.PBPerfil.Size = new System.Drawing.Size(24, 24);
-			this.PBPerfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-			this.PBPerfil.TabIndex = 8;
-			this.PBPerfil.TabStop = false;
+			this.PBSearch.Image = global::MineSweeperProjeto.Properties.Resources.magnifying_glass1;
+			this.PBSearch.Location = new System.Drawing.Point(345, 243);
+			this.PBSearch.Name = "PBSearch";
+			this.PBSearch.Size = new System.Drawing.Size(29, 28);
+			this.PBSearch.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.PBSearch.TabIndex = 10;
+			this.PBSearch.TabStop = false;
+			this.PBSearch.Click += new System.EventHandler(this.PBSearch_Click);
 			// 
 			// PBLeaderBoard
 			// 
@@ -143,11 +135,33 @@
 			this.PBLeaderBoard.TabStop = false;
 			this.PBLeaderBoard.Click += new System.EventHandler(this.PBLeaderBoard_Click);
 			// 
+			// PBPerfil
+			// 
+			this.PBPerfil.BackColor = System.Drawing.Color.Transparent;
+			this.PBPerfil.Image = global::MineSweeperProjeto.Properties.Resources.user;
+			this.PBPerfil.Location = new System.Drawing.Point(335, 14);
+			this.PBPerfil.Name = "PBPerfil";
+			this.PBPerfil.Size = new System.Drawing.Size(24, 24);
+			this.PBPerfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.PBPerfil.TabIndex = 8;
+			this.PBPerfil.TabStop = false;
+			// 
+			// pictureBox1
+			// 
+			this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+			this.pictureBox1.Image = global::MineSweeperProjeto.Properties.Resources.Mine_Sweeper;
+			this.pictureBox1.Location = new System.Drawing.Point(6, 14);
+			this.pictureBox1.Name = "pictureBox1";
+			this.pictureBox1.Size = new System.Drawing.Size(305, 63);
+			this.pictureBox1.TabIndex = 7;
+			this.pictureBox1.TabStop = false;
+			// 
 			// UserControlMainMenu
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.Transparent;
+			this.Controls.Add(this.PBSearch);
 			this.Controls.Add(this.PBLeaderBoard);
 			this.Controls.Add(this.LBLStatus);
 			this.Controls.Add(this.PBPerfil);
@@ -158,9 +172,10 @@
 			this.Controls.Add(this.BTSinglePlayer);
 			this.Name = "UserControlMainMenu";
 			this.Size = new System.Drawing.Size(377, 302);
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.PBPerfil)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.PBSearch)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.PBLeaderBoard)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.PBPerfil)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -176,5 +191,6 @@
 		private System.Windows.Forms.Label LBLStatus;
 		private System.Windows.Forms.PictureBox PBPerfil;
 		private System.Windows.Forms.PictureBox PBLeaderBoard;
+		private System.Windows.Forms.PictureBox PBSearch;
 	}
 }

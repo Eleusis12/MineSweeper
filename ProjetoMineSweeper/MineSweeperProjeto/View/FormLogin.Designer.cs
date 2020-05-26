@@ -38,9 +38,11 @@
 			this.BTLogin = new System.Windows.Forms.Button();
 			this.LLBLCreate = new System.Windows.Forms.LinkLabel();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.BTClose = new System.Windows.Forms.PictureBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.panel1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.BTClose)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -115,6 +117,7 @@
 			this.BTLogin.TabIndex = 5;
 			this.BTLogin.Text = "Login";
 			this.BTLogin.UseVisualStyleBackColor = false;
+			this.BTLogin.Click += new System.EventHandler(this.BTLogin_Click);
 			// 
 			// LLBLCreate
 			// 
@@ -133,6 +136,7 @@
 			// panel1
 			// 
 			this.panel1.BackgroundImage = global::MineSweeperProjeto.Properties.Resources._16_163420_light_color_gradient_background;
+			this.panel1.Controls.Add(this.BTClose);
 			this.panel1.Controls.Add(this.label3);
 			this.panel1.Controls.Add(this.pictureBox1);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -140,6 +144,18 @@
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(300, 139);
 			this.panel1.TabIndex = 0;
+			// 
+			// BTClose
+			// 
+			this.BTClose.BackColor = System.Drawing.Color.Transparent;
+			this.BTClose.Image = global::MineSweeperProjeto.Properties.Resources.close;
+			this.BTClose.Location = new System.Drawing.Point(276, 3);
+			this.BTClose.Name = "BTClose";
+			this.BTClose.Size = new System.Drawing.Size(21, 19);
+			this.BTClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.BTClose.TabIndex = 7;
+			this.BTClose.TabStop = false;
+			this.BTClose.Click += new System.EventHandler(this.BTClose_Click);
 			// 
 			// label3
 			// 
@@ -184,6 +200,7 @@
 			this.Text = "Login";
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.BTClose)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -203,5 +220,6 @@
 		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.Windows.Forms.LinkLabel LLBLCreate;
 		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.PictureBox BTClose;
 	}
 }

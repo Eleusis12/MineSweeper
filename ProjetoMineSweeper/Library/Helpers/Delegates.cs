@@ -16,4 +16,8 @@ namespace MineSweeperProjeto.Helpers
 	public delegate void DifficultyChangedHandler(Dificuldade _dificuldade);
 
 	public delegate void PointExtractorHandler(Point ponto);
+
+	public delegate void AccountCredentialsExtractionHandler(string username, string password);
+
+	public delegate void UsernameExtractionHandler(string username);
 }

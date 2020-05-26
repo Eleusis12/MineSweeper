@@ -43,7 +43,7 @@
 			this.BTSoundEffects.Name = "BTSoundEffects";
 			this.BTSoundEffects.Size = new System.Drawing.Size(190, 27);
 			this.BTSoundEffects.TabIndex = 7;
-			this.BTSoundEffects.Text = "Efeitos Sonoros: ON";
+			this.BTSoundEffects.Text = "Efeitos Sonoros: Ligado";
 			this.BTSoundEffects.UseVisualStyleBackColor = false;
 			this.BTSoundEffects.Click += new System.EventHandler(this.BTSoundEffects_Click);
 			// 
@@ -58,7 +58,7 @@
 			this.BTTheme.Name = "BTTheme";
 			this.BTTheme.Size = new System.Drawing.Size(190, 27);
 			this.BTTheme.TabIndex = 7;
-			this.BTTheme.Text = "Theme...";
+			this.BTTheme.Text = "Tema...";
 			this.BTTheme.UseVisualStyleBackColor = false;
 			// 
 			// UserControlOptions

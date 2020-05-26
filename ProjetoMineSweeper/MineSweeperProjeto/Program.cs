@@ -1,4 +1,5 @@
-﻿using MineSweeperProjeto.Controller;
+﻿using Library.Model;
+using MineSweeperProjeto.Controller;
 using MineSweeperProjeto.Model;
 using MineSweeperProjeto.View;
 using System;
@@ -11,12 +12,20 @@ namespace MineSweeperProjeto
 {
 	public static class Program
 	{
+		//M
 		public static TileGrid M_Grelha { get; private set; }
 
-		public static FormMinesweeper V_MineSweeperGame { get; private set; }
-		public static FormStart V_StartForm { get; private set; }
+		public static ServerStatus M_Status { get; private set; }
 
+		//V
+		public static FormMinesweeper V_MineSweeperGame { get; private set; }
+
+		public static FormStart V_StartForm { get; private set; }
 		public static FormVencedor V_Vencedor { get; private set; }
+		public static FormLogin V_Login { get; private set; }
+		public static FormRegister V_Register { get; private set; }
+
+		//C
 		public static GameController C_Master { get; private set; }
 
 		/// <summary>
@@ -30,11 +39,14 @@ namespace MineSweeperProjeto
 
 			// Model
 			M_Grelha = new TileGrid();
+			M_Status = new ServerStatus();
 
 			// View
 			V_StartForm = new FormStart();
 			V_MineSweeperGame = new FormMinesweeper();
 			V_Vencedor = new FormVencedor();
+			V_Login = new FormLogin();
+			V_Register = new FormRegister();
 
 			// Controlador
 			C_Master = new GameController();

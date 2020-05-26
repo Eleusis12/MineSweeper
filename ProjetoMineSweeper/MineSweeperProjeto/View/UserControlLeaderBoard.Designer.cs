@@ -28,27 +28,27 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.listView1 = new System.Windows.Forms.ListView();
+			this.LVTop10 = new System.Windows.Forms.ListView();
 			this.ColunaRank = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.ColunaNome = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.ColunaTempo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.label9 = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
-			// listView1
+			// LVTop10
 			// 
-			this.listView1.BackColor = System.Drawing.SystemColors.ButtonShadow;
-			this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+			this.LVTop10.BackColor = System.Drawing.SystemColors.ButtonShadow;
+			this.LVTop10.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ColunaRank,
             this.ColunaNome,
             this.ColunaTempo});
-			this.listView1.HideSelection = false;
-			this.listView1.Location = new System.Drawing.Point(26, 56);
-			this.listView1.Name = "listView1";
-			this.listView1.Size = new System.Drawing.Size(335, 207);
-			this.listView1.TabIndex = 0;
-			this.listView1.UseCompatibleStateImageBehavior = false;
-			this.listView1.View = System.Windows.Forms.View.Details;
+			this.LVTop10.HideSelection = false;
+			this.LVTop10.Location = new System.Drawing.Point(26, 56);
+			this.LVTop10.Name = "LVTop10";
+			this.LVTop10.Size = new System.Drawing.Size(335, 207);
+			this.LVTop10.TabIndex = 0;
+			this.LVTop10.UseCompatibleStateImageBehavior = false;
+			this.LVTop10.View = System.Windows.Forms.View.Details;
 			// 
 			// ColunaRank
 			// 
@@ -73,9 +73,9 @@
 			this.label9.ForeColor = System.Drawing.SystemColors.ControlLight;
 			this.label9.Location = new System.Drawing.Point(21, 24);
 			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(142, 25);
+			this.label9.Size = new System.Drawing.Size(81, 25);
 			this.label9.TabIndex = 12;
-			this.label9.Text = "LeaderBoard";
+			this.label9.Text = "TOP 10";
 			// 
 			// UserControlLeaderBoard
 			// 
@@ -83,7 +83,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.Transparent;
 			this.Controls.Add(this.label9);
-			this.Controls.Add(this.listView1);
+			this.Controls.Add(this.LVTop10);
 			this.Name = "UserControlLeaderBoard";
 			this.Size = new System.Drawing.Size(377, 302);
 			this.ResumeLayout(false);
@@ -93,7 +93,7 @@
 
 		#endregion
 
-		private System.Windows.Forms.ListView listView1;
+		private System.Windows.Forms.ListView LVTop10;
 		private System.Windows.Forms.ColumnHeader ColunaRank;
 		private System.Windows.Forms.ColumnHeader ColunaNome;
 		private System.Windows.Forms.ColumnHeader ColunaTempo;
