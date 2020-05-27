@@ -82,14 +82,19 @@ namespace MineSweeperProjeto.View
 			PNLContainer.Controls.Add(UCMainMenu);
 		}
 
+		public void UpdateLoggedStatus()
+		{
+			UCMainMenu.LabelStatus.Text = "Online";
+		}
+
 		//  O utilizador pretende retrodecer uma página
-		private void BTBack_Click(object sender, EventArgs e)
+		public void BTBack_Click(object sender, EventArgs e)
 		{
 			PNLContainer.Controls["UserControlMainMenu"].BringToFront();
 			BTBack.Visible = false;
 		}
 
-		private void UCLeaderBoard_AskTop10()
+		public void UCLeaderBoard_AskTop10()
 		{
 			if (AskListViewItems != null)
 			{
@@ -97,7 +102,7 @@ namespace MineSweeperProjeto.View
 			}
 		}
 
-		private void UCSearch_AskUserData(string username)
+		public void UCSearch_AskUserData(string username)
 		{
 			if (AskUserData != null)
 			{
@@ -105,7 +110,7 @@ namespace MineSweeperProjeto.View
 			}
 		}
 
-		private void UCOptions_WarnMainFormSoundEffectsChoice()
+		public void UCOptions_WarnMainFormSoundEffectsChoice()
 		{
 			if (TurnSoundEffectsInGame != null)
 			{

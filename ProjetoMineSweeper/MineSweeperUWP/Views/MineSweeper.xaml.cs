@@ -35,9 +35,9 @@ namespace MineSweeperUWP.View
 
 		public event NotificationTaskHandler AskToResetBoard;
 
-		public event PointerEventHandler LeftButtonPressed;
+		public event RoutedEventHandler LeftButtonPressed;
 
-		public event PointerEventHandler RightButtonPressed;
+		public event RightTappedEventHandler RightButtonPressed;
 
 		private Size Tamanho;
 		private Dificuldade dificuldade { get; set; }
@@ -46,8 +46,7 @@ namespace MineSweeperUWP.View
 
 		private List<Button> listaBotoes;
 
-		private Grid gridPrincipal;
-		private int[,] _Matriz;
+		private brushes brushes = new brushes();
 
 		public MineSweeper()
 		{
@@ -58,9 +57,48 @@ namespace MineSweeperUWP.View
 			Tamanho.Height = 9;
 			Tamanho.Width = 9;
 
-			_Matriz = new int[(int)Tamanho.Height, (int)Tamanho.Width];
-
 			this.InitializeComponent();
+			generateControls();
+		}
+
+		private void generateControls()
+		{
+			for (int i = 1; i <= 9; i++)
+			{
+				for (int j = 1; j <= 9; j++)
+				{
+					Button btn = new Button();
+					btn.Name = string.Format($"{i - 1}-{j - 1}");
+					btn.VerticalAlignment = VerticalAlignment.Stretch;
+					btn.HorizontalAlignment = HorizontalAlignment.Stretch;
+					btn.Foreground = brushes.blue;
+					btn.BorderThickness = new Thickness(0.5);
+					btn.BorderBrush = brushes.gray;
+					btn.SizeChanged += new SizeChangedEventHandler(btnSizeChanged);
+					btn.Background = brushes.darkSlateGray;
+					btn.Click += new RoutedEventHandler(ButtonMouseClick);
+					btn.RightTapped += new RightTappedEventHandler(RightMouseClick);
+
+					Grid.SetRow(btn, i);
+					Grid.SetColumn(btn, j);
+					innergrid.Children.Add(btn);
+					listaBotoes.Add(btn);
+				}
+			}
+			//innergrid.(0, 0, 1.5f);
+		}
+
+		private void RightMouseClick(object sender, RightTappedRoutedEventArgs e)
+		{
+			if (RightButtonPressed != null)
+			{
+				RightButtonPressed((sender as Button), e);
+			}
+		}
+
+		private void btnSizeChanged(object sender, SizeChangedEventArgs e)
+		{
+			Button btn = (Button)sender;
 		}
 
 		public void ResetBoardView()
@@ -79,19 +117,16 @@ namespace MineSweeperUWP.View
 			botaoAtual.Background = new ImageBrush { ImageSource = new BitmapImage(new Uri(this.BaseUri, file)), Stretch = Stretch.None };
 		}
 
-		public void AlteraDificuldadeNoView(Dificuldade _dificuldade)
-		{
-			this.dificuldade = Program.M_Grelha.dificuldade;
-			Tamanho = Program.C_Master.GetTamanho(this.dificuldade);
-			//if (Tamanho.Width == 30 && Tamanho.Height == 16)
-			//{
-			//	this.Size = new Size(new Point(635, 470));
-			//	FLPPainelBotoes.Size = new Size(new Point(604, 324));
-			//}
-
-			_InicializaGrid();
-			_InicializaTabuleiro();
-		}
+		//public void AlteraDificuldadeNoView(Dificuldade _dificuldade)
+		//{
+		//	this.dificuldade = Program.M_Grelha.dificuldade;
+		//	Tamanho = Program.C_Master.GetTamanho(this.dificuldade);
+		//	//if (Tamanho.Width == 30 && Tamanho.Height == 16)
+		//	//{
+		//	//	this.Size = new Size(new Point(635, 470));
+		//	//	FLPPainelBotoes.Size = new Size(new Point(604, 324));
+		//	//}
+		//}
 
 		/// <summary>
 		/// Retorna um a um cada botao (testando funcionamento de yield)
@@ -104,90 +139,76 @@ namespace MineSweeperUWP.View
 			}
 		}
 
-		private void _InicializaGrid()
+		//private void _InicializaGrid()
+		//{
+		//	ColumnDefinition umaColuna = null;
+		//	RowDefinition umaLinha = null;
+
+		//	try
+		//	{
+		//		gridPrincipal = new Grid();
+
+		//		for (int i = 0; i < Tamanho.Height; i++)
+		//		{
+		//			umaColuna = new ColumnDefinition();
+
+		//			umaColuna.Width = new GridLength(0, GridUnitType.Auto);
+		//			gridPrincipal.ColumnDefinitions.Add(umaColuna);
+		//		}
+
+		//		for (int i = 0; i < Tamanho.Width; i++)
+		//		{
+		//			umaLinha = new RowDefinition();
+		//			umaLinha.Height = new GridLength(0, GridUnitType.Auto);
+
+		//			gridPrincipal.RowDefinitions.Add(umaLinha);
+		//		}
+
+		//		 .Children.Add(gridPrincipal);
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		throw ex;
+		//	}
+		//}
+
+		//private void _InicializaTabuleiro()
+		//{
+		//	Button button = null;
+		//	try
+		//	{
+		//		for (int i = 0; i < Tamanho.Height; i++)
+		//		{
+		//			for (int j = 0; j < Tamanho.Width; j++)
+		//			{
+		//				button = new Button
+		//				{
+		//					Name = string.Format($"{i}-{j}"),
+		//					//Background = new ImageBrush { ImageSource = new BitmapImage(new Uri(this.BaseUri, @"Assets\tiles\unopened.jpg")), Stretch = Stretch.None }
+		//				};
+
+		//				button.PointerPressed += ButtonMouseClick; ;
+		//				listaBotoes.Add(button);
+		//				gridPrincipal.Children.Add(button);
+		//				Grid.SetColumn(button, j);
+		//				Grid.SetRow(button, i);
+		//			}
+		//		}
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		throw ex;
+		//	}
+		//}
+
+		public void ButtonMouseClick(object sender, RoutedEventArgs e)
 		{
-			ColumnDefinition umaColuna = null;
-			RowDefinition umaLinha = null;
-
-			try
+			// Left button pressed
+			if (LeftButtonPressed != null)
 			{
-				gridPrincipal = new Grid();
-
-				for (int i = 0; i < Tamanho.Height; i++)
-				{
-					umaColuna = new ColumnDefinition();
-
-					umaColuna.Width = new GridLength(0, GridUnitType.Auto);
-					gridPrincipal.ColumnDefinitions.Add(umaColuna);
-				}
-
-				for (int i = 0; i < Tamanho.Width; i++)
-				{
-					umaLinha = new RowDefinition();
-					umaLinha.Height = new GridLength(0, GridUnitType.Auto);
-
-					gridPrincipal.RowDefinitions.Add(umaLinha);
-				}
-
-				sppagina.Children.Add(gridPrincipal);
+				LeftButtonPressed((sender as Button), e);
 			}
-			catch (Exception ex)
-			{
-				throw ex;
-			}
-		}
 
-		private void _InicializaTabuleiro()
-		{
-			Button button = null;
-			try
-			{
-				for (int i = 0; i < Tamanho.Height; i++)
-				{
-					for (int j = 0; j < Tamanho.Width; j++)
-					{
-						button = new Button
-						{
-							Name = string.Format($"{i}-{j}"),
-							//Background = new ImageBrush { ImageSource = new BitmapImage(new Uri(this.BaseUri, @"Assets\tiles\unopened.jpg")), Stretch = Stretch.None }
-						};
-
-						button.PointerPressed += ButtonMouseClick; ;
-						listaBotoes.Add(button);
-						gridPrincipal.Children.Add(button);
-						Grid.SetColumn(button, j);
-						Grid.SetRow(button, i);
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				throw ex;
-			}
-		}
-
-		public void ButtonMouseClick(object sender, PointerRoutedEventArgs e)
-		{
-			if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
-			{
-				var properties = e.GetCurrentPoint(this).Properties;
-				if (properties.IsLeftButtonPressed)
-				{
-					// Left button pressed
-					if (LeftButtonPressed != null)
-					{
-						LeftButtonPressed((sender as Button), e);
-					}
-				}
-				else if (properties.IsRightButtonPressed)
-				{
-					// Right button pressed
-					if (LeftButtonPressed != null)
-					{
-						RightButtonPressed((sender as Button), e);
-					}
-				}
-			}
 			//switch (e.Button)
 			//{
 			//	case MouseButtons.Left:
@@ -249,5 +270,15 @@ namespace MineSweeperUWP.View
 				AskToResetBoard();
 			}
 		}
+	}
+
+	public class brushes
+	{
+		public SolidColorBrush darkSlateGray = new SolidColorBrush(Colors.DarkSlateGray);
+		public SolidColorBrush red = new SolidColorBrush(Colors.Red);
+		public SolidColorBrush white = new SolidColorBrush(Colors.White);
+		public SolidColorBrush green = new SolidColorBrush(Colors.Green);
+		public SolidColorBrush gray = new SolidColorBrush(Colors.Gray);
+		public SolidColorBrush blue = new SolidColorBrush(Colors.Blue);
 	}
 }

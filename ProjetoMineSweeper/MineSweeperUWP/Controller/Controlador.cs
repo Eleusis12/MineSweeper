@@ -53,6 +53,7 @@ namespace MineSweeperUWP.Controller
 			//V_JOGO.ResetTileGrid += Reset;
 			SetupModel();
 			SetupTimer();
+			AlteraDificuldade(Dificuldade.Facil);
 		}
 
 		//private async void timerCallback(object state)
@@ -66,7 +67,7 @@ namespace MineSweeperUWP.Controller
 		//		});
 		//}
 
-		private void V_MineSweeperGame_LeftButtonPressed(object sender, PointerRoutedEventArgs e)
+		private void V_MineSweeperGame_LeftButtonPressed(object sender, RoutedEventArgs e)
 		{
 			//Temporizador.Start();
 			//// Obter Botão premido e guardar
@@ -119,7 +120,7 @@ namespace MineSweeperUWP.Controller
 			}
 		}
 
-		private void V_MineSweeperGame_RightButtonPressed(object sender, PointerRoutedEventArgs e)
+		private void V_MineSweeperGame_RightButtonPressed(object sender, RightTappedRoutedEventArgs e)
 		{
 			Button botaoAtual = (sender as Button);
 			GetCoordinates(botaoAtual, out int x, out int y);
@@ -171,7 +172,7 @@ namespace MineSweeperUWP.Controller
 		{
 			this.dificuldade = _dificuldade;
 			SetModel(dificuldade);
-			Program.V_MineSweeperGame.AlteraDificuldadeNoView(this.dificuldade);
+			//Program.V_MineSweeperGame.AlteraDificuldadeNoView(this.dificuldade);
 		}
 
 		public void V_MineSweeperGame_AskToResetBoard()

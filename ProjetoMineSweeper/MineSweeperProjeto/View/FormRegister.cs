@@ -86,9 +86,10 @@ namespace MineSweeperProjeto.View
 
 			if (dlg.ShowDialog() == DialogResult.OK)
 			{
-				Bitmap Imagem = new Bitmap(dlg.FileName);
-				PBProfilePic.Image = Imagem;
-				temp.Perfil = Imagem;
+				Bitmap imagem = new Bitmap(dlg.FileName);
+				Image imagemConvertida = (Image)imagem;
+				PBProfilePic.Image = imagemConvertida;
+				temp.Perfil = imagemConvertida;
 			}
 
 			dlg.Dispose();

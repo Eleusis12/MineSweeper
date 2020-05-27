@@ -17,7 +17,9 @@ namespace MineSweeperProjeto.Model
 		public string LastName { get; set; }
 		public string Surname { get; set; }
 		public string Email { get; set; }
-		public Bitmap Perfil { get; set; }
+		public System.Drawing.Image Perfil { get; set; }
+		public int WinStats { get; set; }
+		public int LoseStats { get; set; }
 
 		//public Image Photo { get; set; }
 		public string Country { get; set; }

@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
+using System.Xml;
 using System.Xml.Linq;
+using Library.Helpers;
 using MineSweeperProjeto.Model;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -40,7 +44,7 @@ namespace G12.MineSweep.Common.ServerEndPoint
 				xmlPedido.Element("registo").Element("fotografia").Value = "teste";
 				xmlPedido.Element("registo").Element("pais").Value = novoUtilizador.Country;
 
-				XDocument xmlResposta = PostService(xmlPedido, EndPoint.PostRegisto);
+				XDocument xmlResposta = PostService(xmlPedido, EndPoint.PostRegisto, null);
 				// ...interpretar o resultado de acordo com a lógica da aplicação (exemplificativo)
 				if (xmlResposta.Element("resultado").Element("status").Value == "ERRO")
 				{
@@ -51,18 +55,17 @@ namespace G12.MineSweep.Common.ServerEndPoint
 					//MessageBoxButtons.OK,
 					//MessageBoxIcon.Error
 					//);
+					return "Erro";
 				}
 				else
 				{
-					// Autenticação efetuada com sucesso
+					return "OK";
 				}
 			}
 			catch (Exception ex)
 			{
 				throw ex;
 			}
-
-			return "OK";
 		}
 
 		public static bool Login(string username, string password)
@@ -77,7 +80,7 @@ namespace G12.MineSweep.Common.ServerEndPoint
 				xmlPedido.Element("credenciais").Element("username").Value = username; // colocar aqui o username do utilizador
 				xmlPedido.Element("credenciais").Element("password").Value = password; // colocar aqui a palavra passe do utilizador
 
-				XDocument xmlResposta = PostService(xmlPedido, EndPoint.PostLogin);
+				XDocument xmlResposta = PostService(xmlPedido, EndPoint.PostLogin, null);
 				// ...interpretar o resultado de acordo com a lógica da aplicação (exemplificativo)
 				if (xmlResposta.Element("resultado").Element("status").Value == "ERRO")
 				{
@@ -103,11 +106,11 @@ namespace G12.MineSweep.Common.ServerEndPoint
 			return Logado;
 		}
 
-		public static string NovoJogo()
+		public static string NovoJogo(string nivel, string id)
 		{
 			try
 			{
-				XDocument xmlResposta = GetService(EndPoint.GetNovoJogo);
+				XDocument xmlResposta = GetService(EndPoint.GetNovoJogo, new string[] { nivel, id });
 
 				if (xmlResposta.Element("resultado").Element("status").Value == "ERRO")
 				{
@@ -122,6 +125,9 @@ namespace G12.MineSweep.Common.ServerEndPoint
 				}
 				else
 				{
+					//for()
+					//	xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("fotografia").Value
+
 					// obtem todos os elementos do perfil do jogador...
 					// ...como, por exemplo, a fotografia:
 
@@ -141,7 +147,7 @@ namespace G12.MineSweep.Common.ServerEndPoint
 			return "OK";
 		}
 
-		public static string RegistarResultado(string dificuldade, string tempo, string vitoria)
+		public static string RegistarResultado(string dificuldade, string tempo, string vitoria, string id)
 		{
 			try
 			{
@@ -150,7 +156,7 @@ namespace G12.MineSweep.Common.ServerEndPoint
 				xmlPedido.Element("resultado_jogo").Element("tempo").Value = tempo;
 				xmlPedido.Element("resultado_jogo").Element("vitoria").Value = vitoria;
 
-				XDocument xmlResposta = PostService(xmlPedido, EndPoint.PostRegisto);
+				XDocument xmlResposta = PostService(xmlPedido, EndPoint.PostRegisto, new string[] { id });
 				// ...interpretar o resultado de acordo com a lógica da aplicação (exemplificativo)
 				if (xmlResposta.Element("resultado").Element("status").Value == "ERRO")
 				{
@@ -175,14 +181,16 @@ namespace G12.MineSweep.Common.ServerEndPoint
 			return "OK";
 		}
 
-		public static string ConsultaPerfil(string username)
+		public static string ConsultaPerfil(string username, out User consultado)
 		{
 			try
 			{
-				XDocument xmlResposta = GetService(EndPoint.GetPerfil);
+				XDocument xmlResposta = GetService(EndPoint.GetPerfil, new string[] { username });
 				// ...interpretar o resultado de acordo com a lógica da aplicação (exemplificativo)
 				if (xmlResposta.Element("resultado").Element("status").Value == "ERRO")
 				{
+					consultado = null;
+
 					//// apresenta mensagem de erro usando o texto (contexto) da resposta
 					//MessageBox.Show(
 					//xmlResposta.Element("resultado").Element("contexto").Value,
@@ -194,14 +202,30 @@ namespace G12.MineSweep.Common.ServerEndPoint
 				}
 				else
 				{
-					// obtem todos os elementos do perfil do jogador...
-					// ...como, por exemplo, a fotografia:
+					string nomeAbreviado = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("nomeabreviado").Value;
+					string email = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("email").Value;
+					string pais = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("pais").Value;
+					string jogosGanhos = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("jogos").Element("ganhos").Value;
+					string jogosPerdidos = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("jogos").Element("perdidos").Value;
 
-					//string base64Imagem = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("fotografia").Value;
-					//string base64 = base64Imagem.Split(',')[1]; // retira a parte da string correspondente aos bytes da imagem..
-					//byte[] bytes = Convert.FromBase64String(base64); //...converte para array de bytes...
-					//Image image = Image.FromStream(new MemoryStream(bytes));//... e, por fim, para Image 40.
-					//														// pode mostrar a imagem num qualquer componente...como por exemplo:
+					string bestTimeEasy = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("jogos").Element("facil").Value;
+					string bestTimeMedium = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("jogos").Element("medio").Value;
+
+					string base64Imagem = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("fotografia").Value;
+					string base64 = base64Imagem.Split(',')[1]; // retira a parte da string correspondente aos bytes da imagem..
+					byte[] bytes = Convert.FromBase64String(base64); //...converte para array de bytes...
+					System.Drawing.Image image = System.Drawing.Image.FromStream(new MemoryStream(bytes));
+
+					consultado = null;
+					consultado.Username = nomeAbreviado;
+					consultado.Email = (email);
+					consultado.Country = pais;
+					consultado.WinStats = Convert.ToInt32(jogosGanhos);
+					consultado.LoseStats = Convert.ToInt32(jogosPerdidos);
+					consultado.Perfil = image;
+
+					//... e, por fim, para Image 40.
+					// pode mostrar a imagem num qualquer componente...como por exemplo:
 					//pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
 					//pictureBox1.BackgroundImage = image;
 				}
@@ -214,11 +238,11 @@ namespace G12.MineSweep.Common.ServerEndPoint
 			return "OK";
 		}
 
-		public static string ConsultaTop10(string username)
+		public static List<Top10Resultado> ConsultaTop10(string username)
 		{
 			try
 			{
-				XDocument xmlResposta = GetService(EndPoint.GetTop10);
+				XDocument xmlResposta = GetService(EndPoint.GetTop10, null);
 
 				if (xmlResposta.Element("resultado").Element("status").Value == "ERRO")
 				{
@@ -229,10 +253,25 @@ namespace G12.MineSweep.Common.ServerEndPoint
 					//MessageBoxButtons.OK,
 					//MessageBoxIcon.Error 29.    );
 
-					return "ERROR";
+					return null;
 				}
 				else
 				{
+					IEnumerable<XElement> NodesEasyMode = xmlResposta.Descendants("nivel").Where(e => ((string)e.Attribute("dificuldade")) == "facil");
+					IEnumerable<XElement> NodesMediumMode = xmlResposta.Descendants("nivel").Where(e => ((string)e.Attribute("dificuldade")) == "medio");
+
+					List<Top10Resultado> TOP10 = new List<Top10Resultado>();
+					AddToList(NodesEasyMode, TOP10);
+					AddToList(NodesMediumMode, TOP10);
+
+					return TOP10;
+
+					//string Nome = xmlResposta.Root.Element("jogador").Attribute("username").Value;
+					//string Tempo = xmlResposta.Root.Element("jogador").Attribute("tempo").Value;
+					//string Quando = xmlResposta.Root.Element("jogador").Attribute("quando").Value;
+
+					//string Jogador = xmlResposta.Element("resultado").Element("objeto").Element("top").Element("nivel dificuldade").Value;
+
 					// obtem todos os elementos do perfil do jogador...
 					// ...como, por exemplo, a fotografia:
 
@@ -249,14 +288,33 @@ namespace G12.MineSweep.Common.ServerEndPoint
 			{
 				throw;
 			}
-			return "OK";
 		}
 
-		private static XDocument GetService(string endpoint)
+		private static void AddToList(IEnumerable<XElement> Nodes, List<Top10Resultado> TOP10)
+		{
+			foreach (var Jogador in Nodes)
+			{
+				Top10Resultado temp = new Top10Resultado()
+				{
+					Nome = Jogador.Element("jogador").Attribute("username").Value,
+					Tempo = Jogador.Element("jogador").Attribute("tempo").Value,
+					Quando = Jogador.Element("jogador").Attribute("quando").Value,
+				};
+
+				TOP10.Add(temp);
+			}
+		}
+
+		private static XDocument GetService(string endpoint, string[] parametros)
 		{
 			//Prepara o pedido ao servidor com o URL adequado
-			HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://prateleira.utad.priv:1234/LPDSW/2019-2020" + endpoint);
 
+			string requestUriString = EndPoint.BaseUrl + endpoint;
+			foreach (var parametro in parametros)
+			{
+				requestUriString += parametro;
+			}
+			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(requestUriString);
 			// Com o acesso usa HTTPS e o servidor usar cerificados autoassinados, tempos de configurar o cliente para aceitar sempre o certificado.
 			ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(AcceptAllCertifications);
 			request.Method = "GET"; // método usado para enviar o pedido
@@ -273,10 +331,14 @@ namespace G12.MineSweep.Common.ServerEndPoint
 			return xmlResposta;
 		}
 
-		private static XDocument PostService(XDocument xmlPedido, string endpoint)
+		private static XDocument PostService(XDocument xmlPedido, string endpoint, string[] parametros)
 		{
-			//Prepara o pedido ao servidor com o URL adequado
-			HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://prateleira.utad.priv:1234/LPDSW/2019-2020" + endpoint);
+			string requestUriString = EndPoint.BaseUrl + endpoint;
+			foreach (var parametro in parametros)
+			{
+				requestUriString += parametro;
+			}
+			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(requestUriString);
 
 			// Com o acesso usa HTTPS e o servidor usar cerificados autoassinados, temos de configurar o cliente para aceitar sempre o certificado.
 			ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(AcceptAllCertifications);

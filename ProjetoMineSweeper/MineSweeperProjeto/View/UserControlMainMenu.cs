@@ -15,6 +15,12 @@ namespace MineSweeperProjeto.View
 	{
 		//public event EventHandler CloseClicked;
 
+		public Label LabelStatus
+		{
+			get { return LBLStatus; }
+			set { LBLStatus = value; }
+		}
+
 		public UserControlMainMenu()
 		{
 			InitializeComponent();

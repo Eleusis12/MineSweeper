@@ -52,11 +52,13 @@ namespace MineSweeperProjeto.Controller
 			//V_JOGO.ResetTileGrid += Reset;
 			SetupModel();
 			SetupTimer();
+			AlteraDificuldade(Dificuldade.Facil);
 		}
 
 		private void V_StartForm_AskUserData(string username)
 		{
-			Server.ConsultaPerfil(username);
+			User temp;
+			Server.ConsultaPerfil(username, out temp);
 		}
 
 		private void V_Login_SendCredentials(string username, string password)
@@ -67,6 +69,7 @@ namespace MineSweeperProjeto.Controller
 				{
 					M_Status.Logado = true;
 				}
+				V_StartForm.UpdateLoggedStatus();
 			}
 			catch (Exception)
 			{
