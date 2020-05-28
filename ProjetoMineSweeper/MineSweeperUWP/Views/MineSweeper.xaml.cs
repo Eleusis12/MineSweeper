@@ -16,11 +16,11 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 
 using Microsoft.Toolkit.Uwp;
-using MineSweeperProjeto.Helpers;
 using Windows.Devices.Input;
 using Windows.UI.Xaml.Media.Imaging;
 using Library;
 using System.Drawing;
+using Library.Helpers;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 

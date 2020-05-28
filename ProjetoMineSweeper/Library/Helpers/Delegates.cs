@@ -6,8 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Library;
+using Library.Model;
 
-namespace MineSweeperProjeto.Helpers
+namespace Library.Helpers
 {
 	public delegate void UITaskFinishedHandler();
 
@@ -20,4 +21,6 @@ namespace MineSweeperProjeto.Helpers
 	public delegate void AccountCredentialsExtractionHandler(string username, string password);
 
 	public delegate void UsernameExtractionHandler(string username);
+
+	public delegate void UserExtractionHandler(User temp);
 }

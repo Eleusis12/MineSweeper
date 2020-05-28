@@ -8,10 +8,10 @@ using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using Library.Helpers;
-using MineSweeperProjeto.Model;
+using Library.Model;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace G12.MineSweep.Common.ServerEndPoint
+namespace Library.ServerEndpoint
 {
 	public static class Server
 	{
@@ -68,7 +68,7 @@ namespace G12.MineSweep.Common.ServerEndPoint
 			}
 		}
 
-		public static bool Login(string username, string password)
+		public static bool Login(string username, string password, out string id)
 		{
 			bool Logado = false;
 
@@ -91,12 +91,14 @@ namespace G12.MineSweep.Common.ServerEndPoint
 					//MessageBoxButtons.OK,
 					//MessageBoxIcon.Error
 					//);
+					id = "null";
 					Logado = false;
 				}
 				else
 				{
 					// Autenticação efetuada com sucesso
 					Logado = true;
+					id = xmlResposta.Element("resultado").Element("objeto").Element("id").Value;
 				}
 			}
 			catch (Exception ex)
@@ -106,7 +108,7 @@ namespace G12.MineSweep.Common.ServerEndPoint
 			return Logado;
 		}
 
-		public static string NovoJogo(string nivel, string id)
+		public static Array NovoJogo(string nivel, string id)
 		{
 			try
 			{
@@ -121,10 +123,35 @@ namespace G12.MineSweep.Common.ServerEndPoint
 					//MessageBoxButtons.OK,
 					//MessageBoxIcon.Error 29.    );
 
-					return "ERROR";
+					return null;
 				}
 				else
 				{
+					string[][] PosicoesFacil = new string[8][];
+					string[][] PosicoesMedio = new string[16][];
+					IEnumerable<XElement> Nodes;
+					if ((Nodes = xmlResposta.Descendants("campo").Where(e => ((string)e.Attribute("nivel")) == "facil")) != null)
+					{
+						foreach (var posicao in Nodes)
+						{
+							PosicoesFacil[Convert.ToInt32(posicao.Element("posicao").Attribute("linha").Value)][Convert.ToInt32(posicao.Element("posicao").Attribute("coluna").Value)] = "mina";
+						}
+						return PosicoesFacil;
+					}
+					else if ((Nodes = xmlResposta.Descendants("campo").Where(e => ((string)e.Attribute("nivel")) == "medio")) != null)
+					{
+						foreach (var posicao in Nodes)
+						{
+							string[][] Posicoes = new string[16][];
+							PosicoesMedio[Convert.ToInt32(posicao.Element("posicao").Attribute("linha").Value)][Convert.ToInt32(posicao.Element("posicao").Attribute("coluna").Value)] = "mina";
+						}
+						return PosicoesMedio;
+					}
+					else
+					{
+						return null;
+					}
+
 					//for()
 					//	xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("fotografia").Value
 
@@ -144,7 +171,6 @@ namespace G12.MineSweep.Common.ServerEndPoint
 			{
 				throw;
 			}
-			return "OK";
 		}
 
 		public static string RegistarResultado(string dificuldade, string tempo, string vitoria, string id)
@@ -238,7 +264,7 @@ namespace G12.MineSweep.Common.ServerEndPoint
 			return "OK";
 		}
 
-		public static List<Top10Resultado> ConsultaTop10(string username)
+		public static List<Top10Resultado> ConsultaTop10()
 		{
 			try
 			{
@@ -312,6 +338,7 @@ namespace G12.MineSweep.Common.ServerEndPoint
 			string requestUriString = EndPoint.BaseUrl + endpoint;
 			foreach (var parametro in parametros)
 			{
+				requestUriString += '/';
 				requestUriString += parametro;
 			}
 			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(requestUriString);
@@ -336,6 +363,7 @@ namespace G12.MineSweep.Common.ServerEndPoint
 			string requestUriString = EndPoint.BaseUrl + endpoint;
 			foreach (var parametro in parametros)
 			{
+				requestUriString += '/';
 				requestUriString += parametro;
 			}
 			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(requestUriString);

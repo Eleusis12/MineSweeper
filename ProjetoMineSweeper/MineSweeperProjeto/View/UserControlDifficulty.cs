@@ -10,8 +10,8 @@ using System.Windows.Forms;
 using MineSweeperProjeto.Controller;
 using MineSweeperProjeto.Model;
 using static MineSweeperProjeto.Program;
-using MineSweeperProjeto.Helpers;
 using Library;
+using Library.Helpers;
 
 namespace MineSweeperProjeto.View
 {

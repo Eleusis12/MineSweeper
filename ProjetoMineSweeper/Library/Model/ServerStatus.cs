@@ -7,5 +7,7 @@ namespace Library.Model
 	public class ServerStatus
 	{
 		public bool Logado { get; set; } = false;
+
+		public string id { get; set; }
 	}
 }

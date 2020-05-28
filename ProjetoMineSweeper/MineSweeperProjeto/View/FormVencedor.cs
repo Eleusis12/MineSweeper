@@ -1,10 +1,13 @@
-﻿using System.Linq;
+﻿using Library.Helpers;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace MineSweeperProjeto.View
 {
 	public partial class FormVencedor : Form
 	{
+		public event UsernameExtractionHandler SendUsername;
+
 		public FormVencedor()
 		{
 			InitializeComponent();
@@ -27,6 +30,15 @@ namespace MineSweeperProjeto.View
 			{
 				BTSubmeter.PerformClick();
 			}
+		}
+
+		private void BTSubmeter_Click(object sender, System.EventArgs e)
+		{
+			if (SendUsername != null)
+			{
+				SendUsername(TBNomeVencedor.Text);
+			}
+			this.Close();
 		}
 	}
 }

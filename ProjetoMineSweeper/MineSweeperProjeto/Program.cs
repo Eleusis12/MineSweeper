@@ -24,6 +24,7 @@ namespace MineSweeperProjeto
 		public static FormVencedor V_Vencedor { get; private set; }
 		public static FormLogin V_Login { get; private set; }
 		public static FormRegister V_Register { get; private set; }
+		public static FormVencedor V_vencedor { get; private set; }
 
 		//C
 		public static GameController C_Master { get; private set; }
@@ -47,6 +48,7 @@ namespace MineSweeperProjeto
 			V_Vencedor = new FormVencedor();
 			V_Login = new FormLogin();
 			V_Register = new FormRegister();
+			V_vencedor = new FormVencedor();
 
 			// Controlador
 			C_Master = new GameController();

@@ -33,6 +33,7 @@
 			this.ColunaNome = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.ColunaTempo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.label9 = new System.Windows.Forms.Label();
+			this.ColunaQuando = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.SuspendLayout();
 			// 
 			// LVTop10
@@ -41,9 +42,10 @@
 			this.LVTop10.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ColunaRank,
             this.ColunaNome,
-            this.ColunaTempo});
+            this.ColunaTempo,
+            this.ColunaQuando});
 			this.LVTop10.HideSelection = false;
-			this.LVTop10.Location = new System.Drawing.Point(26, 56);
+			this.LVTop10.Location = new System.Drawing.Point(39, 52);
 			this.LVTop10.Name = "LVTop10";
 			this.LVTop10.Size = new System.Drawing.Size(335, 207);
 			this.LVTop10.TabIndex = 0;
@@ -53,17 +55,17 @@
 			// ColunaRank
 			// 
 			this.ColunaRank.Text = "Rank";
-			this.ColunaRank.Width = 50;
+			this.ColunaRank.Width = 43;
 			// 
 			// ColunaNome
 			// 
 			this.ColunaNome.Text = "Nome";
-			this.ColunaNome.Width = 161;
+			this.ColunaNome.Width = 124;
 			// 
 			// ColunaTempo
 			// 
 			this.ColunaTempo.Text = "Tempo";
-			this.ColunaTempo.Width = 114;
+			this.ColunaTempo.Width = 88;
 			// 
 			// label9
 			// 
@@ -76,6 +78,11 @@
 			this.label9.Size = new System.Drawing.Size(81, 25);
 			this.label9.TabIndex = 12;
 			this.label9.Text = "TOP 10";
+			// 
+			// ColunaQuando
+			// 
+			this.ColunaQuando.Text = "Quando";
+			this.ColunaQuando.Width = 78;
 			// 
 			// UserControlLeaderBoard
 			// 
@@ -98,5 +105,6 @@
 		private System.Windows.Forms.ColumnHeader ColunaNome;
 		private System.Windows.Forms.ColumnHeader ColunaTempo;
 		private System.Windows.Forms.Label label9;
+		private System.Windows.Forms.ColumnHeader ColunaQuando;
 	}
 }

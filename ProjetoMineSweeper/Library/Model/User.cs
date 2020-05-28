@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace MineSweeperProjeto.Model
+namespace Library.Model
 {
 	// Class Simples que permite guardar informações sobre o Vencedor
 	public class User

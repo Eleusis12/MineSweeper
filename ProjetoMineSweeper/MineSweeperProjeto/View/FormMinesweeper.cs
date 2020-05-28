@@ -13,8 +13,8 @@ using System.Windows.Forms;
 using System.Drawing.Text;
 using System.Runtime.InteropServices;
 using static MineSweeperProjeto.Program;
-using MineSweeperProjeto.Helpers;
 using Library;
+using Library.Helpers;
 
 namespace MineSweeperProjeto
 {
@@ -58,7 +58,7 @@ namespace MineSweeperProjeto
 		public void AlteraDificuldadeNoView(Dificuldade _dificuldade)
 		{
 			this.dificuldade = M_Grelha.dificuldade;
-			Tamanho = C_Master.GetTamanho(this.dificuldade);
+			Tamanho = classDificuldade.GetTamanho(this.dificuldade);
 			if (Tamanho.Width == 30 && Tamanho.Height == 16)
 			{
 				this.Size = new Size(new Point(635, 470));

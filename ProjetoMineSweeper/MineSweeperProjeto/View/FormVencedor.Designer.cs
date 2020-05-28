@@ -79,6 +79,7 @@
 			this.BTSubmeter.TabIndex = 11;
 			this.BTSubmeter.Text = "Submeter";
 			this.BTSubmeter.UseVisualStyleBackColor = false;
+			this.BTSubmeter.Click += new System.EventHandler(this.BTSubmeter_Click);
 			// 
 			// FormVencedor
 			// 

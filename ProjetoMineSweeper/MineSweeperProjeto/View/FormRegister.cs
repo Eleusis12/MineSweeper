@@ -1,4 +1,6 @@
-﻿using MineSweeperProjeto.Model;
+﻿using Library.Helpers;
+using Library.Model;
+using MineSweeperProjeto.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +18,8 @@ namespace MineSweeperProjeto.View
 	{
 		private List<string> cultureList = new List<string>();
 		private CultureInfo[] cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
+
+		public event UserExtractionHandler RegisterThisUser;
 
 		private User temp;
 
@@ -49,6 +53,11 @@ namespace MineSweeperProjeto.View
 			temp.Username = TBUsername.Text;
 			temp.Password = TBPassword.Text;
 			temp.Country = CBCountry.SelectedItem.ToString();
+
+			if (RegisterThisUser != null)
+			{
+				RegisterThisUser(temp);
+			}
 		}
 
 		private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -59,6 +68,19 @@ namespace MineSweeperProjeto.View
 		private void FormRegister_Load(object sender, EventArgs e)
 		{
 			GetCountryList();
+		}
+
+		internal void ResultOfRegistration(string resposta)
+		{
+			if (resposta.ToLower() == "OK".ToLower())
+			{
+				MessageBox.Show("Registo efetuado com sucesso", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+			}
+			else if (resposta.ToLower() == "Erro".ToLower())
+			{
+				MessageBox.Show("Registo não efetuado", "Falhou", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			this.Close();
 		}
 
 		public void GetCountryList()

@@ -1,5 +1,4 @@
 ﻿using MineSweeperProjeto.Controller;
-using MineSweeperProjeto.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Library;
+using MineSweeperProjeto.Model;
+using Library.Helpers;
+using Library.Model;
 
 namespace MineSweeperProjeto.View
 {
@@ -51,6 +53,17 @@ namespace MineSweeperProjeto.View
 			//gameMode1.ChangeDifficulty += GameMode1_ChangeDifficulty;
 		}
 
+		internal void ShowTop10(List<Top10Resultado> listaTop10)
+		{
+			int i = 0;
+			for (i = 0; i < 10; i++)
+			{
+				string[] row = { (i + 1).ToString(), listaTop10[i].Nome, listaTop10[i].Tempo, listaTop10[i].Quando };
+				var listViewItem = new ListViewItem(row);
+				UCLeaderBoard.ListViewTop10.Items.Add(listViewItem);
+			}
+		}
+
 		// Informa o Controlador a dificuldade escolhida
 		private void UCDifficulty_WarnMainFormDifficultyChoice(Dificuldade dificuldade)
 		{
@@ -80,6 +93,18 @@ namespace MineSweeperProjeto.View
 			UCMainMenu.Dock = DockStyle.Fill;
 			UCMainMenu.Anchor = AnchorStyles.Top;
 			PNLContainer.Controls.Add(UCMainMenu);
+		}
+
+		internal void ShowProfile(User temp)
+		{
+			UCSearch.GroupBoxDados.Controls["LBLNome"].Text += (" " + temp.Username);
+			UCSearch.GroupBoxDados.Controls["LBLEmail"].Text += (" " + temp.Email);
+			UCSearch.GroupBoxDados.Controls["LBLPais"].Text += (" " + temp.Country);
+			UCSearch.GroupBoxDados.Controls["LBLNumeroJogos"].Text += (" " + (temp.WinStats + temp.LoseStats).ToString());
+			UCSearch.GroupBoxDados.Controls["LBLNumeroJogosGanhos"].Text += (" " + temp.WinStats.ToString());
+			UCSearch.GroupBoxDados.Controls["LBLNumeroJogosPerdidos"].Text += (" " + temp.LoseStats.ToString());
+			UCSearch.GroupBoxDados.Controls["LBLBestTimeEasy"].Text += (" " + temp.Username);
+			UCSearch.GroupBoxDados.Controls["LBLBestTimeMedium"].Text += (" " + temp.Username);
 		}
 
 		public void UpdateLoggedStatus()

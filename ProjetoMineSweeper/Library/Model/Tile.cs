@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MineSweeperProjeto
+namespace Library.Model
 {
 	public class Tile
 	{

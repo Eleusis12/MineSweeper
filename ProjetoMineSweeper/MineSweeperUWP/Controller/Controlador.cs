@@ -6,13 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using MineSweeperProjeto;
-using MineSweeperProjeto.Model;
+
 using Library;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Input;
+using Library.Helpers;
+using Library.Model;
 
 namespace MineSweeperUWP.Controller
 {

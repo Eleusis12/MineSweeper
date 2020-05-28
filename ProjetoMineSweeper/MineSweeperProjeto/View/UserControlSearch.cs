@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MineSweeperProjeto.Helpers;
+using Library.Helpers;
 
 namespace MineSweeperProjeto.View
 {
@@ -18,6 +18,12 @@ namespace MineSweeperProjeto.View
 		public UserControlSearch()
 		{
 			InitializeComponent();
+		}
+
+		public GroupBox GroupBoxDados
+		{
+			get { return groupBox1; }
+			set { groupBox1 = value; }
 		}
 
 		private void TBSearch_KeyDown(object sender, KeyEventArgs e)
