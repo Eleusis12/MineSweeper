@@ -287,8 +287,8 @@ namespace Library.ServerEndpoint
 					IEnumerable<XElement> NodesMediumMode = xmlResposta.Descendants("nivel").Where(e => ((string)e.Attribute("dificuldade")) == "medio");
 
 					List<Top10Resultado> TOP10 = new List<Top10Resultado>();
-					AddToList(NodesEasyMode, TOP10);
-					AddToList(NodesMediumMode, TOP10);
+					AddToList(NodesEasyMode, TOP10, Dificuldade.Facil);
+					AddToList(NodesMediumMode, TOP10, Dificuldade.Medio);
 
 					return TOP10;
 
@@ -316,7 +316,7 @@ namespace Library.ServerEndpoint
 			}
 		}
 
-		private static void AddToList(IEnumerable<XElement> Nodes, List<Top10Resultado> TOP10)
+		private static void AddToList(IEnumerable<XElement> Nodes, List<Top10Resultado> TOP10, Dificuldade dificuldade)
 		{
 			foreach (var Jogador in Nodes)
 			{
@@ -325,6 +325,7 @@ namespace Library.ServerEndpoint
 					Nome = Jogador.Element("jogador").Attribute("username").Value,
 					Tempo = Jogador.Element("jogador").Attribute("tempo").Value,
 					Quando = Jogador.Element("jogador").Attribute("quando").Value,
+					dificuldade = dificuldade.ToString(),
 				};
 
 				TOP10.Add(temp);

@@ -1,6 +1,4 @@
-﻿using MineSweeperProjeto.Model;
-using MineSweeperUWP.View;
-using MineSweeperUWP.Controller;
+﻿using MineSweeperUWP.View;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,6 +16,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Library.Model;
+using MineSweeperUWP.Controller;
 
 namespace MineSweeperUWP
 {
@@ -27,26 +27,35 @@ namespace MineSweeperUWP
 	///
 	//public static TileGrid M_Grelha { get; private set; }
 
-	sealed partial class App : Application
+	public partial class App : Application
 	{
 		// Models
 		public TileGrid M_Grelha { get; private set; }
 
+		public ServerStatus M_Status { get; private set; }
+
 		//Views
-		public MineSweeper V_MineSweeperGame { get; private set; }
+		public MineSweeper V_MineSweeperGame { get; set; }
 
-		public MainPage V_StartForm { get; private set; }
-		public DificuldadePage V_DifficultyForm { get; private set; }
+		public MainPage V_StartForm { get; set; }
+		public DificuldadePage V_DifficultyForm { get; set; }
 
-		public LeaderBoardPage V_LeaderBoard { get; private set; }
-		public OptionsPage V_OptionsForm { get; private set; }
-		public Register V_RegisterForm { get; private set; }
-		public Login V_LoginPage { get; private set; }
-
-		public VencedorPage V_Vencedor { get; private set; }
+		public LeaderBoardPage V_LeaderBoard { get; set; }
+		public OptionsPage V_OptionsForm { get; set; }
+		public Register V_RegisterForm { get; set; }
+		public Login V_LoginPage { get; set; }
 
 		// Controller
-		public GameController C_Master { get; private set; }
+		public ControllerMainPage C_StartForm { get; set; }
+
+		public ControllerDificuldade C_DifficultyForm { get; set; }
+
+		public ControllerMineSweeperGameCode C_MineSweeperGame { get; set; }
+		public ControllerLeaderBoard C_LeaderBoard { get; set; }
+		public ControllerOptions C_OptionsForm { get; set; }
+		public ControllerRegister C_RegisterForm { get; set; }
+		public ControllerLogin C_LoginPage { get; set; }
+		public ControllerVencedor C_Vencedor { get; set; }
 
 		// Controllers
 
@@ -63,6 +72,7 @@ namespace MineSweeperUWP
 			this.Suspending += OnSuspending;
 
 			M_Grelha = new TileGrid();
+			M_Status = new ServerStatus();
 		}
 
 		/// <summary>
@@ -99,7 +109,7 @@ namespace MineSweeperUWP
 					// When the navigation stack isn't restored navigate to the first page,
 					// configuring the new page by passing required information as a navigation
 					// parameter
-					rootFrame.Navigate(typeof(MineSweeper), e.Arguments);
+					rootFrame.Navigate(typeof(MainPage), e.Arguments);
 				}
 				ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(1500, 1500));
 				// Ensure the current window is active
@@ -107,17 +117,27 @@ namespace MineSweeperUWP
 			}
 			//No final do método OnLaunched instanciam-se as Views os Controllers//Views
 			V_StartForm = rootFrame.Content as MainPage;
-			V_DifficultyForm = rootFrame.Content as DificuldadePage;
-			V_MineSweeperGame = rootFrame.Content as MineSweeper;
 
+			V_MineSweeperGame = rootFrame.Content as MineSweeper;
 			V_LeaderBoard = rootFrame.Content as LeaderBoardPage;
 			V_OptionsForm = rootFrame.Content as OptionsPage;
 			V_RegisterForm = rootFrame.Content as Register;
 			V_LoginPage = rootFrame.Content as Login;
-			V_Vencedor = rootFrame.Content as VencedorPage;
-
 			//Controllers
-			C_Master = new GameController();
+			C_StartForm = new ControllerMainPage();
+
+			//C_MineSweeperGame = new ControllerMineSweeper();
+
+			//C_LeaderBoard = new ControllerLeaderBoard();
+			//C_OptionsForm = new ControllerOptions();
+			//C_RegisterForm = new ControllerRegister();
+			//C_LoginPage = new ControllerLogin();
+			//C_Vencedor = new ControllerVencedor();
+		}
+
+		internal void V_MineSweeperGame_AskToResetBoard()
+		{
+			throw new NotImplementedException();
 		}
 
 		/// <summary>

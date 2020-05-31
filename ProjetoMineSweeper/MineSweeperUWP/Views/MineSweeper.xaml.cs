@@ -31,7 +31,7 @@ namespace MineSweeperUWP.View
 	/// </summary>
 	public sealed partial class MineSweeper : Page
 	{
-		public event NotificationTaskHandler AskToRevealAllPieces;
+		//public event NotificationTaskHandler AskToRevealAllPieces;
 
 		public event NotificationTaskHandler AskToResetBoard;
 
@@ -39,8 +39,10 @@ namespace MineSweeperUWP.View
 
 		public event RightTappedEventHandler RightButtonPressed;
 
+		private BitmapImage Bomba;
+		private BitmapImage Bandeira;
+
 		private Size Tamanho;
-		private Dificuldade dificuldade { get; set; }
 
 		private App Program { get; }
 
@@ -48,27 +50,116 @@ namespace MineSweeperUWP.View
 
 		private brushes brushes = new brushes();
 
+		public static bool firstTimeClickingAButton = true;
+
+		#region AtributosParaOTimer
+
+		private DispatcherTimer dispatcherTimer;
+		private DateTimeOffset startTime;
+		private DateTimeOffset lastTime;
+		private DateTimeOffset stopTime;
+		private int timesTicked = 1;
+
+		#endregion AtributosParaOTimer
+
 		public MineSweeper()
 		{
 			Program = App.Current as App;
 
 			listaBotoes = new List<Button>();
 
-			Tamanho.Height = 9;
-			Tamanho.Width = 9;
+			Bomba = new BitmapImage(new Uri("ms-appx:///Assets/BombFlag/Bomb.png",
+   UriKind.RelativeOrAbsolute));
+
+			Bandeira = new BitmapImage(new Uri("ms-appx:///Assets/BombFlag/Flag.png",
+   UriKind.RelativeOrAbsolute))
+		   ;
 
 			this.InitializeComponent();
-			generateControls();
+
+			GenerateControls();
 		}
 
-		private void generateControls()
+		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
-			for (int i = 1; i <= 9; i++)
+			base.OnNavigatedTo(e);
+			if (e.Parameter.ToString() == "Fácil")
 			{
-				for (int j = 1; j <= 9; j++)
+				Program.M_Grelha.dificuldade = Dificuldade.Facil;
+			}
+			else if (e.Parameter.ToString() == "Médio")
+			{
+				Program.M_Grelha.dificuldade = Dificuldade.Medio;
+			}
+			else
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			SetSizeAccordingToDifficulty(Program.M_Grelha.dificuldade);
+			SetLabelDifficulty();
+			GenerateGrid();
+			GenerateControls();
+		}
+
+		private void SetLabelDifficulty()
+		{
+			LBLDificuldade.Text = Program.M_Grelha.dificuldade.ToString() + " " + Tamanho.Width.ToString() + "x" + Tamanho.Height.ToString();
+		}
+
+		private void SetSizeAccordingToDifficulty(Dificuldade dificuldade)
+		{
+			if (dificuldade == Dificuldade.Facil)
+			{
+				Tamanho.Height = 9;
+				Tamanho.Width = 9;
+			}
+			else if (dificuldade == Dificuldade.Medio)
+			{
+				Tamanho.Height = 16;
+				Tamanho.Width = 16;
+			}
+			else
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+		}
+
+		private void GenerateGrid()
+		{
+			ColumnDefinition coluna = null;
+			RowDefinition linha = null;
+
+			try
+			{
+				for (int i = 0; i < Tamanho.Width; i++)
+				{
+					coluna = new ColumnDefinition();
+
+					innergrid.ColumnDefinitions.Add(coluna);
+				}
+
+				for (int i = 0; i < Tamanho.Height; i++)
+				{
+					linha = new RowDefinition();
+
+					innergrid.RowDefinitions.Add(linha);
+				}
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+		}
+
+		private void GenerateControls()
+		{
+			for (int i = 0; i < Tamanho.Width; i++)
+			{
+				for (int j = 0; j < Tamanho.Width; j++)
 				{
 					Button btn = new Button();
-					btn.Name = string.Format($"{i - 1}-{j - 1}");
+					btn.Name = string.Format($"{i}-{j}");
 					btn.VerticalAlignment = VerticalAlignment.Stretch;
 					btn.HorizontalAlignment = HorizontalAlignment.Stretch;
 					btn.Foreground = brushes.blue;
@@ -78,6 +169,7 @@ namespace MineSweeperUWP.View
 					btn.Background = brushes.darkSlateGray;
 					btn.Click += new RoutedEventHandler(ButtonMouseClick);
 					btn.RightTapped += new RightTappedEventHandler(RightMouseClick);
+					btn.FontSize = 30;
 
 					Grid.SetRow(btn, i);
 					Grid.SetColumn(btn, j);
@@ -88,12 +180,12 @@ namespace MineSweeperUWP.View
 			//innergrid.(0, 0, 1.5f);
 		}
 
-		private void RightMouseClick(object sender, RightTappedRoutedEventArgs e)
+		internal void ResetTimer()
 		{
-			if (RightButtonPressed != null)
-			{
-				RightButtonPressed((sender as Button), e);
-			}
+			dispatcherTimer.Stop();
+			AtualizaTempo("0");
+			timesTicked = 0;
+			firstTimeClickingAButton = true;
 		}
 
 		private void btnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -101,11 +193,19 @@ namespace MineSweeperUWP.View
 			Button btn = (Button)sender;
 		}
 
+		public void RightMouseClick(object sender, RightTappedRoutedEventArgs e)
+		{
+			if (RightButtonPressed != null)
+			{
+				RightButtonPressed((sender as Button), e);
+			}
+		}
+
 		public void ResetBoardView()
 		{
 			foreach (Button Botao in GetButtons())
 			{
-				ChangeButtonBackGround(Botao, @"Assets\tiles\unopened.jpg");
+				ChangeButtonBackGround(Botao, "fechado");
 			}
 		}
 
@@ -114,7 +214,44 @@ namespace MineSweeperUWP.View
 		/// </summary>
 		public void ChangeButtonBackGround(Button botaoAtual, string file)
 		{
-			botaoAtual.Background = new ImageBrush { ImageSource = new BitmapImage(new Uri(this.BaseUri, file)), Stretch = Stretch.None };
+			//botaoAtual.Background = new ImageBrush { ImageSource = new BitmapImage(new Uri(this.BaseUri, file)), Stretch = Stretch.None };
+
+			//var brush = new ImageBrush();
+			//brush.ImageSource = new BitmapImage(new Uri(file));
+			//botaoAtual.Background = brush;
+
+			var image = new Windows.UI.Xaml.Controls.Image();
+
+			switch (file)
+			{
+				case "0":
+					botaoAtual.Background = brushes.green; break;
+				case "1":
+				case "2":
+				case "3":
+				case "4":
+				case "5":
+				case "6":
+				case "7":
+				case "8":
+					botaoAtual.Content = Convert.ToInt32(file); break;
+
+				case "bomba":
+
+					image.Source = Bomba;
+					botaoAtual.Content = image;
+					break;
+
+				case "bandeira":
+					image.Source = Bandeira;
+					botaoAtual.Content = image;
+					break;
+
+				case "fechado":
+					botaoAtual.Content = string.Empty;
+					botaoAtual.Background = brushes.darkSlateGray;
+					break;
+			}
 		}
 
 		//public void AlteraDificuldadeNoView(Dificuldade _dificuldade)
@@ -201,12 +338,18 @@ namespace MineSweeperUWP.View
 		//	}
 		//}
 
-		public void ButtonMouseClick(object sender, RoutedEventArgs e)
+		private void ButtonMouseClick(object sender, RoutedEventArgs e)
 		{
 			// Left button pressed
 			if (LeftButtonPressed != null)
 			{
 				LeftButtonPressed((sender as Button), e);
+
+				if (firstTimeClickingAButton == true)
+				{
+					DispatcherTimerSetup();
+					firstTimeClickingAButton = false;
+				}
 			}
 
 			//switch (e.Button)
@@ -221,30 +364,56 @@ namespace MineSweeperUWP.View
 			//}
 		}
 
+		public void DispatcherTimerSetup()
+		{
+			dispatcherTimer = new DispatcherTimer();
+			dispatcherTimer.Tick += dispatcherTimer_Tick;
+			dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+			//IsEnabled defaults to false
+			//TimerLog.Text += "dispatcherTimer.IsEnabled = " + dispatcherTimer.IsEnabled + "\n";
+			startTime = DateTimeOffset.Now;
+			lastTime = startTime;
+			//TimerLog.Text += "Calling dispatcherTimer.Start()\n";
+			dispatcherTimer.Start();
+			//IsEnabled should now be true after calling start
+			//TimerLog.Text += "dispatcherTimer.IsEnabled = " + dispatcherTimer.IsEnabled + "\n";
+		}
+
+		private void dispatcherTimer_Tick(object sender, object e)
+		{
+			DateTimeOffset time = DateTimeOffset.Now;
+			TimeSpan span = time - lastTime;
+			lastTime = time;
+			//Time since last tick should be very very close to Interval
+			//TimerLog.Text += timesTicked + "\t time since last tick: " + span.ToString() + "\n";
+			AtualizaTempo(timesTicked.ToString());
+			timesTicked++;
+		}
+
 		public void AtualizaTempo(string _tempo)
 		{
 			// Atualiza o Temporizador
-			LBLTimer.Text = _tempo;
+			LBLTimer.Text = "Tempo: " + _tempo;
 		}
 
 		public void AtualizaNumeroMinasDisponiveis(int _num)
 		{
-			LBLMinas.Text = _num.ToString();
+			LBLMinas.Text = "Minas: " + _num.ToString();
 		}
 
 		/// <summary>
 		/// Dá uma forma 3d ao botão smile
 		/// </summary>
 
-		public void Cheater_MouseClick(object sender, MouseEventArgs e)
-		{
-			if (AskToRevealAllPieces != null)
-			{
-				AskToRevealAllPieces();
-			}
-		}
+		//public void Cheater_MouseClick(object sender, MouseEventArgs e)
+		//{
+		//	if (AskToRevealAllPieces != null)
+		//	{
+		//		AskToRevealAllPieces();
+		//	}
+		//}
 
-		public void Reset_MouseClick(object sender, MouseEventArgs e)
+		public void Reset_MouseClick(object sender, RoutedEventArgs e)
 		{
 			if (AskToResetBoard != null)
 			{
@@ -261,14 +430,6 @@ namespace MineSweeperUWP.View
 						 where (item.Name == string.Format($"{_point.X}-{_point.Y}"))
 						 select item).First();
 			return Botao;
-		}
-
-		public void BTSmile_Click(object sender, EventArgs e)
-		{
-			if (AskToResetBoard != null)
-			{
-				AskToResetBoard();
-			}
 		}
 	}
 

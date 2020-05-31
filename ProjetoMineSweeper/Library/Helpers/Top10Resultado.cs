@@ -9,5 +9,6 @@ namespace Library.Helpers
 		public string Nome { get; set; }
 		public string Tempo { get; set; }
 		public string Quando { get; set; }
+		public string dificuldade { get; set; }
 	}
 }

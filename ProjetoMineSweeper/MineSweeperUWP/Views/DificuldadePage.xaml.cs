@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MineSweeperUWP.Controller;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,14 +23,35 @@ namespace MineSweeperUWP.View
 	/// </summary>
 	public sealed partial class DificuldadePage : Page
 	{
+		internal App Program { get; }
+
 		public DificuldadePage()
 		{
+			Program = App.Current as App;
 			this.InitializeComponent();
 		}
 
 		private void BTClick(object sender, RoutedEventArgs e)
 		{
-			this.Frame.Navigate(typeof(MineSweeper));
+			this.Frame.Navigate(typeof(MineSweeper), (sender as Button).Content);
+			Frame rootFrame = Window.Current.Content as Frame;
+			Program.V_MineSweeperGame = rootFrame.Content as MineSweeper;
+			Program.C_MineSweeperGame = new ControllerMineSweeperGameCode();
+		}
+
+		private void Back_Button(object sender, RoutedEventArgs e)
+		{
+			On_BackRequested();
+		}
+
+		private bool On_BackRequested()
+		{
+			if (this.Frame.CanGoBack)
+			{
+				this.Frame.GoBack();
+				return true;
+			}
+			return false;
 		}
 	}
 }

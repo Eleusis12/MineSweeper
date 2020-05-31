@@ -1,32 +1,34 @@
 ﻿<Page
-    x:Class="MineSweeperUWP.View.DificuldadePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:MineSweeperUWP.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Custom="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    x:Class="MineSweeperUWP.View.DificuldadePage"
     mc:Ignorable="d">
 
     <Page.Background>
         <AcrylicBrush TintColor="#CC373737" />
     </Page.Background>
-    <Grid>
-        <RelativePanel x:Name="relativePanel1"
-               HorizontalAlignment="Center">
-            <TextBlock x:Name="textBlock" Text="Dificuldade" TextWrapping="Wrap" FocusVisualPrimaryBrush="#FFFDFAFA" Margin="0,0,287,270" FontFamily="Century Gothic" FontWeight="Bold" FontSize="25">
-                <TextBlock.Foreground>
-                    <AcrylicBrush />
-                </TextBlock.Foreground>
-            </TextBlock>
 
-            <StackPanel  RelativePanel.AlignHorizontalCenterWith="textBlock" Margin="0,40,0,0" HorizontalAlignment="Center"  VerticalAlignment="Top">
-                <Button x:Name="BTFacil" Content="Fácil" Foreground="#FFF0F0F0" Background="IndianRed" FontFamily="Century Gothic" FontWeight="Bold" Width="64
-                    " Margin="0,0,0,10
-                    " Click="BTClick" />
-                <Button x:Name="BTMedio" Content="Médio" Foreground="#FFF0F0F0" Background="IndianRed" FontFamily="Century Gothic" FontWeight="Bold" Margin="0,0,0,10" Click="BTClick" />
-                <Button x:Name="BTDificil" Content="Difícil" Foreground="#FFF0F0F0" Background="IndianRed" FontFamily="Century Gothic" FontWeight="Bold" Width="64" Click="BTClick" />
-            </StackPanel>
-        </RelativePanel>
-        <Button Style="{StaticResource NavigationBackButtonNormalStyle}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,0,1460,960" />
+    <Grid>
+        <Custom:DockPanel>
+
+            <RelativePanel Custom:DockPanel.Dock="Top" x:Name="relativePanel1"
+               HorizontalAlignment="Center">
+                <TextBlock x:Name="textBlock" Text="Dificuldade" TextWrapping="Wrap" FocusVisualPrimaryBrush="#FFFDFAFA" Margin="0,0,287,270" FontFamily="Century Gothic" FontWeight="Bold" FontSize="25">
+                    <TextBlock.Foreground>
+                        <AcrylicBrush />
+                    </TextBlock.Foreground>
+                </TextBlock>
+
+                <StackPanel  RelativePanel.AlignHorizontalCenterWith="textBlock" Margin="0,40,0,0" HorizontalAlignment="Center"  VerticalAlignment="Top">
+                    <Button x:Name="BTFacil" Content="Fácil" Foreground="#FFF0F0F0" Background="IndianRed" FontFamily="Century Gothic" FontWeight="Bold" Width="64                     " Margin="0,0,0,10                     " Click="BTClick" />
+                    <Button x:Name="BTMedio" Content="Médio" Foreground="#FFF0F0F0" Background="IndianRed" FontFamily="Century Gothic" FontWeight="Bold" Margin="0,0,0,10" Click="BTClick" />
+                </StackPanel>
+            </RelativePanel>
+            <Button Custom:DockPanel.Dock="Left"  Style="{StaticResource NavigationBackButtonNormalStyle}" Margin="0,-301,0,0" VerticalAlignment="Top"  Click="Back_Button" />
+        </Custom:DockPanel>
     </Grid>
 </Page>

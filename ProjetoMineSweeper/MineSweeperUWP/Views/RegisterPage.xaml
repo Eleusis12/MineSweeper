@@ -18,22 +18,22 @@
             </StackPanel.Background>
             <TextBlock Text="Cria a tua conta" Style="{StaticResource TitleTextBlockStyle}" Margin="10" />
 
-            <Button Height="100" Width="100" Background="LightGray" Content="Add photo" Margin="10,24" />
+            <Button  x:Name="BTUploadPic"  Height="100" Width="100" Background="LightGray" Content="Add photo" Margin="10,24" Click="BTUploadPic_Click" />
 
             <RelativePanel>
-                <TextBox x:Name="TBFirstName" Header= "Primeiro Nome" Margin="10,24,0,0" MaxLength="32" Width="400" HorizontalAlignment="Left" InputScope="PersonalFullName" />
-                <TextBox x:Name="TBLastName" Header= "Último Nome" Margin="500,24,0,0" MaxLength="32" Width="400" HorizontalAlignment="Left" InputScope="PersonalFullName" />
+                <TextBox x:Name="TBFirstName" Header= "Primeiro Nome" Margin="10,24,0,0" MaxLength="32" Width="400" HorizontalAlignment="Left" InputScope="PersonalFullName"  BeforeTextChanging="TextBox_BeforeTextChanging" />
+                <TextBox x:Name="TBLastName" Header= "Último Nome" Margin="500,24,0,0" MaxLength="32" Width="400" HorizontalAlignment="Left" InputScope="PersonalFullName" BeforeTextChanging="TextBox_BeforeTextChanging" />
             </RelativePanel>
             <TextBox x:Name="TBEmail" Header="Email" Margin="10,24,0,0" MaxLength="50" Width="400" HorizontalAlignment="Left" InputScope="EmailNameOrAddress" />
             <TextBox x:Name="TBUsername" Header="Username"  Margin="10,24,0,0" MaxLength="50" Width="400" HorizontalAlignment="Left" InputScope="EmailNameOrAddress" />
             <TextBox x:Name="TBPassword" Header="Password"  Margin="10,24,0,0" MaxLength="50" Width="400" HorizontalAlignment="Left" InputScope="EmailNameOrAddress" />
-            <ComboBox x:Name="TBPais" PlaceholderText="País" Margin="10,24,0,0"  Width="200" HorizontalAlignment="Left" ></ComboBox>
+            <ComboBox x:Name="CBCountry" PlaceholderText="País" Margin="10,24,0,0"  Width="200" HorizontalAlignment="Left" ></ComboBox>
 
             <StackPanel Orientation="Horizontal">
-                <Button Content="Save" Margin="10,24" />
-                <Button Content="Cancel" Margin="24" />
+                <Button Content="Save" Margin="10,24" Click="BTRegister_Click" />
+                <Button Content="Cancel" Margin="24" Click="Cancel_Click" />
             </StackPanel>
         </StackPanel>
-        <Button Style="{StaticResource NavigationBackButtonNormalStyle}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,1460,960" />
+        <Button Style="{StaticResource NavigationBackButtonNormalStyle}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,1460,960" Click="Back_Button" />
     </Grid>
 </Page>

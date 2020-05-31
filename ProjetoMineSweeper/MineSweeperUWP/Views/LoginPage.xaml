@@ -2,7 +2,6 @@
     x:Class="MineSweeperUWP.View.Login"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:UWPLoginPage"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -17,11 +16,11 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
-            <TextBox x:Name="txtUser"
+            <TextBox x:Name="TBUsername"
                      Grid.Row="0"
                      PlaceholderText="Username"
                      Margin="8" />
-            <PasswordBox x:Name="txtPassword"
+            <PasswordBox x:Name="TBPassword"
                      Grid.Row="1"
                      PlaceholderText="Password"
                      Margin="8" />
@@ -40,7 +39,8 @@
                         Margin="8"
                         Background="#1cb3bc"
                         Foreground="White"
-                        HorizontalAlignment="Stretch" />
+                        HorizontalAlignment="Stretch"
+                        Click="BTLogin_Click" />
                 <Button x:Name="BTRegister"
                         Grid.Column="1"
                         Content="Register"
@@ -51,6 +51,6 @@
                         Click="BTRegister_Click" />
             </Grid>
         </Grid>
-        <Button Style="{StaticResource NavigationBackButtonNormalStyle}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,1460,960" />
+        <Button Style="{StaticResource NavigationBackButtonNormalStyle}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,1460,960" Click="Back_Button" />
     </Grid>
 </Page>
