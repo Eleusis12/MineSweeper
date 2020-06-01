@@ -32,15 +32,17 @@
 			this.TBSearch = new System.Windows.Forms.TextBox();
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.LBLNome = new System.Windows.Forms.Label();
-			this.LBLEmail = new System.Windows.Forms.Label();
 			this.LBLPais = new System.Windows.Forms.Label();
-			this.LBLNumeroJogos = new System.Windows.Forms.Label();
-			this.LBLNumeroJogosGanhos = new System.Windows.Forms.Label();
-			this.LBLNumeroJogosPerdidos = new System.Windows.Forms.Label();
-			this.LBLBestTimeEasy = new System.Windows.Forms.Label();
 			this.LBLBestTimeMedium = new System.Windows.Forms.Label();
+			this.LBLBestTimeEasy = new System.Windows.Forms.Label();
+			this.LBLNumeroJogosPerdidos = new System.Windows.Forms.Label();
+			this.LBLNumeroJogosGanhos = new System.Windows.Forms.Label();
+			this.LBLNumeroJogos = new System.Windows.Forms.Label();
+			this.LBLEmail = new System.Windows.Forms.Label();
+			this.LBLNome = new System.Windows.Forms.Label();
+			this.PBProfilePic = new System.Windows.Forms.PictureBox();
 			this.groupBox1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.PBProfilePic)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// LBLSearch
@@ -92,28 +94,6 @@
 			this.groupBox1.Text = "Resultado da Pesquisa";
 			this.groupBox1.Visible = false;
 			// 
-			// LBLNome
-			// 
-			this.LBLNome.AutoSize = true;
-			this.LBLNome.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.LBLNome.ForeColor = System.Drawing.SystemColors.ControlLight;
-			this.LBLNome.Location = new System.Drawing.Point(6, 29);
-			this.LBLNome.Name = "LBLNome";
-			this.LBLNome.Size = new System.Drawing.Size(101, 16);
-			this.LBLNome.TabIndex = 8;
-			this.LBLNome.Text = "Nome Abreviado";
-			// 
-			// LBLEmail
-			// 
-			this.LBLEmail.AutoSize = true;
-			this.LBLEmail.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.LBLEmail.ForeColor = System.Drawing.SystemColors.ControlLight;
-			this.LBLEmail.Location = new System.Drawing.Point(6, 46);
-			this.LBLEmail.Name = "LBLEmail";
-			this.LBLEmail.Size = new System.Drawing.Size(39, 16);
-			this.LBLEmail.TabIndex = 9;
-			this.LBLEmail.Text = "Email:";
-			// 
 			// LBLPais
 			// 
 			this.LBLPais.AutoSize = true;
@@ -124,50 +104,6 @@
 			this.LBLPais.Size = new System.Drawing.Size(32, 16);
 			this.LBLPais.TabIndex = 10;
 			this.LBLPais.Text = "País:";
-			// 
-			// LBLNumeroJogos
-			// 
-			this.LBLNumeroJogos.AutoSize = true;
-			this.LBLNumeroJogos.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.LBLNumeroJogos.ForeColor = System.Drawing.SystemColors.ControlLight;
-			this.LBLNumeroJogos.Location = new System.Drawing.Point(6, 80);
-			this.LBLNumeroJogos.Name = "LBLNumeroJogos";
-			this.LBLNumeroJogos.Size = new System.Drawing.Size(104, 16);
-			this.LBLNumeroJogos.TabIndex = 9;
-			this.LBLNumeroJogos.Text = "Número de Jogos:";
-			// 
-			// LBLNumeroJogosGanhos
-			// 
-			this.LBLNumeroJogosGanhos.AutoSize = true;
-			this.LBLNumeroJogosGanhos.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.LBLNumeroJogosGanhos.ForeColor = System.Drawing.SystemColors.ControlLight;
-			this.LBLNumeroJogosGanhos.Location = new System.Drawing.Point(14, 96);
-			this.LBLNumeroJogosGanhos.Name = "LBLNumeroJogosGanhos";
-			this.LBLNumeroJogosGanhos.Size = new System.Drawing.Size(54, 16);
-			this.LBLNumeroJogosGanhos.TabIndex = 9;
-			this.LBLNumeroJogosGanhos.Text = "Ganhos:";
-			// 
-			// LBLNumeroJogosPerdidos
-			// 
-			this.LBLNumeroJogosPerdidos.AutoSize = true;
-			this.LBLNumeroJogosPerdidos.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.LBLNumeroJogosPerdidos.ForeColor = System.Drawing.SystemColors.ControlLight;
-			this.LBLNumeroJogosPerdidos.Location = new System.Drawing.Point(14, 113);
-			this.LBLNumeroJogosPerdidos.Name = "LBLNumeroJogosPerdidos";
-			this.LBLNumeroJogosPerdidos.Size = new System.Drawing.Size(57, 16);
-			this.LBLNumeroJogosPerdidos.TabIndex = 9;
-			this.LBLNumeroJogosPerdidos.Text = "Perdidos:";
-			// 
-			// LBLBestTimeEasy
-			// 
-			this.LBLBestTimeEasy.AutoSize = true;
-			this.LBLBestTimeEasy.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.LBLBestTimeEasy.ForeColor = System.Drawing.SystemColors.ControlLight;
-			this.LBLBestTimeEasy.Location = new System.Drawing.Point(6, 131);
-			this.LBLBestTimeEasy.Name = "LBLBestTimeEasy";
-			this.LBLBestTimeEasy.Size = new System.Drawing.Size(117, 16);
-			this.LBLBestTimeEasy.TabIndex = 9;
-			this.LBLBestTimeEasy.Text = "Melhor tempo, Fácil:";
 			// 
 			// LBLBestTimeMedium
 			// 
@@ -180,11 +116,87 @@
 			this.LBLBestTimeMedium.TabIndex = 9;
 			this.LBLBestTimeMedium.Text = "Melhor tempo, Médio:";
 			// 
+			// LBLBestTimeEasy
+			// 
+			this.LBLBestTimeEasy.AutoSize = true;
+			this.LBLBestTimeEasy.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.LBLBestTimeEasy.ForeColor = System.Drawing.SystemColors.ControlLight;
+			this.LBLBestTimeEasy.Location = new System.Drawing.Point(6, 131);
+			this.LBLBestTimeEasy.Name = "LBLBestTimeEasy";
+			this.LBLBestTimeEasy.Size = new System.Drawing.Size(117, 16);
+			this.LBLBestTimeEasy.TabIndex = 9;
+			this.LBLBestTimeEasy.Text = "Melhor tempo, Fácil:";
+			// 
+			// LBLNumeroJogosPerdidos
+			// 
+			this.LBLNumeroJogosPerdidos.AutoSize = true;
+			this.LBLNumeroJogosPerdidos.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.LBLNumeroJogosPerdidos.ForeColor = System.Drawing.SystemColors.ControlLight;
+			this.LBLNumeroJogosPerdidos.Location = new System.Drawing.Point(14, 113);
+			this.LBLNumeroJogosPerdidos.Name = "LBLNumeroJogosPerdidos";
+			this.LBLNumeroJogosPerdidos.Size = new System.Drawing.Size(57, 16);
+			this.LBLNumeroJogosPerdidos.TabIndex = 9;
+			this.LBLNumeroJogosPerdidos.Text = "Perdidos:";
+			// 
+			// LBLNumeroJogosGanhos
+			// 
+			this.LBLNumeroJogosGanhos.AutoSize = true;
+			this.LBLNumeroJogosGanhos.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.LBLNumeroJogosGanhos.ForeColor = System.Drawing.SystemColors.ControlLight;
+			this.LBLNumeroJogosGanhos.Location = new System.Drawing.Point(14, 96);
+			this.LBLNumeroJogosGanhos.Name = "LBLNumeroJogosGanhos";
+			this.LBLNumeroJogosGanhos.Size = new System.Drawing.Size(54, 16);
+			this.LBLNumeroJogosGanhos.TabIndex = 9;
+			this.LBLNumeroJogosGanhos.Text = "Ganhos:";
+			// 
+			// LBLNumeroJogos
+			// 
+			this.LBLNumeroJogos.AutoSize = true;
+			this.LBLNumeroJogos.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.LBLNumeroJogos.ForeColor = System.Drawing.SystemColors.ControlLight;
+			this.LBLNumeroJogos.Location = new System.Drawing.Point(6, 80);
+			this.LBLNumeroJogos.Name = "LBLNumeroJogos";
+			this.LBLNumeroJogos.Size = new System.Drawing.Size(104, 16);
+			this.LBLNumeroJogos.TabIndex = 9;
+			this.LBLNumeroJogos.Text = "Número de Jogos:";
+			// 
+			// LBLEmail
+			// 
+			this.LBLEmail.AutoSize = true;
+			this.LBLEmail.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.LBLEmail.ForeColor = System.Drawing.SystemColors.ControlLight;
+			this.LBLEmail.Location = new System.Drawing.Point(6, 46);
+			this.LBLEmail.Name = "LBLEmail";
+			this.LBLEmail.Size = new System.Drawing.Size(39, 16);
+			this.LBLEmail.TabIndex = 9;
+			this.LBLEmail.Text = "Email:";
+			// 
+			// LBLNome
+			// 
+			this.LBLNome.AutoSize = true;
+			this.LBLNome.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.LBLNome.ForeColor = System.Drawing.SystemColors.ControlLight;
+			this.LBLNome.Location = new System.Drawing.Point(6, 29);
+			this.LBLNome.Name = "LBLNome";
+			this.LBLNome.Size = new System.Drawing.Size(101, 16);
+			this.LBLNome.TabIndex = 8;
+			this.LBLNome.Text = "Nome Abreviado";
+			// 
+			// PBProfilePic
+			// 
+			this.PBProfilePic.Location = new System.Drawing.Point(315, 9);
+			this.PBProfilePic.Name = "PBProfilePic";
+			this.PBProfilePic.Size = new System.Drawing.Size(49, 50);
+			this.PBProfilePic.TabIndex = 9;
+			this.PBProfilePic.TabStop = false;
+			this.PBProfilePic.Visible = false;
+			// 
 			// UserControlSearch
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.Transparent;
+			this.Controls.Add(this.PBProfilePic);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.LBLSearch);
 			this.Controls.Add(this.TBSearch);
@@ -193,6 +205,7 @@
 			this.Size = new System.Drawing.Size(377, 302);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.PBProfilePic)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -212,5 +225,6 @@
 		private System.Windows.Forms.Label LBLNumeroJogos;
 		private System.Windows.Forms.Label LBLEmail;
 		private System.Windows.Forms.Label LBLNome;
+		private System.Windows.Forms.PictureBox PBProfilePic;
 	}
 }

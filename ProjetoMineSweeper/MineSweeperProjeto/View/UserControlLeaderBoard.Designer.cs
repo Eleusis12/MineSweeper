@@ -32,8 +32,11 @@
 			this.ColunaRank = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.ColunaNome = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.ColunaTempo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.label9 = new System.Windows.Forms.Label();
 			this.ColunaQuando = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.colunaDificuldade = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.label9 = new System.Windows.Forms.Label();
+			this.LBLEasy = new System.Windows.Forms.Button();
+			this.LBLMedium = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// LVTop10
@@ -43,11 +46,12 @@
             this.ColunaRank,
             this.ColunaNome,
             this.ColunaTempo,
-            this.ColunaQuando});
+            this.ColunaQuando,
+            this.colunaDificuldade});
 			this.LVTop10.HideSelection = false;
-			this.LVTop10.Location = new System.Drawing.Point(39, 52);
+			this.LVTop10.Location = new System.Drawing.Point(0, 52);
 			this.LVTop10.Name = "LVTop10";
-			this.LVTop10.Size = new System.Drawing.Size(335, 207);
+			this.LVTop10.Size = new System.Drawing.Size(374, 207);
 			this.LVTop10.TabIndex = 0;
 			this.LVTop10.UseCompatibleStateImageBehavior = false;
 			this.LVTop10.View = System.Windows.Forms.View.Details;
@@ -60,12 +64,22 @@
 			// ColunaNome
 			// 
 			this.ColunaNome.Text = "Nome";
-			this.ColunaNome.Width = 124;
+			this.ColunaNome.Width = 113;
 			// 
 			// ColunaTempo
 			// 
 			this.ColunaTempo.Text = "Tempo";
-			this.ColunaTempo.Width = 88;
+			this.ColunaTempo.Width = 55;
+			// 
+			// ColunaQuando
+			// 
+			this.ColunaQuando.Text = "Quando";
+			this.ColunaQuando.Width = 78;
+			// 
+			// colunaDificuldade
+			// 
+			this.colunaDificuldade.Text = "Dificuldade";
+			this.colunaDificuldade.Width = 83;
 			// 
 			// label9
 			// 
@@ -79,20 +93,50 @@
 			this.label9.TabIndex = 12;
 			this.label9.Text = "TOP 10";
 			// 
-			// ColunaQuando
+			// LBLEasy
 			// 
-			this.ColunaQuando.Text = "Quando";
-			this.ColunaQuando.Width = 78;
+			this.LBLEasy.BackColor = System.Drawing.Color.Gray;
+			this.LBLEasy.FlatAppearance.BorderSize = 0;
+			this.LBLEasy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.LBLEasy.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.LBLEasy.ForeColor = System.Drawing.SystemColors.Control;
+			this.LBLEasy.Location = new System.Drawing.Point(0, 265);
+			this.LBLEasy.Name = "LBLEasy";
+			this.LBLEasy.Size = new System.Drawing.Size(57, 27);
+			this.LBLEasy.TabIndex = 13;
+			this.LBLEasy.Tag = "Facil";
+			this.LBLEasy.Text = "Fácil";
+			this.LBLEasy.UseVisualStyleBackColor = false;
+			this.LBLEasy.Click += new System.EventHandler(this.ShowTop10Difficulty);
+			// 
+			// LBLMedium
+			// 
+			this.LBLMedium.BackColor = System.Drawing.Color.Gray;
+			this.LBLMedium.FlatAppearance.BorderSize = 0;
+			this.LBLMedium.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.LBLMedium.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.LBLMedium.ForeColor = System.Drawing.SystemColors.Control;
+			this.LBLMedium.Location = new System.Drawing.Point(63, 265);
+			this.LBLMedium.Name = "LBLMedium";
+			this.LBLMedium.Size = new System.Drawing.Size(68, 27);
+			this.LBLMedium.TabIndex = 13;
+			this.LBLMedium.Tag = "Medio";
+			this.LBLMedium.Text = "Médio";
+			this.LBLMedium.UseVisualStyleBackColor = false;
+			this.LBLMedium.Click += new System.EventHandler(this.ShowTop10Difficulty);
 			// 
 			// UserControlLeaderBoard
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.Transparent;
+			this.Controls.Add(this.LBLMedium);
+			this.Controls.Add(this.LBLEasy);
 			this.Controls.Add(this.label9);
 			this.Controls.Add(this.LVTop10);
 			this.Name = "UserControlLeaderBoard";
 			this.Size = new System.Drawing.Size(377, 302);
+			this.Load += new System.EventHandler(this.UserControlLeaderBoard_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -106,5 +150,8 @@
 		private System.Windows.Forms.ColumnHeader ColunaTempo;
 		private System.Windows.Forms.Label label9;
 		private System.Windows.Forms.ColumnHeader ColunaQuando;
+		private System.Windows.Forms.ColumnHeader colunaDificuldade;
+		private System.Windows.Forms.Button LBLEasy;
+		private System.Windows.Forms.Button LBLMedium;
 	}
 }

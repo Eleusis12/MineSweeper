@@ -98,6 +98,12 @@
     <Compile Include="View\UserControlMainMenu.Designer.cs">
       <DependentUpon>UserControlMainMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\UserControlOnlineDifficulty.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\UserControlOnlineDifficulty.Designer.cs">
+      <DependentUpon>UserControlOnlineDifficulty.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControlOptions.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -149,6 +155,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\UserControlMainMenu.resx">
       <DependentUpon>UserControlMainMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\UserControlOnlineDifficulty.resx">
+      <DependentUpon>UserControlOnlineDifficulty.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\UserControlOptions.resx">
       <DependentUpon>UserControlOptions.cs</DependentUpon>

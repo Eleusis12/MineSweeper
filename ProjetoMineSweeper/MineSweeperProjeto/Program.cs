@@ -15,7 +15,7 @@ namespace MineSweeperProjeto
 		//M
 		public static TileGrid M_Grelha { get; private set; }
 
-		public static ServerStatus M_Status { get; private set; }
+		public static ConnectionToServer M_Status { get; private set; }
 
 		//V
 		public static FormMinesweeper V_MineSweeperGame { get; private set; }
@@ -40,7 +40,7 @@ namespace MineSweeperProjeto
 
 			// Model
 			M_Grelha = new TileGrid();
-			M_Status = new ServerStatus();
+			M_Status = new ConnectionToServer();
 
 			// View
 			V_StartForm = new FormStart();

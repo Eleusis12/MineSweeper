@@ -83,7 +83,7 @@
 			this.BTUploadPic.Location = new System.Drawing.Point(559, 224);
 			this.BTUploadPic.Name = "BTUploadPic";
 			this.BTUploadPic.Size = new System.Drawing.Size(75, 23);
-			this.BTUploadPic.TabIndex = 16;
+			this.BTUploadPic.TabIndex = 11;
 			this.BTUploadPic.Text = "Upload";
 			this.BTUploadPic.UseVisualStyleBackColor = true;
 			this.BTUploadPic.Click += new System.EventHandler(this.BTUploadPic_Click);
@@ -115,7 +115,7 @@
 			this.CBCountry.Location = new System.Drawing.Point(29, 248);
 			this.CBCountry.Name = "CBCountry";
 			this.CBCountry.Size = new System.Drawing.Size(121, 21);
-			this.CBCountry.TabIndex = 14;
+			this.CBCountry.TabIndex = 10;
 			// 
 			// label8
 			// 
@@ -147,7 +147,7 @@
 			this.TBEmail.Location = new System.Drawing.Point(29, 95);
 			this.TBEmail.Name = "TBEmail";
 			this.TBEmail.Size = new System.Drawing.Size(530, 20);
-			this.TBEmail.TabIndex = 12;
+			this.TBEmail.TabIndex = 7;
 			// 
 			// label5
 			// 
@@ -169,7 +169,7 @@
 			this.TBPassword.Name = "TBPassword";
 			this.TBPassword.PasswordChar = '*';
 			this.TBPassword.Size = new System.Drawing.Size(219, 20);
-			this.TBPassword.TabIndex = 10;
+			this.TBPassword.TabIndex = 9;
 			// 
 			// label4
 			// 
@@ -222,7 +222,7 @@
 			this.label2.Location = new System.Drawing.Point(29, 20);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(104, 17);
-			this.label2.TabIndex = 5;
+			this.label2.TabIndex = 4;
 			this.label2.Text = "Primeiro Nome";
 			// 
 			// TBFirstName
@@ -233,7 +233,7 @@
 			this.TBFirstName.Location = new System.Drawing.Point(29, 44);
 			this.TBFirstName.Name = "TBFirstName";
 			this.TBFirstName.Size = new System.Drawing.Size(249, 20);
-			this.TBFirstName.TabIndex = 1;
+			this.TBFirstName.TabIndex = 5;
 			this.TBFirstName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox_KeyPress);
 			// 
 			// label3
@@ -269,7 +269,7 @@
 			this.BTRegister.Location = new System.Drawing.Point(133, 419);
 			this.BTRegister.Name = "BTRegister";
 			this.BTRegister.Size = new System.Drawing.Size(534, 23);
-			this.BTRegister.TabIndex = 10;
+			this.BTRegister.TabIndex = 1;
 			this.BTRegister.Text = "Registar";
 			this.BTRegister.UseVisualStyleBackColor = false;
 			this.BTRegister.Click += new System.EventHandler(this.BTRegister_Click);

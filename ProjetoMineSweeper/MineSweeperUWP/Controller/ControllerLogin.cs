@@ -29,7 +29,7 @@ namespace MineSweeperUWP.Controller
 				if (resposta == true)
 				{
 					Program.M_Status.Logado = true;
-					Program.M_Status.id = id;
+					Program.M_Status.ID = id;
 				}
 
 				Program.V_LoginPage.Response(resposta);

@@ -32,7 +32,7 @@ namespace MineSweeperUWP
 		// Models
 		public TileGrid M_Grelha { get; private set; }
 
-		public ServerStatus M_Status { get; private set; }
+		public ConnectionToServer M_Status { get; private set; }
 
 		//Views
 		public MineSweeper V_MineSweeperGame { get; set; }
@@ -72,7 +72,7 @@ namespace MineSweeperUWP
 			this.Suspending += OnSuspending;
 
 			M_Grelha = new TileGrid();
-			M_Status = new ServerStatus();
+			M_Status = new ConnectionToServer();
 		}
 
 		/// <summary>

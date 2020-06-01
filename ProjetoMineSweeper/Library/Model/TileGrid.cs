@@ -41,5 +41,7 @@ namespace Library.Model
 		public int timerCounter { get; set; } = 0;
 
 		public bool SoundOnOrOFF { get; set; } = true;
+
+		public List<Point> indexMinas { get; set; }
 	}
 }

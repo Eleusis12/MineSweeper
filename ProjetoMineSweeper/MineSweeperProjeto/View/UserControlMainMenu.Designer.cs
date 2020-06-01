@@ -69,7 +69,7 @@
 			this.BTOnline.Name = "BTOnline";
 			this.BTOnline.Size = new System.Drawing.Size(190, 27);
 			this.BTOnline.TabIndex = 6;
-			this.BTOnline.Text = "Online";
+			this.BTOnline.Text = "Login";
 			this.BTOnline.UseVisualStyleBackColor = false;
 			this.BTOnline.Click += new System.EventHandler(this.BTOnline_Click);
 			// 

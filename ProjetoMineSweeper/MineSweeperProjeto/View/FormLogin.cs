@@ -22,9 +22,7 @@ namespace MineSweeperProjeto.View
 
 		private void LLBLCreate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
-			// TODO: Solução temporária
-			FormRegister V_Resgister = new FormRegister();
-			V_Resgister.ShowDialog();
+			Program.V_Register.ShowDialog();
 			this.Close();
 		}
 

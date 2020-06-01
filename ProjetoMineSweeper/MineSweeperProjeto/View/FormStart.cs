@@ -19,6 +19,8 @@ namespace MineSweeperProjeto.View
 	{
 		public event DifficultyChangedHandler ChangeDifficultyInGame;
 
+		public event DifficultyChangedHandler ChangeDifficultyInGameComingFromOnline;
+
 		public event NotificationTaskHandler TurnSoundEffectsInGame;
 
 		public event NotificationTaskHandler AskListViewItems;
@@ -26,6 +28,7 @@ namespace MineSweeperProjeto.View
 		public event UsernameExtractionHandler AskUserData;
 
 		public UserControlDifficulty UCDifficulty { get; set; }
+		public UserControlOnlineDifficulty UCOnlineDifficulty { get; set; }
 		public UserControlMainMenu UCMainMenu { get; set; }
 		public UserControlOptions UCOptions { get; set; }
 		public UserControlLeaderBoard UCLeaderBoard { get; set; }
@@ -53,14 +56,29 @@ namespace MineSweeperProjeto.View
 			//gameMode1.ChangeDifficulty += GameMode1_ChangeDifficulty;
 		}
 
-		internal void ShowTop10(List<Top10Resultado> listaTop10)
+		internal void ShowTop10(Dificuldade dificuldade)
 		{
-			int i = 0;
-			for (i = 0; i < 10; i++)
+			int i, rank = 0;
+			UCLeaderBoard.ListViewTop10.Items.Clear();
+			List<Top10Resultado> listaTop10 = Program.M_Status.top10Resultados;
+			for (i = 0; i < listaTop10.Count; i++)
 			{
-				string[] row = { (i + 1).ToString(), listaTop10[i].Nome, listaTop10[i].Tempo, listaTop10[i].Quando };
-				var listViewItem = new ListViewItem(row);
-				UCLeaderBoard.ListViewTop10.Items.Add(listViewItem);
+				if (dificuldade.ToString() != listaTop10[i].dificuldade)
+				{
+					continue;
+				}
+
+				ListViewItem item = new ListViewItem();
+				item.Text = ((rank + 1).ToString());
+				item.SubItems.Add(listaTop10[i].Nome);
+				item.SubItems.Add(listaTop10[i].Tempo);
+				item.SubItems.Add(listaTop10[i].Quando);
+				item.SubItems.Add(listaTop10[i].dificuldade);
+				rank++;
+
+				//row[i] = { (i + 1).ToString(), listaTop10[i].Nome, listaTop10[i].Tempo, listaTop10[i].Quando, listaTop10[i].dificuldade };
+				//var listViewItem = new ListViewItem(row);
+				UCLeaderBoard.ListViewTop10.Items.Add(item);
 			}
 		}
 
@@ -83,9 +101,13 @@ namespace MineSweeperProjeto.View
 			UCDifficulty = new UserControlDifficulty();
 			UCLeaderBoard = new UserControlLeaderBoard();
 			UCSearch = new UserControlSearch();
+			UCOnlineDifficulty = new UserControlOnlineDifficulty();
+
 			UCDifficulty.WarnMainFormDifficultyChoice += UCDifficulty_WarnMainFormDifficultyChoice;
+			UCOnlineDifficulty.WarnMainFormDifficultyChoiceOnline += UCOnlineDifficulty_WarnMainFormDifficultyChoiceOnline;
 			UCOptions.WarnMainFormSoundEffectsChoice += UCOptions_WarnMainFormSoundEffectsChoice;
 			UCLeaderBoard.AskTop10 += UCLeaderBoard_AskTop10;
+			UCLeaderBoard.ShowTop10AccordingtoDifficulty += UCLeaderBoard_ShowTop10AccordingtoDifficulty;
 			UCSearch.AskUserData += UCSearch_AskUserData;
 
 			// Apresenta o Main Menu ao utilizador
@@ -95,21 +117,38 @@ namespace MineSweeperProjeto.View
 			PNLContainer.Controls.Add(UCMainMenu);
 		}
 
+		private void UCOnlineDifficulty_WarnMainFormDifficultyChoiceOnline(Dificuldade _dificuldade)
+		{
+			if (ChangeDifficultyInGameComingFromOnline != null)
+				ChangeDifficultyInGameComingFromOnline(_dificuldade);
+
+			this.Hide();
+			Program.V_MineSweeperGame.ShowDialog();
+			this.Close();
+		}
+
+		private void UCLeaderBoard_ShowTop10AccordingtoDifficulty(Dificuldade dificuldade)
+		{
+			ShowTop10(dificuldade);
+		}
+
 		internal void ShowProfile(User temp)
 		{
-			UCSearch.GroupBoxDados.Controls["LBLNome"].Text += (" " + temp.Username);
-			UCSearch.GroupBoxDados.Controls["LBLEmail"].Text += (" " + temp.Email);
-			UCSearch.GroupBoxDados.Controls["LBLPais"].Text += (" " + temp.Country);
-			UCSearch.GroupBoxDados.Controls["LBLNumeroJogos"].Text += (" " + (temp.WinStats + temp.LoseStats).ToString());
-			UCSearch.GroupBoxDados.Controls["LBLNumeroJogosGanhos"].Text += (" " + temp.WinStats.ToString());
-			UCSearch.GroupBoxDados.Controls["LBLNumeroJogosPerdidos"].Text += (" " + temp.LoseStats.ToString());
-			UCSearch.GroupBoxDados.Controls["LBLBestTimeEasy"].Text += (" " + temp.Username);
-			UCSearch.GroupBoxDados.Controls["LBLBestTimeMedium"].Text += (" " + temp.Username);
+			UCSearch.GroupBoxDados.Controls["LBLNome"].Text = ("Nome Abreviado: " + temp.Username);
+			UCSearch.GroupBoxDados.Controls["LBLEmail"].Text = ("Email: " + temp.Email);
+			UCSearch.GroupBoxDados.Controls["LBLPais"].Text = ("País: " + temp.Country);
+			UCSearch.GroupBoxDados.Controls["LBLNumeroJogos"].Text = ("Número de Jogos: " + (temp.WinStats + temp.LoseStats).ToString());
+			UCSearch.GroupBoxDados.Controls["LBLNumeroJogosGanhos"].Text = ("Ganhos: " + temp.WinStats.ToString());
+			UCSearch.GroupBoxDados.Controls["LBLNumeroJogosPerdidos"].Text = ("Perdidos: " + temp.LoseStats.ToString());
+			UCSearch.GroupBoxDados.Controls["LBLBestTimeEasy"].Text = ("Melhor tempo, Fácil: " + temp.BestTimeEasy);
+			UCSearch.GroupBoxDados.Controls["LBLBestTimeMedium"].Text = ("Melhor tempo, Médio: " + temp.BestTimeEasy);
+			UCSearch.PictureBoxProfilePic.Image = temp.Perfil;
 		}
 
 		public void UpdateLoggedStatus()
 		{
 			UCMainMenu.LabelStatus.Text = "Online";
+			UCMainMenu.ButtonOnline.Text = "MultiPlayer";
 		}
 
 		//  O utilizador pretende retrodecer uma página

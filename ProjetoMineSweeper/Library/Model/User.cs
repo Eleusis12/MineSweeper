@@ -24,6 +24,9 @@ namespace Library.Model
 		//public Image Photo { get; set; }
 		public string Country { get; set; }
 
+		public string BestTimeEasy { get; set; }
+		public string BestTimeMedium { get; set; }
+
 		public User()
 		{
 		}

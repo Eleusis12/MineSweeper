@@ -26,6 +26,7 @@ namespace MineSweeperProjeto.Controller
 		{
 			// Indica a dificuldade escolhida pelo utilizador
 			V_StartForm.ChangeDifficultyInGame += V_GameMode_ChangeDifficulty;
+			V_StartForm.ChangeDifficultyInGameComingFromOnline += V_StartForm_ChangeDifficultyInGameComingFromOnline;
 
 			// O jogador opta por desligar/ ligar audio do jogo
 			V_StartForm.TurnSoundEffectsInGame += V_StartForm_TurnSoundEffectsInGame;

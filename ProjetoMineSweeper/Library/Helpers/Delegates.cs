@@ -23,4 +23,6 @@ namespace Library.Helpers
 	public delegate void UsernameExtractionHandler(string username);
 
 	public delegate void UserExtractionHandler(User temp);
+
+	public delegate void DifficultyExtractionHandler(Dificuldade dificuldade);
 }

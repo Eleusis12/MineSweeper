@@ -26,6 +26,12 @@ namespace MineSweeperProjeto.View
 			set { groupBox1 = value; }
 		}
 
+		public PictureBox PictureBoxProfilePic
+		{
+			get { return PBProfilePic; }
+			set { PBProfilePic = value; }
+		}
+
 		private void TBSearch_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Enter)
@@ -33,6 +39,7 @@ namespace MineSweeperProjeto.View
 				if (groupBox1.Visible == false)
 				{
 					groupBox1.Visible = true;
+					PBProfilePic.Visible = true;
 				}
 
 				if (AskUserData != null)

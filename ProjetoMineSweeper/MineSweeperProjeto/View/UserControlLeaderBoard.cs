@@ -15,6 +15,8 @@ namespace MineSweeperProjeto.View
 	{
 		public event NotificationTaskHandler AskTop10;
 
+		public event DifficultyExtractionHandler ShowTop10AccordingtoDifficulty;
+
 		public ListView ListViewTop10
 		{
 			get { return LVTop10; }
@@ -24,10 +26,21 @@ namespace MineSweeperProjeto.View
 		public UserControlLeaderBoard()
 		{
 			InitializeComponent();
+		}
 
+		private void UserControlLeaderBoard_Load(object sender, EventArgs e)
+		{
 			if (AskTop10 != null)
 			{
 				AskTop10();
+			}
+		}
+
+		private void ShowTop10Difficulty(object sender, EventArgs e)
+		{
+			if (ShowTop10AccordingtoDifficulty != null)
+			{
+				ShowTop10AccordingtoDifficulty((Dificuldade)Enum.Parse(typeof(Dificuldade), (sender as Button).Tag.ToString()));
 			}
 		}
 	}

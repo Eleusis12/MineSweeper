@@ -69,8 +69,9 @@
 			this.TBPassword.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.TBPassword.Location = new System.Drawing.Point(43, 288);
 			this.TBPassword.Name = "TBPassword";
+			this.TBPassword.PasswordChar = '*';
 			this.TBPassword.Size = new System.Drawing.Size(215, 19);
-			this.TBPassword.TabIndex = 2;
+			this.TBPassword.TabIndex = 1;
 			// 
 			// TBUsername
 			// 
@@ -80,7 +81,7 @@
 			this.TBUsername.Location = new System.Drawing.Point(43, 191);
 			this.TBUsername.Name = "TBUsername";
 			this.TBUsername.Size = new System.Drawing.Size(215, 19);
-			this.TBUsername.TabIndex = 3;
+			this.TBUsername.TabIndex = 0;
 			// 
 			// label1
 			// 
@@ -114,7 +115,7 @@
 			this.BTLogin.Location = new System.Drawing.Point(113, 332);
 			this.BTLogin.Name = "BTLogin";
 			this.BTLogin.Size = new System.Drawing.Size(75, 23);
-			this.BTLogin.TabIndex = 5;
+			this.BTLogin.TabIndex = 2;
 			this.BTLogin.Text = "Login";
 			this.BTLogin.UseVisualStyleBackColor = false;
 			this.BTLogin.Click += new System.EventHandler(this.BTLogin_Click);
@@ -143,7 +144,7 @@
 			this.panel1.Location = new System.Drawing.Point(0, 0);
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(300, 139);
-			this.panel1.TabIndex = 0;
+			this.panel1.TabIndex = 5;
 			// 
 			// BTClose
 			// 

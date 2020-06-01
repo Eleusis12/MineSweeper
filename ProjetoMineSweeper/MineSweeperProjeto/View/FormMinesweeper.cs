@@ -172,10 +172,7 @@ namespace MineSweeperProjeto
 
 		public void Reset_MouseClick(object sender, MouseEventArgs e)
 		{
-			if (AskToResetBoard != null)
-			{
-				AskToResetBoard();
-			}
+			AskToResetBoard?.Invoke();
 		}
 
 		public Button GetButton(Point _point)

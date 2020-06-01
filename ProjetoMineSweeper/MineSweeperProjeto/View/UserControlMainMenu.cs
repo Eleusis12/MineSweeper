@@ -21,6 +21,12 @@ namespace MineSweeperProjeto.View
 			set { LBLStatus = value; }
 		}
 
+		public Button ButtonOnline
+		{
+			get { return BTOnline; }
+			set { BTOnline = value; }
+		}
+
 		public UserControlMainMenu()
 		{
 			InitializeComponent();
@@ -61,31 +67,45 @@ namespace MineSweeperProjeto.View
 
 		private void BTOnline_Click(object sender, EventArgs e)
 		{
-			// TODO: SOLUÇÃO TEMPORARIA
-			FormLogin V_Login = new FormLogin();
-			V_Login.ShowDialog();
+			if (Program.M_Status.Logado == true)
+			{
+				if (!Program.V_StartForm.PanelContainer.Controls.ContainsKey("UserControlOnlineDifficulty"))
+				{
+					var UCOnlineDifficultyMode = Program.V_StartForm.UCOnlineDifficulty;
+					UCOnlineDifficultyMode.Dock = DockStyle.Fill;
+					UCOnlineDifficultyMode.Anchor = AnchorStyles.Top;
+					Program.V_StartForm.PanelContainer.Controls.Add(UCOnlineDifficultyMode);
+				}
+				Program.V_StartForm.PanelContainer.Controls["UserControlOnlineDifficulty"].BringToFront();
+				Program.V_StartForm.BackButton.Visible = true;
+				Program.V_StartForm.BackButton.BringToFront();
+			}
+			else
+			{
+				Program.V_Login.ShowDialog();
+			}
 		}
 
 		private void PBLeaderBoard_Click(object sender, EventArgs e)
 		{
-			if (Program.M_Status.Logado == false)
+			//if (Program.M_Status.Logado == false)
+			//{
+			//	MessageBox.Show("Não se encontra ligado ao servidor. Pressione no botão Online para efetuar o Login ao servidor. Use VPN se não se encontra conectado à rede UTAD"
+			//		, "Autenticação não feita", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			//}
+			//else
+			//{
+			if (!Program.V_StartForm.PanelContainer.Controls.ContainsKey("UserControlLeaderBoard"))
 			{
-				MessageBox.Show("Não se encontra ligado ao servidor. Pressione no botão Online para efetuar o Login ao servidor. Use VPN se não se encontra conectado à rede UTAD"
-					, "Autenticação não feita", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				var UCLeaderBoardMode = Program.V_StartForm.UCLeaderBoard;
+				UCLeaderBoardMode.Dock = DockStyle.Fill;
+				UCLeaderBoardMode.Anchor = AnchorStyles.Top;
+				Program.V_StartForm.PanelContainer.Controls.Add(UCLeaderBoardMode);
 			}
-			else
-			{
-				if (!Program.V_StartForm.PanelContainer.Controls.ContainsKey("UserControlLeaderBoard"))
-				{
-					var UCLeaderBoardMode = Program.V_StartForm.UCLeaderBoard;
-					UCLeaderBoardMode.Dock = DockStyle.Fill;
-					UCLeaderBoardMode.Anchor = AnchorStyles.Top;
-					Program.V_StartForm.PanelContainer.Controls.Add(UCLeaderBoardMode);
-				}
-				Program.V_StartForm.PanelContainer.Controls["UserControlLeaderBoard"].BringToFront();
-				Program.V_StartForm.BackButton.Visible = true;
-				Program.V_StartForm.BackButton.BringToFront();
-			}
+			Program.V_StartForm.PanelContainer.Controls["UserControlLeaderBoard"].BringToFront();
+			Program.V_StartForm.BackButton.Visible = true;
+			Program.V_StartForm.BackButton.BringToFront();
+			//}
 		}
 
 		private void PBSearch_Click(object sender, EventArgs e)

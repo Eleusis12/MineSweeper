@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 using static MineSweeperProjeto.Program;
+using Library.ServerEndpoint;
 
 namespace MineSweeperProjeto.Controller
 {
@@ -69,7 +70,8 @@ namespace MineSweeperProjeto.Controller
 
 		public void V_GameMode_ChangeDifficulty(Dificuldade dificuldade)
 		{
-			AlteraDificuldade(dificuldade);
+			Program.M_Grelha.dificuldade = dificuldade;
+			AlteraDificuldade(Program.M_Grelha.dificuldade);
 			V_MineSweeperGame.AtualizaNumeroMinasDisponiveis(M_Grelha.NumMinasTotal);
 		}
 
@@ -351,6 +353,11 @@ namespace MineSweeperProjeto.Controller
 			MessageBox.Show("Muito bem: " + GetTimeString(), "Ganhou!", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			//soundThread.Abort();
 
+			if (M_Status.PlayingWithTheOnlineBoard == true)
+			{
+				Server.RegistarResultado(Program.M_Grelha.dificuldade.ToString(), Program.M_Grelha.timerCounter.ToString(), "true", Program.M_Status.ID);
+				//Server.RegistarResultado(Program.M_Grelha.dificuldade.ToString(), Program.M_Grelha.timerCounter.ToString(), "True", Program.M_Status.ID);
+			}
 			if (V_vencedor.ShowDialog() == DialogResult.OK)
 				// O jogo acaba
 				V_MineSweeperGame.Close();
@@ -371,6 +378,10 @@ namespace MineSweeperProjeto.Controller
 			}//// Criar uma thread que funcione em background para emitir um som, neste caso o som de uma mina a explodir
 
 			// Abre uma messabox que informa o utilizador que perdeu o jogo
+			if (M_Status.PlayingWithTheOnlineBoard == true)
+			{
+				Server.RegistarResultado(Program.M_Grelha.dificuldade.ToString(), Program.M_Grelha.timerCounter.ToString(), "False", Program.M_Status.ID);
+			}
 			MessageBox.Show("BOOOM!", "Perdeu o jogo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 			//soundThread.Abort();
 		}

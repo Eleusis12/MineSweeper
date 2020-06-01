@@ -30,8 +30,8 @@
 		{
 			this.BTFácil = new System.Windows.Forms.Button();
 			this.BTMedio = new System.Windows.Forms.Button();
-			this.BTDificil = new System.Windows.Forms.Button();
 			this.label9 = new System.Windows.Forms.Label();
+			this.button1 = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// BTFácil
@@ -66,22 +66,6 @@
 			this.BTMedio.UseVisualStyleBackColor = false;
 			this.BTMedio.Click += new System.EventHandler(this.BTClick);
 			// 
-			// BTDificil
-			// 
-			this.BTDificil.BackColor = System.Drawing.Color.IndianRed;
-			this.BTDificil.FlatAppearance.BorderSize = 0;
-			this.BTDificil.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.BTDificil.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.BTDificil.ForeColor = System.Drawing.SystemColors.Control;
-			this.BTDificil.Location = new System.Drawing.Point(121, 172);
-			this.BTDificil.Name = "BTDificil";
-			this.BTDificil.Size = new System.Drawing.Size(75, 27);
-			this.BTDificil.TabIndex = 7;
-			this.BTDificil.Tag = "Dificil";
-			this.BTDificil.Text = "Difícil";
-			this.BTDificil.UseVisualStyleBackColor = false;
-			this.BTDificil.Click += new System.EventHandler(this.BTClick);
-			// 
 			// label9
 			// 
 			this.label9.AutoSize = true;
@@ -89,17 +73,33 @@
 			this.label9.ForeColor = System.Drawing.SystemColors.ControlLight;
 			this.label9.Location = new System.Drawing.Point(33, 34);
 			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(129, 25);
+			this.label9.Size = new System.Drawing.Size(135, 25);
 			this.label9.TabIndex = 12;
-			this.label9.Text = "Dificuldade";
+			this.label9.Text = "Dificuldade ";
+			// 
+			// button1
+			// 
+			this.button1.BackColor = System.Drawing.Color.IndianRed;
+			this.button1.FlatAppearance.BorderSize = 0;
+			this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.button1.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button1.ForeColor = System.Drawing.SystemColors.Control;
+			this.button1.Location = new System.Drawing.Point(121, 172);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(75, 27);
+			this.button1.TabIndex = 13;
+			this.button1.Tag = "Dificil";
+			this.button1.Text = "Difícil";
+			this.button1.UseVisualStyleBackColor = false;
+			this.button1.Click += new System.EventHandler(this.BTClick);
 			// 
 			// UserControlDifficulty
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.Transparent;
+			this.Controls.Add(this.button1);
 			this.Controls.Add(this.label9);
-			this.Controls.Add(this.BTDificil);
 			this.Controls.Add(this.BTMedio);
 			this.Controls.Add(this.BTFácil);
 			this.Name = "UserControlDifficulty";
@@ -113,7 +113,7 @@
 
 		private System.Windows.Forms.Button BTFácil;
 		private System.Windows.Forms.Button BTMedio;
-		private System.Windows.Forms.Button BTDificil;
 		private System.Windows.Forms.Label label9;
+		private System.Windows.Forms.Button button1;
 	}
 }

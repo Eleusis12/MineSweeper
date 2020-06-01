@@ -36,15 +36,16 @@ namespace Library.ServerEndpoint
 			try
 			{
 				XDocument xmlPedido = XDocument.Parse("<registo><nomeabreviado></nomeabreviado><username></username><password></password><email></email><fotografia></fotografia><pais></pais></registo>");
-				xmlPedido.Element("registo").Element("nomeabreviado").Value = novoUtilizador.Firstname + novoUtilizador.LastName;
+				xmlPedido.Element("registo").Element("nomeabreviado").Value = novoUtilizador.Firstname + " " + novoUtilizador.LastName;
 				xmlPedido.Element("registo").Element("username").Value = novoUtilizador.Username;
 				xmlPedido.Element("registo").Element("password").Value = novoUtilizador.Password;
 				xmlPedido.Element("registo").Element("email").Value = novoUtilizador.Email;
 				//xmlPedido.Element("registo").Element("fotografia").Value = novoUtilizador.Perfil;
-				xmlPedido.Element("registo").Element("fotografia").Value = "teste";
+
+				xmlPedido.Element("registo").Element("fotografia").Value = ConvertImageToBase64(novoUtilizador.Perfil);
 				xmlPedido.Element("registo").Element("pais").Value = novoUtilizador.Country;
 
-				XDocument xmlResposta = PostService(xmlPedido, EndPoint.PostRegisto, null);
+				XDocument xmlResposta = PostService(xmlPedido, EndPoint.PostRegisto, new string[] { });
 				// ...interpretar o resultado de acordo com a lógica da aplicação (exemplificativo)
 				if (xmlResposta.Element("resultado").Element("status").Value == "ERRO")
 				{
@@ -68,6 +69,16 @@ namespace Library.ServerEndpoint
 			}
 		}
 
+		public static string ConvertImageToBase64(System.Drawing.Image file)
+		{
+			using (MemoryStream memoryStream = new MemoryStream())
+			{
+				file.Save(memoryStream, file.RawFormat);
+				byte[] imageBytes = memoryStream.ToArray();
+				return Convert.ToBase64String(imageBytes);
+			}
+		}
+
 		public static bool Login(string username, string password, out string id)
 		{
 			bool Logado = false;
@@ -80,7 +91,7 @@ namespace Library.ServerEndpoint
 				xmlPedido.Element("credenciais").Element("username").Value = username; // colocar aqui o username do utilizador
 				xmlPedido.Element("credenciais").Element("password").Value = password; // colocar aqui a palavra passe do utilizador
 
-				XDocument xmlResposta = PostService(xmlPedido, EndPoint.PostLogin, null);
+				XDocument xmlResposta = PostService(xmlPedido, EndPoint.PostLogin, new string[] { });
 				// ...interpretar o resultado de acordo com a lógica da aplicação (exemplificativo)
 				if (xmlResposta.Element("resultado").Element("status").Value == "ERRO")
 				{
@@ -98,7 +109,7 @@ namespace Library.ServerEndpoint
 				{
 					// Autenticação efetuada com sucesso
 					Logado = true;
-					id = xmlResposta.Element("resultado").Element("objeto").Element("id").Value;
+					id = xmlResposta.Element("resultado").Element("objeto").Element("ID").Value;
 				}
 			}
 			catch (Exception ex)
@@ -108,7 +119,7 @@ namespace Library.ServerEndpoint
 			return Logado;
 		}
 
-		public static Array NovoJogo(string nivel, string id)
+		public static List<Point> NovoJogo(string nivel, string id)
 		{
 			try
 			{
@@ -127,31 +138,50 @@ namespace Library.ServerEndpoint
 				}
 				else
 				{
-					string[][] PosicoesFacil = new string[8][];
-					string[][] PosicoesMedio = new string[16][];
-					IEnumerable<XElement> Nodes;
-					if ((Nodes = xmlResposta.Descendants("campo").Where(e => ((string)e.Attribute("nivel")) == "facil")) != null)
+					//string[][] PosicoesFacil = new string[8][];
+					//string[][] PosicoesMedio = new string[16][];
+					//IEnumerable<XElement> Nodes;
+					//if ((Nodes = xmlResposta.Descendants("campo").Where(e => ((string)e.Attribute("nivel")) == "facil")) != null)
+					//{
+					//	foreach (var posicao in Nodes)
+					//	{
+					//		PosicoesFacil[Convert.ToInt32(posicao.Element("posicao").Attribute("linha").Value)][Convert.ToInt32(posicao.Element("posicao").Attribute("coluna").Value)] = "mina";
+					//	}
+					//	return PosicoesFacil;
+					//}
+					//else if ((Nodes = xmlResposta.Descendants("campo").Where(e => ((string)e.Attribute("nivel")) == "medio")) != null)
+					//{
+					//	foreach (var posicao in Nodes)
+					//	{
+					//		string[][] Posicoes = new string[16][];
+					//		PosicoesMedio[Convert.ToInt32(posicao.Element("posicao").Attribute("linha").Value)][Convert.ToInt32(posicao.Element("posicao").Attribute("coluna").Value)] = "mina";
+					//	}
+					//	return PosicoesMedio;
+					//}
+					//else
+					//{
+					//	return null;
+					//}
+					List<Point> indexMinas = new List<Point>();
+
+					IEnumerable<XElement> minas = xmlResposta
+						.Descendants("campo")
+						.Where(g => g.Attribute("nivel").Value == nivel)
+						.Elements("posicao")
+						.Where(s => s.Value == "-1");  // or Attribute("ID") == "A"
+
+					foreach (XElement element in minas)
 					{
-						foreach (var posicao in Nodes)
-						{
-							PosicoesFacil[Convert.ToInt32(posicao.Element("posicao").Attribute("linha").Value)][Convert.ToInt32(posicao.Element("posicao").Attribute("coluna").Value)] = "mina";
-						}
-						return PosicoesFacil;
-					}
-					else if ((Nodes = xmlResposta.Descendants("campo").Where(e => ((string)e.Attribute("nivel")) == "medio")) != null)
-					{
-						foreach (var posicao in Nodes)
-						{
-							string[][] Posicoes = new string[16][];
-							PosicoesMedio[Convert.ToInt32(posicao.Element("posicao").Attribute("linha").Value)][Convert.ToInt32(posicao.Element("posicao").Attribute("coluna").Value)] = "mina";
-						}
-						return PosicoesMedio;
-					}
-					else
-					{
-						return null;
+						int x = 0;
+						int y = 0;
+						x = Convert.ToInt32(element.Attribute("linha").Value);
+						y = Convert.ToInt32(element.Attribute("coluna").Value);
+
+						Point ponto = new Point(x, y);
+						indexMinas.Add(ponto);
 					}
 
+					return indexMinas;
 					//for()
 					//	xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("fotografia").Value
 
@@ -182,7 +212,7 @@ namespace Library.ServerEndpoint
 				xmlPedido.Element("resultado_jogo").Element("tempo").Value = tempo;
 				xmlPedido.Element("resultado_jogo").Element("vitoria").Value = vitoria;
 
-				XDocument xmlResposta = PostService(xmlPedido, EndPoint.PostRegisto, new string[] { id });
+				XDocument xmlResposta = PostService(xmlPedido, EndPoint.PostRegistoResultado, new string[] { id });
 				// ...interpretar o resultado de acordo com a lógica da aplicação (exemplificativo)
 				if (xmlResposta.Element("resultado").Element("status").Value == "ERRO")
 				{
@@ -209,6 +239,8 @@ namespace Library.ServerEndpoint
 
 		public static string ConsultaPerfil(string username, out User consultado)
 		{
+			consultado = new User();
+
 			try
 			{
 				XDocument xmlResposta = GetService(EndPoint.GetPerfil, new string[] { username });
@@ -229,36 +261,45 @@ namespace Library.ServerEndpoint
 				else
 				{
 					string nomeAbreviado = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("nomeabreviado").Value;
-					string email = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("email").Value;
-					string pais = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("pais").Value;
-					string jogosGanhos = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("jogos").Element("ganhos").Value;
-					string jogosPerdidos = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("jogos").Element("perdidos").Value;
-
-					string bestTimeEasy = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("jogos").Element("facil").Value;
-					string bestTimeMedium = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("jogos").Element("medio").Value;
-
-					string base64Imagem = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("fotografia").Value;
-					string base64 = base64Imagem.Split(',')[1]; // retira a parte da string correspondente aos bytes da imagem..
-					byte[] bytes = Convert.FromBase64String(base64); //...converte para array de bytes...
-					System.Drawing.Image image = System.Drawing.Image.FromStream(new MemoryStream(bytes));
-
-					consultado = null;
 					consultado.Username = nomeAbreviado;
-					consultado.Email = (email);
-					consultado.Country = pais;
-					consultado.WinStats = Convert.ToInt32(jogosGanhos);
-					consultado.LoseStats = Convert.ToInt32(jogosPerdidos);
-					consultado.Perfil = image;
 
-					//... e, por fim, para Image 40.
-					// pode mostrar a imagem num qualquer componente...como por exemplo:
-					//pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
-					//pictureBox1.BackgroundImage = image;
+					string email = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("email").Value;
+					consultado.Email = (email);
+
+					string pais = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("pais").Value;
+					consultado.Country = pais;
+
+					string jogosGanhos = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("jogos").Element("ganhos").Value;
+					consultado.WinStats = Convert.ToInt32(jogosGanhos);
+
+					string jogosPerdidos = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("jogos").Element("perdidos").Value;
+					consultado.LoseStats = Convert.ToInt32(jogosPerdidos);
+
+					//string base64Imagem = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("fotografia").Value;
+					//string base64 = base64Imagem.Split(',')[1]; // retira a parte da string correspondente aos bytes da imagem..
+					//byte[] bytes = Convert.FromBase64String(base64); //...converte para array de bytes...
+					//System.Drawing.Image image = System.Drawing.Image.FromStream(new MemoryStream(bytes));
+
+					//consultado.Perfil = image;
+
+					// TODO: solucao temporaria
+					try
+					{
+						string bestTimeEasy = (xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("tempos").Element("facil").Value);
+					}
+					catch (NullReferenceException ex)
+					{
+						return null;
+					}
+					finally
+					{
+						string bestTimeMedium = (xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("tempos").Element("Medio").Value);
+					}
 				}
 			}
 			catch (Exception ex)
 			{
-				throw ex;
+				return null;
 			}
 
 			return "OK";
@@ -268,7 +309,7 @@ namespace Library.ServerEndpoint
 		{
 			try
 			{
-				XDocument xmlResposta = GetService(EndPoint.GetTop10, null);
+				XDocument xmlResposta = GetService(EndPoint.GetTop10, new string[] { });
 
 				if (xmlResposta.Element("resultado").Element("status").Value == "ERRO")
 				{
@@ -283,12 +324,11 @@ namespace Library.ServerEndpoint
 				}
 				else
 				{
-					IEnumerable<XElement> NodesEasyMode = xmlResposta.Descendants("nivel").Where(e => ((string)e.Attribute("dificuldade")) == "facil");
-					IEnumerable<XElement> NodesMediumMode = xmlResposta.Descendants("nivel").Where(e => ((string)e.Attribute("dificuldade")) == "medio");
+					//IEnumerable<XElement> NodesEasyMode = xmlResposta.Descendants("nivel").Where(e => ((string)e.Attribute("dificuldade")) == "facil");
+					//IEnumerable<XElement> NodesMediumMode = xmlResposta.Descendants("nivel").Where(e => ((string)e.Attribute("dificuldade")) == "medio");
 
 					List<Top10Resultado> TOP10 = new List<Top10Resultado>();
-					AddToList(NodesEasyMode, TOP10, Dificuldade.Facil);
-					AddToList(NodesMediumMode, TOP10, Dificuldade.Medio);
+					AddToList(TOP10, xmlResposta);
 
 					return TOP10;
 
@@ -316,19 +356,23 @@ namespace Library.ServerEndpoint
 			}
 		}
 
-		private static void AddToList(IEnumerable<XElement> Nodes, List<Top10Resultado> TOP10, Dificuldade dificuldade)
+		private static void AddToList(List<Top10Resultado> TOP10, XDocument xmlResposta)
 		{
-			foreach (var Jogador in Nodes)
+			foreach (XElement element in xmlResposta.Descendants("nivel"))
 			{
-				Top10Resultado temp = new Top10Resultado()
-				{
-					Nome = Jogador.Element("jogador").Attribute("username").Value,
-					Tempo = Jogador.Element("jogador").Attribute("tempo").Value,
-					Quando = Jogador.Element("jogador").Attribute("quando").Value,
-					dificuldade = dificuldade.ToString(),
-				};
+				string dificuldade = element.Attribute("dificuldade").Value.ToString();
 
-				TOP10.Add(temp);
+				foreach (XElement element1 in element.Descendants("jogador"))
+				{
+					Top10Resultado temp = new Top10Resultado();
+
+					temp.Nome = element1.Attribute("username").Value;
+					temp.Tempo = element1.Attribute("tempo").Value;
+					temp.Quando = element1.Attribute("quando").Value;
+					temp.dificuldade = dificuldade.ToString();
+
+					TOP10.Add(temp);
+				}
 			}
 		}
 
