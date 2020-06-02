@@ -29,6 +29,14 @@ namespace MineSweeperProjeto.Controller
 			{
 				V_Register.ResultOfRegistration(resposta);
 			}
+			else if (resposta.ToLower() == "Erro".ToLower())
+			{
+				V_Register.ResultOfRegistration(resposta);
+			}
+			else
+			{
+				V_Register.ResultOfRegistration("Erro");
+			}
 		}
 
 		public void V_StartForm_AskUserData(string username)

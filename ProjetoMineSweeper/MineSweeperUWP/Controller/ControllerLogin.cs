@@ -21,7 +21,7 @@ namespace MineSweeperUWP.Controller
 
 		public void V_Login_SendCredentials(string username, string password)
 		{
-			string id = null;
+			string id;
 			bool resposta = Server.Login(username, password, out id);
 
 			try
@@ -40,9 +40,9 @@ namespace MineSweeperUWP.Controller
 			}
 		}
 
-		private static async Task ShowErrorDialog()
+		private static async Task ShowErrorDialog(string message)
 		{
-			var dlg = new MessageDialog("Não foi possível estabelecer a autenticação");
+			var dlg = new MessageDialog(message);
 
 			await dlg.ShowAsync();
 		}

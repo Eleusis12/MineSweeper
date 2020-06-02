@@ -1,5 +1,6 @@
 ﻿using Library.Helpers;
 using Library.Model;
+using Library.ServerEndpoint;
 using MineSweeperUWP.Helpers;
 using System;
 using System.Collections.Generic;
@@ -44,7 +45,14 @@ namespace MineSweeperUWP.Controller
 
 			// Jogador pede um reset ao jogo
 			Program.V_MineSweeperGame.AskToResetBoard += V_MineSweeperGame_AskToResetBoard;
+
+			Program.V_MineSweeperGame.UpdateTimer += V_MineSweeperGame_UpdateTimer;
 			SetupModel();
+		}
+
+		private void V_MineSweeperGame_UpdateTimer(int tempo)
+		{
+			Program.M_Grelha.timerCounter = tempo;
 		}
 
 		private void V_MineSweeperGame_RightButtonPressed(object sender, Windows.UI.Xaml.Input.RightTappedRoutedEventArgs e)
@@ -493,6 +501,11 @@ namespace MineSweeperUWP.Controller
 			//if (V_vencedor.ShowDialog() == DialogResult.OK)
 			//	// O jogo acaba
 			//	Program.V_MineSweeperGame.Close();
+			if (Program.M_Status.PlayingWithTheOnlineBoard == true)
+			{
+				Server.RegistarResultado(Program.M_Grelha.dificuldade.ToString(), Program.M_Grelha.timerCounter.ToString(), "true", Program.M_Status.ID);
+				//Server.RegistarResultado(Program.M_Grelha.dificuldade.ToString(), Program.M_Grelha.timerCounter.ToString(), "True", Program.M_Status.ID);
+			}
 
 			var dlg = new ContentDialog2();
 			var result = await dlg.ShowAsync();
@@ -520,6 +533,11 @@ namespace MineSweeperUWP.Controller
 			//// Abre uma messabox que informa o utilizador que perdeu o jogo
 			//MessageBox.Show("BOOOM!", "Perdeu o jogo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 			////soundThread.Abort();
+
+			if (Program.M_Status.PlayingWithTheOnlineBoard == true)
+			{
+				Server.RegistarResultado(Program.M_Grelha.dificuldade.ToString(), Program.M_Grelha.timerCounter.ToString(), "False", Program.M_Status.ID);
+			}
 
 			var dlg = new MessageDialog("Perdeu. Tente Novamente");
 

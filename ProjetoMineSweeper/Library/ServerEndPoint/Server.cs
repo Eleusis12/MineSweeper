@@ -65,7 +65,7 @@ namespace Library.ServerEndpoint
 			}
 			catch (Exception ex)
 			{
-				throw ex;
+				return null;
 			}
 		}
 

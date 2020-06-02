@@ -10,23 +10,26 @@ namespace MineSweeperUWP.Controller
 {
 	public class ControllerLeaderBoard
 	{
+		public App Program { get; }
+
 		public ControllerLeaderBoard()
 		{
 			Program = App.Current as App;
 
-			Program.V_LeaderBoard.AskListViewItems += V_LeaderBoard_AskListViewItems;
+			V_LeaderBoard_AskListViewItems();
+			Program.V_LeaderBoard.PressEasyButton();
 		}
 
 		private void V_LeaderBoard_AskListViewItems()
 		{
 			List<Top10Resultado> listaTop10 = new List<Top10Resultado>();
-			if (Program.M_Status.Logado == true)
+
+			listaTop10 = Server.ConsultaTop10();
+			if (listaTop10 != null)
 			{
-				listaTop10 = Server.ConsultaTop10();
-				Program.V_LeaderBoard.ShowTop10(listaTop10);
+				Program.M_Status.top10Resultados = listaTop10;
+				Program.V_LeaderBoard.ShowTop10AccordingtoDifficulty(Dificuldade.Facil);
 			}
 		}
-
-		public App Program { get; }
 	}
 }

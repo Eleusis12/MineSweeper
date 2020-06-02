@@ -1,5 +1,6 @@
 ﻿using Library.Helpers;
 using Library.Model;
+using Library.ServerEndpoint;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -74,15 +75,22 @@ namespace MineSweeperUWP.Controller
 		public void LoadTileGrid()
 		{
 			// Gerar Minas
-			List<Point> indexMinas = new List<Point>();
-			Point minaPonto;
-			for (int i = 0; i < Program.M_Grelha.NumMinasTotal; i++)
+			if (Program.M_Status.PlayingWithTheOnlineBoard == true)
 			{
-				do
+				Program.M_Grelha.indexMinas = Server.NovoJogo(Program.M_Grelha.dificuldade.ToString(), Program.M_Status.ID);
+			}
+			else
+			{
+				Program.M_Grelha.indexMinas = new List<Point>();
+				Point minaPonto;
+				for (int i = 0; i < Program.M_Grelha.NumMinasTotal; i++)
 				{
-					minaPonto = new Point(Program.M_Grelha.NumeroAleatorio.Next(Program.M_Grelha.Tamanho.Height), Program.M_Grelha.NumeroAleatorio.Next(Program.M_Grelha.Tamanho.Width));
-				} while (indexMinas.Contains(minaPonto) == true);
-				indexMinas.Add(minaPonto);
+					do
+					{
+						minaPonto = new Point(Program.M_Grelha.NumeroAleatorio.Next(Program.M_Grelha.Tamanho.Height), Program.M_Grelha.NumeroAleatorio.Next(Program.M_Grelha.Tamanho.Width));
+					} while (Program.M_Grelha.indexMinas.Contains(minaPonto) == true);
+					Program.M_Grelha.indexMinas.Add(minaPonto);
+				}
 			}
 			int index = 0;
 			for (int i = 0; i < Program.M_Grelha.Tamanho.Height; i++)
@@ -94,7 +102,7 @@ namespace MineSweeperUWP.Controller
 					Point location = new Point(i, j);
 
 					// Se a mina foi gerada para este lugar
-					if (indexMinas.Contains(new Point(i, j)))
+					if (Program.M_Grelha.indexMinas.Contains(new Point(i, j)))
 					{
 						// Adiciona um elemento com mina
 						Tile elemento = new Tile(location);

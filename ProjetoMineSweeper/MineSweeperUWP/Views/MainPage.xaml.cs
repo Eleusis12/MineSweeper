@@ -37,10 +37,12 @@ namespace MineSweeperUWP
 			if (Program.M_Status.Logado == true)
 			{
 				LBLStatus.Text = "Online";
+				BTOnline.Content = "MultiPlayer";
 			}
 			else
 			{
 				LBLStatus.Text = "Offline";
+				BTOnline.Content = "Online";
 			}
 		}
 
@@ -55,10 +57,20 @@ namespace MineSweeperUWP
 
 		private void BTOnline_Click(object sender, RoutedEventArgs e)
 		{
-			this.Frame.Navigate(typeof(Login));
-			Frame rootFrame = GetCurrentWindow();
-			Program.V_LoginPage = rootFrame.Content as Login;
-			Program.C_LoginPage = new ControllerLogin();
+			if (Program.M_Status.Logado == true)
+			{
+				Program.M_Status.PlayingWithTheOnlineBoard = true;
+				this.Frame.Navigate(typeof(DificuldadePage));
+				Frame rootFrame = GetCurrentWindow();
+				Program.V_DifficultyForm = rootFrame.Content as DificuldadePage;
+			}
+			else
+			{
+				this.Frame.Navigate(typeof(Login));
+				Frame rootFrame = GetCurrentWindow();
+				Program.V_LoginPage = rootFrame.Content as Login;
+				Program.C_LoginPage = new ControllerLogin();
+			}
 		}
 
 		private void BTOptions_Click(object sender, RoutedEventArgs e)
@@ -69,25 +81,12 @@ namespace MineSweeperUWP
 			Program.C_OptionsForm = new ControllerOptions();
 		}
 
-		private async void BTLeaderBoard_Click(object sender, RoutedEventArgs e)
+		private void BTLeaderBoard_Click(object sender, RoutedEventArgs e)
 		{
-			if (Program.M_Status.Logado == false)
-			{
-				await ShowErrorDialog();
-			}
-
 			this.Frame.Navigate(typeof(LeaderBoardPage));
 			Frame rootFrame = GetCurrentWindow();
 			Program.V_LeaderBoard = rootFrame.Content as LeaderBoardPage;
 			Program.C_LeaderBoard = new ControllerLeaderBoard();
-		}
-
-		private static async Task ShowErrorDialog()
-		{
-			var dlg = new MessageDialog("Não se encontra ligado ao servidor. Pressione no botão Online para efetuar o Login ao servidor. Use VPN se não se encontra conectado à rede UTAD"
-								, "Autenticação não feita");
-
-			await dlg.ShowAsync();
 		}
 
 		private void BTExit_Click(object sender, RoutedEventArgs e)

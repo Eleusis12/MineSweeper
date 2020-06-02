@@ -26,6 +26,7 @@
             <!--<StackPanel>-->
             <Button x:Name="BTReset" Content="Novo Jogo" Foreground="#FFF0F0F0" Background="IndianRed" FontFamily="Century Gothic" FontWeight="Bold" Width="122" Margin="55,51,0,0" VerticalAlignment="Top" RenderTransformOrigin="5.906,5.29" Height="35" Click="Reset_MouseClick" />
             <Grid   Background="Gainsboro" Name="innergrid" Height="866" Width="1156" Margin="-122,101,122,36">
+
                 <!--<Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -44,6 +45,7 @@
                 </StackPanel>
 
                 <Image x:Name="PBSoldado" Height="100" Source="/Assets/Another Assets/MineSweeperSoldier.png" />
+                <TextBlock Margin="0,200,0,0" x:Name="LBLTitle"  Text="MineSweeper, 2020" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Century Gothic" FontSize="17" />
 
                 <StackPanel.Background>
                     <AcrylicBrush TintColor="#CCE81A1A" />

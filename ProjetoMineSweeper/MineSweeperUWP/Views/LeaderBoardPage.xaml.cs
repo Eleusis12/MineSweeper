@@ -28,21 +28,19 @@ namespace MineSweeperUWP.View
 	/// </summary>
 	public sealed partial class LeaderBoardPage : Page
 	{
-		public event NotificationTaskHandler AskListViewItems;
+		public App Program { get; }
 
 		public LeaderBoardPage()
 		{
-			this.InitializeComponent();
+			Program = App.Current as App;
 
-			if (AskListViewItems != null)
-			{
-				AskListViewItems();
-			}
+			this.InitializeComponent();
 		}
 
-		internal void ShowTop10(List<Top10Resultado> listaTop10)
+		internal void ShowTop10AccordingtoDifficulty(Dificuldade dificuldade)
 		{
-			IEnumerable<Top10Resultado> data = listaTop10;
+			List<Top10Resultado> listaTop10 = Program.M_Status.top10Resultados;
+			IEnumerable<Top10Resultado> data = listaTop10.Where(e => (e.dificuldade == dificuldade.ToString()));
 			DataTable table = new DataTable();
 			using (var reader = ObjectReader.Create(data))
 			{
@@ -73,10 +71,6 @@ namespace MineSweeperUWP.View
 			grid.ItemsSource = collection;
 		}
 
-		public class DataGridElements
-		{
-		}
-
 		private void Back_Button(object sender, RoutedEventArgs e)
 		{
 			On_BackRequested();
@@ -90,6 +84,16 @@ namespace MineSweeperUWP.View
 				return true;
 			}
 			return false;
+		}
+
+		private void ShowTop10Difficulty(object sender, RoutedEventArgs e)
+		{
+			ShowTop10AccordingtoDifficulty((Dificuldade)Enum.Parse(typeof(Dificuldade), (sender as Button).Tag.ToString()));
+		}
+
+		internal void PressEasyButton()
+		{
+			ShowTop10Difficulty(BTFacil, null);
 		}
 	}
 }

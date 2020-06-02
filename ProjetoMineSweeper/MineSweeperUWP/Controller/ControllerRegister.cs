@@ -25,6 +25,14 @@ namespace MineSweeperUWP.Controller
 			{
 				Program.V_RegisterForm.ResultOfRegistration(resposta);
 			}
+			else if (resposta.ToLower() == "Erro".ToLower())
+			{
+				Program.V_RegisterForm.ResultOfRegistration(resposta);
+			}
+			else
+			{
+				Program.V_RegisterForm.ResultOfRegistration("Erro");
+			}
 		}
 	}
 }

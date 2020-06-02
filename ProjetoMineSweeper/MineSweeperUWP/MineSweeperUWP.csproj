@@ -128,7 +128,6 @@
     <Compile Include="Controller\ControllerMineSweeperSaveResult.cs" />
     <Compile Include="Controller\ControllerOptions.cs" />
     <Compile Include="Controller\ControllerRegister.cs" />
-    <Compile Include="Controller\ControllerVencedor.cs" />
     <Compile Include="Helpers\ContentDialog2.xaml.cs">
       <DependentUpon>ContentDialog2.xaml</DependentUpon>
     </Compile>

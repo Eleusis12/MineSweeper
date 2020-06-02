@@ -55,7 +55,6 @@ namespace MineSweeperUWP
 		public ControllerOptions C_OptionsForm { get; set; }
 		public ControllerRegister C_RegisterForm { get; set; }
 		public ControllerLogin C_LoginPage { get; set; }
-		public ControllerVencedor C_Vencedor { get; set; }
 
 		// Controllers
 

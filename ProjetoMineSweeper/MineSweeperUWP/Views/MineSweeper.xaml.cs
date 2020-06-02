@@ -39,6 +39,8 @@ namespace MineSweeperUWP.View
 
 		public event RightTappedEventHandler RightButtonPressed;
 
+		public event TimeExtractionHandler UpdateTimer;
+
 		private BitmapImage Bomba;
 		private BitmapImage Bandeira;
 
@@ -57,7 +59,6 @@ namespace MineSweeperUWP.View
 		private DispatcherTimer dispatcherTimer;
 		private DateTimeOffset startTime;
 		private DateTimeOffset lastTime;
-		private DateTimeOffset stopTime;
 		private int timesTicked = 1;
 
 		#endregion AtributosParaOTimer
@@ -127,22 +128,18 @@ namespace MineSweeperUWP.View
 
 		private void GenerateGrid()
 		{
-			ColumnDefinition coluna = null;
-			RowDefinition linha = null;
-
 			try
 			{
 				for (int i = 0; i < Tamanho.Width; i++)
 				{
-					coluna = new ColumnDefinition();
+					ColumnDefinition coluna = new ColumnDefinition();
 
 					innergrid.ColumnDefinitions.Add(coluna);
 				}
 
 				for (int i = 0; i < Tamanho.Height; i++)
 				{
-					linha = new RowDefinition();
-
+					RowDefinition linha = new RowDefinition();
 					innergrid.RowDefinitions.Add(linha);
 				}
 			}
@@ -249,7 +246,7 @@ namespace MineSweeperUWP.View
 
 				case "fechado":
 					botaoAtual.Content = string.Empty;
-					botaoAtual.Background = brushes.darkSlateGray;
+					botaoAtual.Background = brushes.LightGray;
 					break;
 			}
 		}
@@ -390,10 +387,14 @@ namespace MineSweeperUWP.View
 			timesTicked++;
 		}
 
-		public void AtualizaTempo(string _tempo)
+		public void AtualizaTempo(string tempo)
 		{
 			// Atualiza o Temporizador
-			LBLTimer.Text = "Tempo: " + _tempo;
+			LBLTimer.Text = "Tempo: " + tempo;
+			if (UpdateTimer != null)
+			{
+				UpdateTimer(Convert.ToInt32(tempo));
+			}
 		}
 
 		public void AtualizaNumeroMinasDisponiveis(int _num)
@@ -441,5 +442,7 @@ namespace MineSweeperUWP.View
 		public SolidColorBrush green = new SolidColorBrush(Colors.Green);
 		public SolidColorBrush gray = new SolidColorBrush(Colors.Gray);
 		public SolidColorBrush blue = new SolidColorBrush(Colors.Blue);
+		public SolidColorBrush LightCoral = new SolidColorBrush(Colors.LightCoral);
+		public SolidColorBrush LightGray = new SolidColorBrush(Colors.LightGray);
 	}
 }
