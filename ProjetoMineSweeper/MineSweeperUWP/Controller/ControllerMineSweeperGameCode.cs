@@ -1,6 +1,7 @@
 ﻿using Library.Helpers;
 using Library.Model;
 using Library.ServerEndpoint;
+using MineSweeperProjeto.Helpers;
 using MineSweeperUWP.Helpers;
 using System;
 using System.Collections.Generic;
@@ -55,7 +56,7 @@ namespace MineSweeperUWP.Controller
 			Program.M_Grelha.timerCounter = tempo;
 		}
 
-		private void V_MineSweeperGame_RightButtonPressed(object sender, Windows.UI.Xaml.Input.RightTappedRoutedEventArgs e)
+		private async void V_MineSweeperGame_RightButtonPressed(object sender, Windows.UI.Xaml.Input.RightTappedRoutedEventArgs e)
 		{
 			Button botaoAtual = (sender as Button);
 			GetCoordinates(botaoAtual, out int x, out int y);
@@ -65,13 +66,12 @@ namespace MineSweeperUWP.Controller
 
 			if (currentTile.Aberto != true)
 			{
-				if (Program.M_Grelha.SoundOnOrOFF == true)
+				if (Program.M_Options.SoundOnOrOFF == true)
 				{
-					//Thread soundThread = new Thread(Sound.PlayPutFlag)
-					//{
-					//	IsBackground = true
-					//};
-					//soundThread.Start();
+					if (Program.M_Grelha.SoundOnOrOFF == true)
+					{
+						await App.SoundPlayer.Play(SoundEfxEnum.FLAG);
+					}
 				}
 
 				if (currentTile.Flagged == true)
@@ -124,17 +124,12 @@ namespace MineSweeperUWP.Controller
 			}
 			else if (currentTile.Vazio == false && currentTile.Aberto == false)
 			{
-				// TODO: Arranjar maneira de por isto mais bonito
 				SwitchBackground(botaoAtual, currentTile);
 
 				currentTile.Aberto = true;
-				if (Program.M_Grelha.SoundOnOrOFF == true)
+				if (Program.M_Options.SoundOnOrOFF == true)
 				{
-					////Thread soundThread = new Thread(Sound.PlayOpenTile)
-					//{
-					//	IsBackground = true
-					////};
-					//soundThread.Start();
+					await App.SoundPlayer.Play(SoundEfxEnum.CLICK);
 				}
 
 				// Se a condição for verdadeira a condição acaba
@@ -161,7 +156,6 @@ namespace MineSweeperUWP.Controller
 
 				if (currentTile.Vazio == false && currentTile.TemMina == false)
 				{
-					// TODO: Arranjar maneira de por isto mais bonito
 					SwitchBackground(Botao, currentTile);
 				}
 				else if (currentTile.TemMina == true)
@@ -228,7 +222,6 @@ namespace MineSweeperUWP.Controller
 		//		}
 		//		else if (currentTile.Vazio == false && currentTile.Aberto == false)
 		//		{
-		//			// TODO: Arranjar maneira de por isto mais bonito
 		//			SwitchBackground(botaoAtual, currentTile);
 
 		//			currentTile.Aberto = true;
@@ -487,12 +480,10 @@ namespace MineSweeperUWP.Controller
 		public async void GanhouJogo()
 		{
 			//Temporizador.Stop();
-			//if (Program.M_Grelha.SoundOnOrOFF == true)
-			//{
-			//	Thread soundThread = new Thread(Sound.PlayWinning);
-			//	soundThread.IsBackground = true;
-			//	soundThread.Start();
-			//}
+			if (Program.M_Grelha.SoundOnOrOFF == true)
+			{
+				await App.SoundPlayer.Play(SoundEfxEnum.GAMEWIN);
+			}
 
 			//// Abre uma messabox que informa o utilizador que ganhou o jogo
 			//MessageBox.Show("Muito bem: " + GetTimeString(), "Ganhou!", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -520,14 +511,11 @@ namespace MineSweeperUWP.Controller
 		/// </summary>
 		public async void BombaFimJogo()
 		{
-			//{
-			//	if (Program.M_Grelha.SoundOnOrOFF == true)
-			//	{
-			//		Thread soundThread = new Thread(Sound.PlayGameOver)
-			//		{
-			//			IsBackground = true
-			//		};
-			//		soundThread.Start();
+			if (Program.M_Grelha.SoundOnOrOFF == true)
+			{
+				await App.SoundPlayer.Play(SoundEfxEnum.GAMEOVER);
+			}
+
 			//// Criar uma thread que funcione em background para emitir um som, neste caso o som de uma mina a explodir
 
 			//// Abre uma messabox que informa o utilizador que perdeu o jogo

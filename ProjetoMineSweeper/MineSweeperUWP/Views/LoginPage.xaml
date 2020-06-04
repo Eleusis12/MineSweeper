@@ -24,7 +24,7 @@
                      Grid.Row="1"
                      PlaceholderText="Password"
                      Margin="8" />
-            <CheckBox x:Name="ckbRemember"
+            <CheckBox x:Name="CheckBoxRememberMe"
                       Content="Remember"
                       Margin="8"
                       Grid.Row="2" />

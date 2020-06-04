@@ -163,7 +163,7 @@ namespace MineSweeperUWP.View
 					btn.BorderThickness = new Thickness(0.5);
 					btn.BorderBrush = brushes.gray;
 					btn.SizeChanged += new SizeChangedEventHandler(btnSizeChanged);
-					btn.Background = brushes.darkSlateGray;
+					btn.Background = brushes.LightGray;
 					btn.Click += new RoutedEventHandler(ButtonMouseClick);
 					btn.RightTapped += new RightTappedEventHandler(RightMouseClick);
 					btn.FontSize = 30;
@@ -222,15 +222,30 @@ namespace MineSweeperUWP.View
 			switch (file)
 			{
 				case "0":
-					botaoAtual.Background = brushes.green; break;
+					botaoAtual.Background = brushes.LightCoral; break;
 				case "1":
+					botaoAtual.Foreground = brushes.tile1;
+					botaoAtual.Content = Convert.ToInt32(file); break;
 				case "2":
+					botaoAtual.Foreground = brushes.tile2;
+					botaoAtual.Content = Convert.ToInt32(file); break;
 				case "3":
+					botaoAtual.Foreground = brushes.tile3;
+					botaoAtual.Content = Convert.ToInt32(file); break;
 				case "4":
+					botaoAtual.Foreground = brushes.tile4;
+					botaoAtual.Content = Convert.ToInt32(file); break;
 				case "5":
+					botaoAtual.Foreground = brushes.tile5;
+					botaoAtual.Content = Convert.ToInt32(file); break;
 				case "6":
+					botaoAtual.Foreground = brushes.tile6;
+					botaoAtual.Content = Convert.ToInt32(file); break;
 				case "7":
+					botaoAtual.Foreground = brushes.tile7;
+					botaoAtual.Content = Convert.ToInt32(file); break;
 				case "8":
+					botaoAtual.Foreground = brushes.tile8;
 					botaoAtual.Content = Convert.ToInt32(file); break;
 
 				case "bomba":
@@ -444,5 +459,14 @@ namespace MineSweeperUWP.View
 		public SolidColorBrush blue = new SolidColorBrush(Colors.Blue);
 		public SolidColorBrush LightCoral = new SolidColorBrush(Colors.LightCoral);
 		public SolidColorBrush LightGray = new SolidColorBrush(Colors.LightGray);
+
+		public SolidColorBrush tile1 = new SolidColorBrush(Colors.Blue);
+		public SolidColorBrush tile2 = new SolidColorBrush(Colors.Green);
+		public SolidColorBrush tile3 = new SolidColorBrush(Colors.Red);
+		public SolidColorBrush tile4 = new SolidColorBrush(Colors.DarkBlue);
+		public SolidColorBrush tile5 = new SolidColorBrush(Colors.DarkRed);
+		public SolidColorBrush tile6 = new SolidColorBrush(Colors.MediumAquamarine);
+		public SolidColorBrush tile7 = new SolidColorBrush(Colors.Black	);
+		public SolidColorBrush tile8 = new SolidColorBrush(Colors.DarkGray);
 	}
 }

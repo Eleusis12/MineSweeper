@@ -42,7 +42,7 @@ namespace Library.ServerEndpoint
 				xmlPedido.Element("registo").Element("email").Value = novoUtilizador.Email;
 				//xmlPedido.Element("registo").Element("fotografia").Value = novoUtilizador.Perfil;
 
-				xmlPedido.Element("registo").Element("fotografia").Value = ConvertImageToBase64(novoUtilizador.Perfil);
+				xmlPedido.Element("registo").Element("fotografia").Value = Base64.ImageToBase64(novoUtilizador.Perfil);
 				xmlPedido.Element("registo").Element("pais").Value = novoUtilizador.Country;
 
 				XDocument xmlResposta = PostService(xmlPedido, EndPoint.PostRegisto, new string[] { });
@@ -66,16 +66,6 @@ namespace Library.ServerEndpoint
 			catch (Exception ex)
 			{
 				return null;
-			}
-		}
-
-		public static string ConvertImageToBase64(System.Drawing.Image file)
-		{
-			using (MemoryStream memoryStream = new MemoryStream())
-			{
-				file.Save(memoryStream, file.RawFormat);
-				byte[] imageBytes = memoryStream.ToArray();
-				return Convert.ToBase64String(imageBytes);
 			}
 		}
 
@@ -260,49 +250,59 @@ namespace Library.ServerEndpoint
 				}
 				else
 				{
-					string nomeAbreviado = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("nomeabreviado").Value;
+					string nomeAbreviado = GetValueFromElement(xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("nomeabreviado"));
+
+					string email = GetValueFromElement(xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("email"));
+
+					string pais = GetValueFromElement(xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("pais"));
+
+					string jogosGanhos = GetValueFromElement(xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("jogos").Element("ganhos"));
+
+					string jogosPerdidos = GetValueFromElement(xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("jogos").Element("perdidos"));
+
+					string bestTimeEasy = GetValueFromElement(xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("tempos").Element("Facil"));
+
+					string bestTimeMedium = GetValueFromElement(xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("tempos").Element("Medio"));
+
+					string base64Imagem = GetValueFromElement(xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("fotografia"));
+
 					consultado.Username = nomeAbreviado;
-
-					string email = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("email").Value;
 					consultado.Email = (email);
-
-					string pais = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("pais").Value;
 					consultado.Country = pais;
-
-					string jogosGanhos = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("jogos").Element("ganhos").Value;
 					consultado.WinStats = Convert.ToInt32(jogosGanhos);
-
-					string jogosPerdidos = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("jogos").Element("perdidos").Value;
 					consultado.LoseStats = Convert.ToInt32(jogosPerdidos);
+					consultado.BestTimeEasy = bestTimeEasy;
+					consultado.BestTimeMedium = bestTimeMedium;
 
-					//string base64Imagem = xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("fotografia").Value;
-					//string base64 = base64Imagem.Split(',')[1]; // retira a parte da string correspondente aos bytes da imagem..
-					//byte[] bytes = Convert.FromBase64String(base64); //...converte para array de bytes...
-					//System.Drawing.Image image = System.Drawing.Image.FromStream(new MemoryStream(bytes));
+					if (base64Imagem != string.Empty)
+					{
+						consultado.Perfil = Base64.Base64ToImage(base64Imagem);
+					}
 
-					//consultado.Perfil = image;
-
-					// TODO: solucao temporaria
-					try
-					{
-						string bestTimeEasy = (xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("tempos").Element("facil").Value);
-					}
-					catch (NullReferenceException ex)
-					{
-						return null;
-					}
-					finally
-					{
-						string bestTimeMedium = (xmlResposta.Element("resultado").Element("objeto").Element("perfil").Element("tempos").Element("Medio").Value);
-					}
+					//if (base64Imagem != string.Empty)
+					//{
+					//	string base64 = base64Imagem.Split(',')[1]; // retira a parte da string correspondente aos bytes da imagem..
+					//	byte[] bytes = Convert.FromBase64String(base64); //...converte para array de bytes...
+					//	System.Drawing.Image image = System.Drawing.Image.FromStream(new MemoryStream(bytes));
+					//	consultado.Perfil = image;
+					//}
 				}
 			}
 			catch (Exception ex)
 			{
-				return null;
+				throw ex;
 			}
 
 			return "OK";
+		}
+
+		public static string GetValueFromElement(XElement element)
+		{
+			if (element != null)
+			{
+				return element.Value;
+			}
+			return string.Empty;
 		}
 
 		public static List<Top10Resultado> ConsultaTop10()

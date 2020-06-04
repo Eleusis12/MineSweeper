@@ -46,6 +46,12 @@ namespace MineSweeperUWP.View
 			{
 				table.Load(reader);
 			}
+
+			table.Columns["Nome"].SetOrdinal(0);
+			table.Columns["Tempo"].SetOrdinal(1);
+			table.Columns["Quando"].SetOrdinal(2);
+			table.Columns["dificuldade"].SetOrdinal(3);
+
 			FillDataGrid(table, dataGrid);
 		}
 

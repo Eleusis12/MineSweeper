@@ -19,8 +19,6 @@ namespace MineSweeperProjeto.Controller
 {
 	public partial class GameController
 	{
-		public Dificuldade dificuldade { get; set; }
-
 		public readonly Point[] adjacentCoords =
 				{
 			new Point (-1, -1),
@@ -33,7 +31,7 @@ namespace MineSweeperProjeto.Controller
 			new Point (-1, 0)
 		};
 
-		public void Reveal()
+		public void RevealAllPieces()
 		{
 			foreach (Button Botao in V_MineSweeperGame.GetButtons())
 			{
@@ -42,7 +40,6 @@ namespace MineSweeperProjeto.Controller
 
 				if (currentTile.Vazio == false && currentTile.TemMina == false)
 				{
-					// TODO: Arranjar maneira de por isto mais bonito
 					SwitchBackground(Botao, currentTile);
 				}
 				else if (currentTile.TemMina == true)
@@ -95,7 +92,7 @@ namespace MineSweeperProjeto.Controller
 					Temporizador.Stop();
 
 					V_MineSweeperGame.ChangeButtonBackGround(botaoAtual, Resources.bomb);
-					Reveal();
+					RevealAllPieces();
 					BombaFimJogo();
 
 					// O jogo acaba
@@ -103,11 +100,10 @@ namespace MineSweeperProjeto.Controller
 				}
 				else if (currentTile.Vazio == false && currentTile.Aberto == false)
 				{
-					// TODO: Arranjar maneira de por isto mais bonito
 					SwitchBackground(botaoAtual, currentTile);
 
 					currentTile.Aberto = true;
-					if (M_Grelha.SoundOnOrOFF == true)
+					if (M_Options.SoundOnOrOFF == true)
 					{
 						Thread soundThread = new Thread(Sound.PlayOpenTile)
 						{
@@ -142,7 +138,7 @@ namespace MineSweeperProjeto.Controller
 
 				if (currentTile.Aberto != true)
 				{
-					if (M_Grelha.SoundOnOrOFF == true)
+					if (M_Options.SoundOnOrOFF == true)
 					{
 						Thread soundThread = new Thread(Sound.PlayPutFlag)
 						{
@@ -342,7 +338,7 @@ namespace MineSweeperProjeto.Controller
 		public void GanhouJogo()
 		{
 			Temporizador.Stop();
-			if (M_Grelha.SoundOnOrOFF == true)
+			if (M_Options.SoundOnOrOFF == true)
 			{
 				Thread soundThread = new Thread(Sound.PlayWinning);
 				soundThread.IsBackground = true;
@@ -368,7 +364,7 @@ namespace MineSweeperProjeto.Controller
 		/// </summary>
 		public void BombaFimJogo()
 		{
-			if (M_Grelha.SoundOnOrOFF == true)
+			if (M_Options.SoundOnOrOFF == true)
 			{
 				Thread soundThread = new Thread(Sound.PlayGameOver)
 				{

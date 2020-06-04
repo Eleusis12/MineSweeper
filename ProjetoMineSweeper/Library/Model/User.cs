@@ -9,6 +9,8 @@ using static System.Net.Mime.MediaTypeNames;
 namespace Library.Model
 {
 	// Class Simples que permite guardar informações sobre o Vencedor
+
+	[Serializable]
 	public class User
 	{
 		public string Username { get; set; }

@@ -35,6 +35,9 @@ namespace MineSweeperUWP.View
 		{
 			Program = App.Current as App;
 			this.InitializeComponent();
+
+			TBUsername.Text = readSetting("userName");
+			TBPassword.Password = readSetting("userPassword");
 		}
 
 		private void BTRegister_Click(object sender, RoutedEventArgs e)
@@ -50,6 +53,12 @@ namespace MineSweeperUWP.View
 			if (SendCredentials != null)
 			{
 				SendCredentials(TBUsername.Text, TBPassword.Password.ToString());
+			}
+
+			if (CheckBoxRememberMe.IsChecked == true)
+			{
+				saveSetting("userName", TBUsername.Text);
+				saveSetting("userPassword", TBPassword.Password);
 			}
 		}
 
@@ -92,6 +101,25 @@ namespace MineSweeperUWP.View
 				return true;
 			}
 			return false;
+		}
+
+		private void saveSetting(string settingName, string settingValue)
+		{
+			Windows.Storage.ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+			//Saving your setting
+			localSettings.Values[settingName] = settingValue;
+		}
+
+		//Retrieve your setting value
+		private string readSetting(string settingName)
+		{
+			Windows.Storage.ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+			//Reading and returning your setting value
+			var value = localSettings.Values[settingName];
+			if (value != null)
+				return value.ToString();
+			else
+				return "";
 		}
 	}
 }

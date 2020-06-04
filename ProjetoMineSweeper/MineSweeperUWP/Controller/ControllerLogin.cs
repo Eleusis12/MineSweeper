@@ -1,8 +1,10 @@
-﻿using Library.ServerEndpoint;
+﻿using Library.Helpers;
+using Library.ServerEndpoint;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
@@ -19,27 +21,49 @@ namespace MineSweeperUWP.Controller
 			Program.V_LoginPage.SendCredentials += V_Login_SendCredentials;
 		}
 
-		public void V_Login_SendCredentials(string username, string password)
+		public async void V_Login_SendCredentials(string username, string password)
 		{
-			string id;
-			bool resposta = Server.Login(username, password, out id);
-
+			string id = string.Empty;
+			bool resposta;
 			try
 			{
-				if (resposta == true)
+				resposta = Server.Login(username, password, out id);
+			}
+			catch (WebException ex)
+			{
+				if (ex.Status == WebExceptionStatus.ProtocolError)
 				{
-					Program.M_Status.Logado = true;
-					Program.M_Status.ID = id;
+					if (((HttpWebResponse)ex.Response).StatusCode == HttpStatusCode.NotFound)
+					{
+						await ShowErrorDialog("404 not found - " + ex.Message);
+					}
+				}
+				else if (ex.Status == WebExceptionStatus.NameResolutionFailure)
+				{
+					await ShowErrorDialog("Certifique-se que está a utilizar a VPN da UTAD" + ex.Message);
 				}
 
-				Program.V_LoginPage.Response(resposta);
+				_ = new LogWriter(ex.Message);
+				resposta = false;
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				throw;
+				_ = new LogWriter(ex.Message);
+				resposta = false;
+
+				await ShowErrorDialog(ex.Message);
 			}
+
+			if (resposta == true)
+			{
+				Program.M_Status.Logado = true;
+				Program.M_Status.ID = id;
+			}
+
+			Program.V_LoginPage.Response(resposta);
 		}
 
+		// Apresenta uma Mensagem de Erro
 		private static async Task ShowErrorDialog(string message)
 		{
 			var dlg = new MessageDialog(message);

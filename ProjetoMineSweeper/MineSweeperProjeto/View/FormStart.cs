@@ -28,7 +28,6 @@ namespace MineSweeperProjeto.View
 		public event UsernameExtractionHandler AskUserData;
 
 		public UserControlDifficulty UCDifficulty { get; set; }
-		public UserControlOnlineDifficulty UCOnlineDifficulty { get; set; }
 		public UserControlMainMenu UCMainMenu { get; set; }
 		public UserControlOptions UCOptions { get; set; }
 		public UserControlLeaderBoard UCLeaderBoard { get; set; }
@@ -101,10 +100,8 @@ namespace MineSweeperProjeto.View
 			UCDifficulty = new UserControlDifficulty();
 			UCLeaderBoard = new UserControlLeaderBoard();
 			UCSearch = new UserControlSearch();
-			UCOnlineDifficulty = new UserControlOnlineDifficulty();
 
 			UCDifficulty.WarnMainFormDifficultyChoice += UCDifficulty_WarnMainFormDifficultyChoice;
-			UCOnlineDifficulty.WarnMainFormDifficultyChoiceOnline += UCOnlineDifficulty_WarnMainFormDifficultyChoiceOnline;
 			UCOptions.WarnMainFormSoundEffectsChoice += UCOptions_WarnMainFormSoundEffectsChoice;
 			UCLeaderBoard.AskTop10 += UCLeaderBoard_AskTop10;
 			UCLeaderBoard.ShowTop10AccordingtoDifficulty += UCLeaderBoard_ShowTop10AccordingtoDifficulty;
@@ -134,15 +131,19 @@ namespace MineSweeperProjeto.View
 
 		internal void ShowProfile(User temp)
 		{
-			UCSearch.GroupBoxDados.Controls["LBLNome"].Text = ("Nome Abreviado: " + temp.Username);
-			UCSearch.GroupBoxDados.Controls["LBLEmail"].Text = ("Email: " + temp.Email);
-			UCSearch.GroupBoxDados.Controls["LBLPais"].Text = ("País: " + temp.Country);
-			UCSearch.GroupBoxDados.Controls["LBLNumeroJogos"].Text = ("Número de Jogos: " + (temp.WinStats + temp.LoseStats).ToString());
-			UCSearch.GroupBoxDados.Controls["LBLNumeroJogosGanhos"].Text = ("Ganhos: " + temp.WinStats.ToString());
-			UCSearch.GroupBoxDados.Controls["LBLNumeroJogosPerdidos"].Text = ("Perdidos: " + temp.LoseStats.ToString());
-			UCSearch.GroupBoxDados.Controls["LBLBestTimeEasy"].Text = ("Melhor tempo, Fácil: " + temp.BestTimeEasy);
-			UCSearch.GroupBoxDados.Controls["LBLBestTimeMedium"].Text = ("Melhor tempo, Médio: " + temp.BestTimeEasy);
-			UCSearch.PictureBoxProfilePic.Image = temp.Perfil;
+			if (temp != null)
+			{
+				UCSearch.GroupBoxDados.Controls["LBLNome"].Text = ("Nome Abreviado: " + temp.Username);
+				UCSearch.GroupBoxDados.Controls["LBLEmail"].Text = ("Email: " + temp.Email);
+				UCSearch.GroupBoxDados.Controls["LBLPais"].Text = ("País: " + temp.Country);
+				UCSearch.GroupBoxDados.Controls["LBLNumeroJogos"].Text = ("Número de Jogos: " + (temp.WinStats + temp.LoseStats).ToString());
+				UCSearch.GroupBoxDados.Controls["LBLNumeroJogosGanhos"].Text = ("Ganhos: " + temp.WinStats.ToString());
+				UCSearch.GroupBoxDados.Controls["LBLNumeroJogosPerdidos"].Text = ("Perdidos: " + temp.LoseStats.ToString());
+				UCSearch.GroupBoxDados.Controls["LBLBestTimeEasy"].Text = ("Melhor tempo, Fácil: " + temp.BestTimeEasy);
+				UCSearch.GroupBoxDados.Controls["LBLBestTimeMedium"].Text = ("Melhor tempo, Médio: " + temp.BestTimeMedium);
+				UCSearch.PictureBoxProfilePic.Image = temp.Perfil;
+				UCSearch.PictureBoxProfilePic.SizeMode = PictureBoxSizeMode.StretchImage;
+			}
 		}
 
 		public void UpdateLoggedStatus()

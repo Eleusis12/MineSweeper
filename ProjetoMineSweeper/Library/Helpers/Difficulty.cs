@@ -14,7 +14,6 @@ namespace Library.Helpers
 			Size _tamanho = new Size();
 			switch (_dificuldade)
 			{
-				// TODO: Valores a confirmar com o protocolo
 				case Dificuldade.Facil:
 					_tamanho.Width = _tamanho.Height = 9;
 					break;

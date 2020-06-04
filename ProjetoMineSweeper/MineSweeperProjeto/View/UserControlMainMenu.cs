@@ -36,6 +36,8 @@ namespace MineSweeperProjeto.View
 		{
 			if (!Program.V_StartForm.PanelContainer.Controls.ContainsKey("UserControlDifficulty"))
 			{
+				Program.M_Status.PlayingWithTheOnlineBoard = false;
+
 				var UCSinglePlayerMode = Program.V_StartForm.UCDifficulty;
 				UCSinglePlayerMode.Dock = DockStyle.Fill;
 				UCSinglePlayerMode.Anchor = AnchorStyles.Top;
@@ -69,14 +71,16 @@ namespace MineSweeperProjeto.View
 		{
 			if (Program.M_Status.Logado == true)
 			{
-				if (!Program.V_StartForm.PanelContainer.Controls.ContainsKey("UserControlOnlineDifficulty"))
+				Program.M_Status.PlayingWithTheOnlineBoard = true;
+
+				if (!Program.V_StartForm.PanelContainer.Controls.ContainsKey("UserControlDifficulty"))
 				{
-					var UCOnlineDifficultyMode = Program.V_StartForm.UCOnlineDifficulty;
-					UCOnlineDifficultyMode.Dock = DockStyle.Fill;
-					UCOnlineDifficultyMode.Anchor = AnchorStyles.Top;
-					Program.V_StartForm.PanelContainer.Controls.Add(UCOnlineDifficultyMode);
+					var UCSinglePlayerMode = Program.V_StartForm.UCDifficulty;
+					UCSinglePlayerMode.Dock = DockStyle.Fill;
+					UCSinglePlayerMode.Anchor = AnchorStyles.Top;
+					Program.V_StartForm.PanelContainer.Controls.Add(UCSinglePlayerMode);
 				}
-				Program.V_StartForm.PanelContainer.Controls["UserControlOnlineDifficulty"].BringToFront();
+				Program.V_StartForm.PanelContainer.Controls["UserControlDifficulty"].BringToFront();
 				Program.V_StartForm.BackButton.Visible = true;
 				Program.V_StartForm.BackButton.BringToFront();
 			}

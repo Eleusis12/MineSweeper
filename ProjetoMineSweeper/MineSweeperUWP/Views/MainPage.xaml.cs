@@ -1,5 +1,6 @@
 ﻿using MineSweeperUWP.Controller;
 using MineSweeperUWP.View;
+using MineSweeperUWP.Views;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -87,6 +88,14 @@ namespace MineSweeperUWP
 			Frame rootFrame = GetCurrentWindow();
 			Program.V_LeaderBoard = rootFrame.Content as LeaderBoardPage;
 			Program.C_LeaderBoard = new ControllerLeaderBoard();
+		}
+
+		private void BTSearch_Click(object sender, RoutedEventArgs e)
+		{
+			this.Frame.Navigate(typeof(SearchUserPage));
+			Frame rootFrame = GetCurrentWindow();
+			Program.V_SearchPage = rootFrame.Content as SearchUserPage;
+			Program.C_SearchPage = new ControllerSearchUser();
 		}
 
 		private void BTExit_Click(object sender, RoutedEventArgs e)

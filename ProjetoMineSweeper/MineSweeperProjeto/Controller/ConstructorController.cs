@@ -26,7 +26,6 @@ namespace MineSweeperProjeto.Controller
 		{
 			// Indica a dificuldade escolhida pelo utilizador
 			V_StartForm.ChangeDifficultyInGame += V_GameMode_ChangeDifficulty;
-			V_StartForm.ChangeDifficultyInGameComingFromOnline += V_StartForm_ChangeDifficultyInGameComingFromOnline;
 
 			// O jogador opta por desligar/ ligar audio do jogo
 			V_StartForm.TurnSoundEffectsInGame += V_StartForm_TurnSoundEffectsInGame;
@@ -35,7 +34,7 @@ namespace MineSweeperProjeto.Controller
 			V_MineSweeperGame.ButtonPressed += OnButtonClicked;
 
 			// Para debug: Jogador prime no botao que revela todos os botoes
-			V_MineSweeperGame.AskToRevealAllPieces += Reveal;
+			V_MineSweeperGame.AskToRevealAllPieces += RevealAllPieces;
 
 			// Jogador pede um reset ao jogo
 			V_MineSweeperGame.AskToResetBoard += V_MineSweeperGame_AskToResetBoard;

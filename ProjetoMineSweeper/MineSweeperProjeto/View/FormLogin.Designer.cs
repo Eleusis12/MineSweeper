@@ -41,6 +41,7 @@
 			this.BTClose = new System.Windows.Forms.PictureBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
+			this.CheckBoxRememberMe = new System.Windows.Forms.CheckBox();
 			this.panel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.BTClose)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -112,7 +113,7 @@
 			this.BTLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.BTLogin.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.BTLogin.ForeColor = System.Drawing.SystemColors.Control;
-			this.BTLogin.Location = new System.Drawing.Point(113, 332);
+			this.BTLogin.Location = new System.Drawing.Point(113, 354);
 			this.BTLogin.Name = "BTLogin";
 			this.BTLogin.Size = new System.Drawing.Size(75, 23);
 			this.BTLogin.TabIndex = 2;
@@ -181,11 +182,22 @@
 			this.pictureBox1.TabIndex = 0;
 			this.pictureBox1.TabStop = false;
 			// 
+			// CheckBoxRememberMe
+			// 
+			this.CheckBoxRememberMe.AutoSize = true;
+			this.CheckBoxRememberMe.Location = new System.Drawing.Point(177, 331);
+			this.CheckBoxRememberMe.Name = "CheckBoxRememberMe";
+			this.CheckBoxRememberMe.Size = new System.Drawing.Size(94, 17);
+			this.CheckBoxRememberMe.TabIndex = 7;
+			this.CheckBoxRememberMe.Text = "Remember me";
+			this.CheckBoxRememberMe.UseVisualStyleBackColor = true;
+			// 
 			// FormLogin
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(300, 450);
+			this.Controls.Add(this.CheckBoxRememberMe);
 			this.Controls.Add(this.LLBLCreate);
 			this.Controls.Add(this.BTLogin);
 			this.Controls.Add(this.label2);
@@ -199,6 +211,7 @@
 			this.Name = "FormLogin";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Login";
+			this.Load += new System.EventHandler(this.FormLogin_Load);
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.BTClose)).EndInit();
@@ -222,5 +235,6 @@
 		private System.Windows.Forms.LinkLabel LLBLCreate;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.PictureBox BTClose;
+		private System.Windows.Forms.CheckBox CheckBoxRememberMe;
 	}
 }

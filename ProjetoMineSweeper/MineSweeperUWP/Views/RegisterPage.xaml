@@ -21,8 +21,8 @@
             <Button  x:Name="BTUploadPic"  Height="100" Width="100" Background="LightGray" Content="Add photo" Margin="10,24" Click="BTUploadPic_Click" />
 
             <RelativePanel>
-                <TextBox x:Name="TBFirstName" Header= "Primeiro Nome" Margin="10,24,0,0" MaxLength="32" Width="400" HorizontalAlignment="Left" InputScope="PersonalFullName"  BeforeTextChanging="TextBox_BeforeTextChanging" />
-                <TextBox x:Name="TBLastName" Header= "Último Nome" Margin="500,24,0,0" MaxLength="32" Width="400" HorizontalAlignment="Left" InputScope="PersonalFullName" BeforeTextChanging="TextBox_BeforeTextChanging" />
+                <TextBox x:Name="TBFirstName" Header= "Primeiro Nome" Margin="10,24,0,0" MaxLength="32" Width="400" HorizontalAlignment="Left" InputScope="PersonalFullName"  KeyDown="TextBox_OnlyLetters" />
+                <TextBox x:Name="TBLastName" Header= "Último Nome" Margin="500,24,0,0" MaxLength="32" Width="400" HorizontalAlignment="Left" InputScope="PersonalFullName"  KeyDown="TextBox_OnlyLetters" />
             </RelativePanel>
             <TextBox x:Name="TBEmail" Header="Email" Margin="10,24,0,0" MaxLength="50" Width="400" HorizontalAlignment="Left" InputScope="EmailNameOrAddress" />
             <TextBox x:Name="TBUsername" Header="Username"  Margin="10,24,0,0" MaxLength="50" Width="400" HorizontalAlignment="Left" InputScope="EmailNameOrAddress" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.Helpers;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,6 +23,8 @@ namespace MineSweeperUWP.View
 	/// </summary>
 	public sealed partial class OptionsPage : Page
 	{
+		public event NotificationTaskHandler WarnMainFormSoundEffectsChoice;
+
 		public OptionsPage()
 		{
 			this.InitializeComponent();
@@ -40,6 +43,22 @@ namespace MineSweeperUWP.View
 				return true;
 			}
 			return false;
+		}
+
+		private void BTSoundEffects_Click(object sender, RoutedEventArgs e)
+		{
+			if (WarnMainFormSoundEffectsChoice != null)
+			{
+				WarnMainFormSoundEffectsChoice();
+			}
+			if (BTSoundEffects.Content.ToString() == "Efeitos Sonoros: Desligado")
+			{
+				BTSoundEffects.Content = "Efeitos Sonoros: Ligado";
+			}
+			else
+			{
+				BTSoundEffects.Content = "Efeitos Sonoros: Desligado";
+			}
 		}
 	}
 }

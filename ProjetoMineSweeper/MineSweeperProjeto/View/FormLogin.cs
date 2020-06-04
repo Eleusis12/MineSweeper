@@ -32,11 +32,24 @@ namespace MineSweeperProjeto.View
 			{
 				SendCredentials(TBUsername.Text, TBPassword.Text);
 			}
+
+			if (CheckBoxRememberMe.Checked == true)
+			{
+				Properties.Settings.Default.Username = TBUsername.Text;
+				Properties.Settings.Default.Password = TBPassword.Text;
+				Properties.Settings.Default.Save();
+			}
 		}
 
 		private void BTClose_Click(object sender, EventArgs e)
 		{
 			this.Close();
+		}
+
+		private void FormLogin_Load(object sender, EventArgs e)
+		{
+			TBUsername.Text = Properties.Settings.Default.Username;
+			TBPassword.Text = Properties.Settings.Default.Password;
 		}
 	}
 }

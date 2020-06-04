@@ -93,7 +93,6 @@ namespace MineSweeperProjeto
 			{
 				for (int j = 0; j < Tamanho.Width; j++)
 				{
-					// TODO: Mudar caracteristicas do botão
 					// Caracteristicas de cada botão
 					Button button = new Button();
 					button.Size = new Size(comprimentoLado, larguraLado);

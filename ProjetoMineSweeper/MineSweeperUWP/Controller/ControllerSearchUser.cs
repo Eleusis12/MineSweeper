@@ -1,4 +1,5 @@
 ﻿using Library.Helpers;
+using Library.Model;
 using Library.ServerEndpoint;
 using System;
 using System.Collections.Generic;
@@ -10,24 +11,25 @@ using Windows.UI.Popups;
 
 namespace MineSweeperUWP.Controller
 {
-	public class ControllerRegister
+	public class ControllerSearchUser
 	{
 		public App Program { get; }
 
-		public ControllerRegister()
+		public ControllerSearchUser()
 		{
 			Program = App.Current as App;
 
-			Program.V_RegisterForm.RegisterThisUser += V_RegisterForm_RegisterThisUser;
+			Program.V_SearchPage.AskUserData += V_SearchPage_AskUserData;
 		}
 
-		private async void V_RegisterForm_RegisterThisUser(Library.Model.User temp)
+		private async void V_SearchPage_AskUserData(string username)
 		{
 			string resposta;
+			User temp;
 
 			try
 			{
-				resposta = Server.RegistarUtilizador(temp);
+				resposta = Server.ConsultaPerfil(username, out temp);
 			}
 			catch (WebException ex)
 			{
@@ -45,41 +47,16 @@ namespace MineSweeperUWP.Controller
 
 				_ = new LogWriter(ex.Message);
 				resposta = "Erro";
+				temp = null;
 			}
 			catch (Exception ex)
 			{
 				_ = new LogWriter(ex.Message);
 				resposta = "Erro";
-
-				await ShowErrorDialog("Não possível concluir a operação dado o erro" + ex.Message);
+				temp = null;
+				await ShowErrorDialog(ex.Message);
 			}
-
-			if (resposta == "OK")
-			{
-				Program.V_RegisterForm.ResultOfRegistration(resposta);
-			}
-			else if (resposta.ToLower() == "Erro".ToLower())
-			{
-				Program.V_RegisterForm.ResultOfRegistration(resposta);
-			}
-			else
-			{
-				Program.V_RegisterForm.ResultOfRegistration("Erro");
-			}
-
-			//string resposta = Server.RegistarUtilizador(temp);
-			//if (resposta == "OK")
-			//{
-			//	Program.V_RegisterForm.ResultOfRegistration(resposta);
-			//}
-			//else if (resposta.ToLower() == "Erro".ToLower())
-			//{
-			//	Program.V_RegisterForm.ResultOfRegistration(resposta);
-			//}
-			//else
-			//{
-			//	Program.V_RegisterForm.ResultOfRegistration("Erro");
-			//}
+			Program.V_SearchPage.ShowProfile(temp);
 		}
 
 		private async Task ShowErrorDialog(string _string)

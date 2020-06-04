@@ -25,14 +25,14 @@ namespace MineSweeperProjeto.Controller
 
 		public void AlteraDificuldade(Dificuldade _dificuldade)
 		{
-			this.dificuldade = _dificuldade;
-			SetModel(dificuldade);
-			V_MineSweeperGame.AlteraDificuldadeNoView(this.dificuldade);
+			Program.M_Grelha.dificuldade = _dificuldade;
+			SetModel();
+			V_MineSweeperGame.AlteraDificuldadeNoView(Program.M_Grelha.dificuldade);
 		}
 
-		public void SetModel(Dificuldade dificuldade)
+		public void SetModel()
 		{
-			M_Grelha.Tamanho = classDificuldade.GetTamanho(dificuldade);
+			M_Grelha.Tamanho = classDificuldade.GetTamanho(Program.M_Grelha.dificuldade);
 			SetAmountOfMines();
 			LoadTileGrid();
 			LoadAdjacentsMines();
@@ -138,7 +138,7 @@ namespace MineSweeperProjeto.Controller
 
 		public void SetAmountOfMines()
 		{
-			switch (dificuldade)
+			switch (Program.M_Grelha.dificuldade)
 			{
 				case Dificuldade.Facil:
 
@@ -166,7 +166,7 @@ namespace MineSweeperProjeto.Controller
 			M_Grelha.NumeroElementosAbertos = 0;
 			M_Grelha.Fim = false;
 
-			SetModel(dificuldade);
+			SetModel();
 
 			V_MineSweeperGame.ResetBoardView();
 		}

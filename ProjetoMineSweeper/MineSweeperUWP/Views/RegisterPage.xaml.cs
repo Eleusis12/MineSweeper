@@ -78,7 +78,7 @@ namespace MineSweeperUWP.View
 			}
 		}
 
-		private static async Task ShowErrorDialog(string _string)
+		private async Task ShowErrorDialog(string _string)
 		{
 			var dlg = new MessageDialog(_string);
 
@@ -151,6 +151,8 @@ namespace MineSweeperUWP.View
 				var image = new BitmapImage();
 				image.SetSource(stream);
 
+				BTUploadPic.Content = image;
+
 				//BTUploadPic.Children.Add(new Image() { Source = image, Width = 300, Height = 300 });
 				//TODO: tratar de imagem
 				//temp.Perfil = stream;
@@ -160,6 +162,16 @@ namespace MineSweeperUWP.View
 		private void Back_Button(object sender, RoutedEventArgs e)
 		{
 			On_BackRequested();
+		}
+
+		private void TextBox_OnlyLetters(object sender, KeyRoutedEventArgs e)
+		{
+			var str = e.Key.ToString();
+			if (char.IsDigit(str[0]))
+			{
+				//is digit
+			}
+			// is letter
 		}
 	}
 }

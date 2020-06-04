@@ -18,6 +18,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Library.Model;
 using MineSweeperUWP.Controller;
+using MineSweeperProjeto.Helpers;
+using MineSweeperUWP.Views;
 
 namespace MineSweeperUWP
 {
@@ -29,10 +31,14 @@ namespace MineSweeperUWP
 
 	public partial class App : Application
 	{
+		public static SoundEffects SoundPlayer;
+
 		// Models
 		public TileGrid M_Grelha { get; private set; }
 
 		public ConnectionToServer M_Status { get; private set; }
+
+		public Options M_Options { get; private set; }
 
 		//Views
 		public MineSweeper V_MineSweeperGame { get; set; }
@@ -45,16 +51,17 @@ namespace MineSweeperUWP
 		public Register V_RegisterForm { get; set; }
 		public Login V_LoginPage { get; set; }
 
-		// Controller
-		public ControllerMainPage C_StartForm { get; set; }
+		public SearchUserPage V_SearchPage { get; set; }
 
-		public ControllerDificuldade C_DifficultyForm { get; set; }
+		// Controller
 
 		public ControllerMineSweeperGameCode C_MineSweeperGame { get; set; }
 		public ControllerLeaderBoard C_LeaderBoard { get; set; }
 		public ControllerOptions C_OptionsForm { get; set; }
 		public ControllerRegister C_RegisterForm { get; set; }
 		public ControllerLogin C_LoginPage { get; set; }
+
+		public ControllerSearchUser C_SearchPage { get; set; }
 
 		// Controllers
 
@@ -72,6 +79,10 @@ namespace MineSweeperUWP
 
 			M_Grelha = new TileGrid();
 			M_Status = new ConnectionToServer();
+			M_Options = new Options();
+
+			// class que vai permitir a reprodução de audio
+			SoundPlayer = new SoundEffects();
 		}
 
 		/// <summary>
@@ -117,13 +128,13 @@ namespace MineSweeperUWP
 			//No final do método OnLaunched instanciam-se as Views os Controllers//Views
 			V_StartForm = rootFrame.Content as MainPage;
 
-			V_MineSweeperGame = rootFrame.Content as MineSweeper;
-			V_LeaderBoard = rootFrame.Content as LeaderBoardPage;
-			V_OptionsForm = rootFrame.Content as OptionsPage;
-			V_RegisterForm = rootFrame.Content as Register;
-			V_LoginPage = rootFrame.Content as Login;
-			//Controllers
-			C_StartForm = new ControllerMainPage();
+			//V_MineSweeperGame = rootFrame.Content as MineSweeper;
+			//V_LeaderBoard = rootFrame.Content as LeaderBoardPage;
+			//V_OptionsForm = rootFrame.Content as OptionsPage;
+			//V_RegisterForm = rootFrame.Content as Register;
+			//V_LoginPage = rootFrame.Content as Login;
+			////Controllers
+			//C_StartForm = new ControllerMainPage();
 
 			//C_MineSweeperGame = new ControllerMineSweeper();
 

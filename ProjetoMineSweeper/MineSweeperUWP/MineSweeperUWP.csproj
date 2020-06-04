@@ -120,17 +120,17 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controller\ControllerLeaderBoard.cs" />
-    <Compile Include="Controller\ControllerDificuldade.cs" />
     <Compile Include="Controller\ControllerLogin.cs" />
-    <Compile Include="Controller\ControllerMainPage.cs" />
     <Compile Include="Controller\ControllerMineSweeperGameCode.cs" />
     <Compile Include="Controller\ControllerMineSweeperModelHandling.cs" />
     <Compile Include="Controller\ControllerMineSweeperSaveResult.cs" />
     <Compile Include="Controller\ControllerOptions.cs" />
     <Compile Include="Controller\ControllerRegister.cs" />
+    <Compile Include="Controller\ControllerSearchUser.cs" />
     <Compile Include="Helpers\ContentDialog2.xaml.cs">
       <DependentUpon>ContentDialog2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\SoundEffects.cs" />
     <Compile Include="Views\DificuldadePage.xaml.cs">
       <DependentUpon>DificuldadePage.xaml</DependentUpon>
     </Compile>
@@ -153,6 +153,9 @@
     <Compile Include="Views\RegisterPage.xaml.cs">
       <DependentUpon>RegisterPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SearchUserPage.xaml.cs">
+      <DependentUpon>SearchUserPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -166,6 +169,7 @@
     <Content Include="Assets\Another Assets\grey_sliderLeft.png" />
     <Content Include="Assets\Another Assets\icons8-leaderboard-50.png" />
     <Content Include="Assets\Another Assets\icons8-pastel-64.png" />
+    <Content Include="Assets\Another Assets\magnifying-glass.png" />
     <Content Include="Assets\Another Assets\minesweeper-classic-mines-classical-minesweeper-android-android_burned.png" />
     <Content Include="Assets\Another Assets\MineSweeper.png" />
     <Content Include="Assets\Another Assets\MineSweeperSoldier.png" />
@@ -189,10 +193,18 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
-    <Content Include="Assets\sounds\click.wav" />
-    <Content Include="Assets\sounds\flag.wav" />
-    <Content Include="Assets\sounds\GameOver.wav" />
-    <Content Include="Assets\sounds\GameWin.wav" />
+    <Content Include="Assets\click.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\flag.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\GameOver.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\GameWin.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\tiles\bomb.jpg" />
     <Content Include="Assets\tiles\bomb_ambient.jpg" />
     <Content Include="Assets\tiles\bomb_normal.jpg" />
@@ -290,6 +302,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\SearchUserPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FastMember">
@@ -319,6 +335,9 @@
       <Project>{1d612d52-88fd-4091-ad0e-ce06ec155cea}</Project>
       <Name>Library</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\sounds\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -13,16 +13,14 @@
     mc:Ignorable="d">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
 
         <controls:DockPanel x:Name="SampleDockPanel"
-                          Background="#CC373737"
                           LastChildFill="False"
                           Margin="2"
                           Padding="0,0,0,0">
+            <controls:DockPanel.Background>
+                <AcrylicBrush TintColor="#CC373737" />
+            </controls:DockPanel.Background>
             <!--<StackPanel>-->
             <Button x:Name="BTReset" Content="Novo Jogo" Foreground="#FFF0F0F0" Background="IndianRed" FontFamily="Century Gothic" FontWeight="Bold" Width="122" Margin="55,51,0,0" VerticalAlignment="Top" RenderTransformOrigin="5.906,5.29" Height="35" Click="Reset_MouseClick" />
             <Grid   Background="Gainsboro" Name="innergrid" Height="866" Width="1156" Margin="-122,101,122,36">
@@ -33,7 +31,7 @@
                 </Grid.ColumnDefinitions>-->
             </Grid>
 
-            <StackPanel controls:DockPanel.Dock="Right"  Height="1003" Margin="-226,0,0,0">
+            <StackPanel controls:DockPanel.Dock="Right"  Height="1003" Margin="-224,0,-2,-7">
 
                 <TextBlock x:Name="LBLDificuldade"  Text="Fácil 9X9" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Century Gothic" FontSize="17" Margin="40" FocusVisualPrimaryBrush="#FF0C0C0C" />
                 <StackPanel Margin="0,100,0,200">

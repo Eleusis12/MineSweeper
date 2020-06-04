@@ -13,7 +13,7 @@ namespace MineSweeperProjeto.Controller
 		public void V_StartForm_TurnSoundEffectsInGame()
 		{
 			// Faz um flip ao valor do boolean
-			M_Grelha.SoundOnOrOFF = !M_Grelha.SoundOnOrOFF;
+			M_Options.SoundOnOrOFF = !M_Options.SoundOnOrOFF;
 		}
 	}
 }
