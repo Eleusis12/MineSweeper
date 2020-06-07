@@ -11,8 +11,9 @@ using System.Windows.Forms;
 using Library;
 using MineSweeperProjeto.Model;
 using Library.Helpers;
-using Library.Model;
+using Library.Models;
 using Library.Interfaces;
+using System.Threading;
 
 namespace MineSweeperProjeto.View
 {
@@ -28,11 +29,15 @@ namespace MineSweeperProjeto.View
 
 		public event UsernameExtractionHandler AskUserData;
 
+		public event NotificationTaskHandler AskBestScoreData;
+
 		public UserControlDifficulty UCDifficulty { get; set; }
 		public UserControlMainMenu UCMainMenu { get; set; }
 		public UserControlOptions UCOptions { get; set; }
 		public UserControlLeaderBoard UCLeaderBoard { get; set; }
 		public UserControlSearch UCSearch { get; set; }
+
+		private List<Entry> HighScores;
 
 		public Panel PanelContainer
 		{
@@ -46,6 +51,9 @@ namespace MineSweeperProjeto.View
 			set { BTBack = value; }
 		}
 
+		private Thread thread;
+		private ThreadStart threadStart;
+
 		public FormStart()
 		{
 			InitializeComponent();
@@ -54,6 +62,70 @@ namespace MineSweeperProjeto.View
 			//gameMode1.CloseForm += close;
 			//gameMode1.HideForm += hide;
 			//gameMode1.ChangeDifficulty += GameMode1_ChangeDifficulty;
+		}
+
+		public void ShowBestScore()
+		{
+			HighScores = new List<Entry>();
+			HighScores = new List<Entry>();
+			TryAddToList(Program.M_BestScores.EasyBestScore);
+			TryAddToList(Program.M_BestScores.MediumBestScore);
+			TryAddToList(Program.M_BestScores.HardBestScore);
+
+			void TryAddToList(Entry entrada)
+			{
+				if (entrada != null)
+					HighScores.Add(entrada);
+			}
+
+			threadStart = new ThreadStart(GetTheThreadStarted);
+
+			thread = new Thread(threadStart);
+
+			UCMainMenu.LabelBestScore.Visible = true;
+			thread.Start();
+			//for (int i = 0; i < 3; i++)
+			//{
+			//	UCMainMenu.LabelBestScore.Visible = true;
+			//	UCMainMenu.LabelBestScore.Text = "Melhor Score: " + temp.Tempo + "(" + temp.Nivel + ")";
+
+			//	ToolTip TPShowUsername = new ToolTip();
+			//	The below are optional, of course,
+
+			//	TPShowUsername.ToolTipIcon = ToolTipIcon.Info;
+			//	TPShowUsername.IsBalloon = true;
+			//	TPShowUsername.ShowAlways = true;
+
+			//	TPShowUsername.SetToolTip(UCMainMenu.LabelBestScore, "Este score foi atingido por: " + temp.Username);
+			//}
+		}
+
+		public void GetTheThreadStarted()
+		{
+			ScoreExtractionHandler dlg_UpdateLabel = new ScoreExtractionHandler(UpdateLabelBestScore);
+
+			for (int i = 0; i < HighScores.Count(); i++)
+			{
+				UCMainMenu.LabelBestScore.BeginInvoke(dlg_UpdateLabel, HighScores[i]);
+				Thread.Sleep(4000);
+
+				if (i == HighScores.Count - 1)
+					i = -1;
+			}
+		}
+
+		private void UpdateLabelBestScore(Entry entrada)
+		{
+			UCMainMenu.LabelBestScore.Text = "Melhor Score: " + entrada.Tempo + "(" + entrada.Nivel + ")";
+
+			ToolTip TPShowUsername = new ToolTip();
+			//The below are optional, of course,
+
+			TPShowUsername.ToolTipIcon = ToolTipIcon.Info;
+			TPShowUsername.IsBalloon = true;
+			TPShowUsername.ShowAlways = true;
+
+			TPShowUsername.SetToolTip(UCMainMenu.LabelBestScore, "Este score foi atingido por: " + entrada.Username);
 		}
 
 		public void ShowTop10AccordingtoDifficulty(Dificuldade dificuldade)
@@ -89,6 +161,7 @@ namespace MineSweeperProjeto.View
 				ChangeDifficultyInGame(dificuldade);
 
 			this.Hide();
+			thread.Abort();
 			Program.V_MineSweeperGame.ShowDialog();
 			this.Close();
 		}
@@ -113,6 +186,12 @@ namespace MineSweeperProjeto.View
 			UCMainMenu.Dock = DockStyle.Fill;
 			UCMainMenu.Anchor = AnchorStyles.Top;
 			PNLContainer.Controls.Add(UCMainMenu);
+
+			// Pede o melhor score
+			if (AskBestScoreData != null)
+			{
+				AskBestScoreData();
+			}
 		}
 
 		private void UCOnlineDifficulty_WarnMainFormDifficultyChoiceOnline(Dificuldade _dificuldade)

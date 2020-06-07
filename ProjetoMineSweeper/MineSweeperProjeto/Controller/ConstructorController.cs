@@ -15,7 +15,7 @@ using static MineSweeperProjeto.Program;
 using Timer = System.Windows.Forms.Timer;
 using Library;
 using Library.Helpers;
-using Library.Model;
+using Library.Models;
 using Library.ServerEndpoint;
 
 namespace MineSweeperProjeto.Controller
@@ -29,6 +29,8 @@ namespace MineSweeperProjeto.Controller
 
 			// O jogador opta por desligar/ ligar audio do jogo
 			V_StartForm.TurnSoundEffectsInGame += V_StartForm_TurnSoundEffectsInGame;
+
+			V_StartForm.AskBestScoreData += V_StartForm_AskBestScoreData;
 
 			// Jogador prime botao durante o jogo
 			V_MineSweeperGame.ButtonPressed += OnButtonClicked;

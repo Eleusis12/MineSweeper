@@ -20,11 +20,6 @@ namespace MineSweeperUWP.Controller
 			//	SetupEventsDifficultyView();
 			//}
 
-			//if (Program.V_StartForm != null)
-			//{
-			//	SetupEventsMainView();
-			//}
-
 			if (Program.V_LeaderBoard != null)
 			{
 				SetupEventsLeaderBoardView();
@@ -50,6 +45,10 @@ namespace MineSweeperUWP.Controller
 			{
 				SetupEventsSearchUserView();
 			}
+			if (Program.V_StartForm != null)
+			{
+				SetupEventsMainView();
+			}
 		}
 
 		//internal void SetupEventsDifficultyView()
@@ -57,16 +56,18 @@ namespace MineSweeperUWP.Controller
 		//	throw new NotImplementedException();
 		//}
 
-		//internal void SetupEventsMainView()
-		//{
-		//	throw new NotImplementedException();
-		//}
+		internal void SetupEventsMainView()
+		{
+			LoadBestScores();
+			Program.V_StartForm.ShowBestScore();
+		}
 
 		internal void SetupEventsLeaderBoardView()
 		{
 			// LeaderBoard
 
-			Program.V_LeaderBoard.AskListViewItems += V_LeaderBoard_AskListViewItems;
+			V_LeaderBoard_AskListViewItems();
+			Program.V_LeaderBoard.PressEasyButton();
 		}
 
 		internal void SetupEventsLoginView()

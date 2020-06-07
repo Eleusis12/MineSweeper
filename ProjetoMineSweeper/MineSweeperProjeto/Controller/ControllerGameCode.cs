@@ -1,5 +1,5 @@
 ﻿using Library.Helpers;
-using Library.Model;
+using Library.Models;
 using MineSweeperProjeto.Model;
 using MineSweeperProjeto.Properties;
 using MineSweeperProjeto.View;

@@ -7,7 +7,7 @@ using System.Text;
 using static MineSweeperProjeto.Program;
 using System.Threading.Tasks;
 using Library.Helpers;
-using Library.Model;
+using Library.Models;
 using System.Diagnostics;
 using Library.ServerEndpoint;
 

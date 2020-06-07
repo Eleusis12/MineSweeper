@@ -8,7 +8,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using Library.Helpers;
-using Library.Model;
+using Library.Models;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace Library.ServerEndpoint

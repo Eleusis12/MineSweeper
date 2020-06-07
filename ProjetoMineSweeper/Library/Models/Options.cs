@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Library.Model
+namespace Library.Models
 {
 	[Serializable]
 	public class Options

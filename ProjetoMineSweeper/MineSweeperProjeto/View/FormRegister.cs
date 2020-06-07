@@ -1,6 +1,6 @@
 ﻿using Library.Helpers;
 using Library.Interfaces;
-using Library.Model;
+using Library.Models;
 using MineSweeperProjeto.Model;
 using System;
 using System.Collections.Generic;

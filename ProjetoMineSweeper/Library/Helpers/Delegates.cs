@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Library;
-using Library.Model;
+using Library.Models;
 
 namespace Library.Helpers
 {
@@ -27,4 +27,6 @@ namespace Library.Helpers
 	public delegate void DifficultyExtractionHandler(Dificuldade dificuldade);
 
 	public delegate void TimeExtractionHandler(int tempo);
+
+	public delegate void ScoreExtractionHandler(Entry entrada);
 }

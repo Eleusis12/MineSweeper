@@ -16,7 +16,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Library.Model;
+using Library.Models;
 using MineSweeperUWP.Controller;
 using MineSweeperProjeto.Helpers;
 using MineSweeperUWP.Views;
@@ -41,11 +41,13 @@ namespace MineSweeperUWP
 
 		public Options M_Options { get; private set; }
 
+		public BestScores M_BestScores { get; private set; }
+
 		//Views
 
 		public MineSweeper V_MineSweeperGame { get; set; }
 
-		//public MainView V_StartForm { get; set; }
+		public MainPage V_StartForm { get; set; }
 		//public DifficultyView V_DifficultyForm { get; set; }
 
 		public LeaderBoardPage V_LeaderBoard { get; set; }
@@ -83,6 +85,7 @@ namespace MineSweeperUWP
 			M_Grelha = new TileGrid();
 			M_Status = new ConnectionToServer();
 			M_Options = new Options();
+			M_BestScores = new BestScores();
 
 			// class que vai permitir a reprodução de audio
 			SoundPlayer = new SoundEffects();
@@ -163,39 +166,39 @@ namespace MineSweeperUWP
 			//	C_Master.SetupEventsDifficultyView();
 			//}
 
-			//if (rootFrame.Content is MainView)
-			//{
-			//	V_StartForm = rootFrame.Content as MainView;
-			//	C_Master.SetupEventsMainView();
-			//}
+			if (rootFrame.Content is MainPage)
+			{
+				V_StartForm = rootFrame.Content as MainPage;
+				C_Master.SetupEventsMainView();
+			}
 
-			if (rootFrame.Content is LeaderBoardView)
+			if (rootFrame.Content is LeaderBoardPage)
 			{
 				V_LeaderBoard = rootFrame.Content as LeaderBoardPage;
 				C_Master.SetupEventsLeaderBoardView();
 			}
-			if (rootFrame.Content is LoginView)
+			if (rootFrame.Content is LoginPage)
 			{
 				V_LoginPage = rootFrame.Content as LoginPage;
 				C_Master.SetupEventsLoginView();
 			}
 
-			if (rootFrame.Content is MineSweeperView)
+			if (rootFrame.Content is MineSweeper)
 			{
 				V_MineSweeperGame = rootFrame.Content as MineSweeper;
 				C_Master.SetupEventsMineSweeperView();
 			}
-			if (rootFrame.Content is OptionsView)
+			if (rootFrame.Content is OptionsPage)
 			{
 				V_OptionsForm = rootFrame.Content as OptionsPage;
 				C_Master.SetupEventsOptionsView();
 			}
-			if (rootFrame.Content is RegisterView)
+			if (rootFrame.Content is RegisterPage)
 			{
 				V_RegisterForm = rootFrame.Content as RegisterPage;
 				C_Master.SetupEventsRegisterView();
 			}
-			if (rootFrame.Content is SearchUserView)
+			if (rootFrame.Content is SearchUserPage)
 			{
 				V_SearchPage = rootFrame.Content as SearchUserPage;
 				C_Master.SetupEventsSearchUserView();

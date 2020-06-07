@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Library.Model;
+using Library.Models;
 
 namespace MineSweeperProjeto.View
 {
@@ -25,6 +25,13 @@ namespace MineSweeperProjeto.View
 		{
 			get { return BTOnline; }
 			set { BTOnline = value; }
+		}
+
+		public Label LabelBestScore
+		{
+			get { return LBLBestScore; }
+
+			set { LBLBestScore = value; }
 		}
 
 		public UserControlMainMenu()
@@ -133,5 +140,7 @@ namespace MineSweeperProjeto.View
 			Program.V_StartForm.BackButton.BringToFront();
 			//}
 		}
+
+	
 	}
 }

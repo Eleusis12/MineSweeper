@@ -5,10 +5,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Linq;
+using static MineSweeperProjeto.Program;
 
-namespace MineSweeperUWP.Controller
+namespace MineSweeperProjeto.Controller
 {
 	public partial class GameController
 	{
@@ -35,9 +38,9 @@ namespace MineSweeperUWP.Controller
 											new XElement("resultado_jogo",
 									new XElement("Username", username),
 
-									new XElement("Nivel", Program.M_Grelha.dificuldade.ToString()),
+									new XElement("Nivel", M_Grelha.dificuldade.ToString()),
 
-									new XElement("Tempo", Program.M_Grelha.timerCounter)
+									new XElement("Tempo", M_Grelha.timerCounter)
 								)
 							);
 		}
@@ -46,13 +49,22 @@ namespace MineSweeperUWP.Controller
 		{
 			XDocument doc = XDocument.Load(pathFile);
 
-			if (Program.M_Grelha.timerCounter < Convert.ToInt32(doc.Element("resultado_jogo").Element("Tempo").Value.ToString()))
+			if (M_Grelha.timerCounter < Convert.ToInt32(doc.Element("resultado_jogo").Element("Tempo").Value.ToString()))
 			{
 				doc.Element("resultado_jogo").Element("Username").Value = username;
-				doc.Element("resultado_jogo").Element("Nivel").Value = Program.M_Grelha.dificuldade.ToString();
-				doc.Element("resultado_jogo").Element("Tempo").Value = Program.M_Grelha.timerCounter.ToString();
+				doc.Element("resultado_jogo").Element("Nivel").Value = M_Grelha.dificuldade.ToString();
+				doc.Element("resultado_jogo").Element("Tempo").Value = M_Grelha.timerCounter.ToString();
 			}
 			doc.Save(pathFile);
+		}
+
+		private void V_StartForm_AskBestScoreData()
+		{
+			LoadBestScores();
+
+			Program.V_StartForm.ShowBestScore();
+
+			//Program.V_StartForm.UpdateBestScoreView();
 		}
 
 		private void LoadBestScores()

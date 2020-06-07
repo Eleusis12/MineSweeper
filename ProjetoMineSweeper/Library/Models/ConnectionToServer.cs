@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 
-namespace Library.Model
+namespace Library.Models
 {
 	public class ConnectionToServer
 	{

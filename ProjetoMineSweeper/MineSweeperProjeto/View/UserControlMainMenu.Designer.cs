@@ -37,6 +37,7 @@
 			this.PBLeaderBoard = new System.Windows.Forms.PictureBox();
 			this.PBPerfil = new System.Windows.Forms.PictureBox();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
+			this.LBLBestScore = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.PBSearch)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.PBLeaderBoard)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.PBPerfil)).BeginInit();
@@ -116,9 +117,9 @@
 			// PBSearch
 			// 
 			this.PBSearch.Image = global::MineSweeperProjeto.Properties.Resources.magnifying_glass1;
-			this.PBSearch.Location = new System.Drawing.Point(345, 243);
+			this.PBSearch.Location = new System.Drawing.Point(166, 215);
 			this.PBSearch.Name = "PBSearch";
-			this.PBSearch.Size = new System.Drawing.Size(29, 28);
+			this.PBSearch.Size = new System.Drawing.Size(39, 35);
 			this.PBSearch.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.PBSearch.TabIndex = 10;
 			this.PBSearch.TabStop = false;
@@ -127,7 +128,7 @@
 			// PBLeaderBoard
 			// 
 			this.PBLeaderBoard.Image = global::MineSweeperProjeto.Properties.Resources.icons8_pastel_64;
-			this.PBLeaderBoard.Location = new System.Drawing.Point(136, 243);
+			this.PBLeaderBoard.Location = new System.Drawing.Point(110, 209);
 			this.PBLeaderBoard.Name = "PBLeaderBoard";
 			this.PBLeaderBoard.Size = new System.Drawing.Size(46, 44);
 			this.PBLeaderBoard.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -156,11 +157,24 @@
 			this.pictureBox1.TabIndex = 7;
 			this.pictureBox1.TabStop = false;
 			// 
+			// LBLBestScore
+			// 
+			this.LBLBestScore.AutoSize = true;
+			this.LBLBestScore.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.LBLBestScore.ForeColor = System.Drawing.SystemColors.Control;
+			this.LBLBestScore.Location = new System.Drawing.Point(87, 266);
+			this.LBLBestScore.Name = "LBLBestScore";
+			this.LBLBestScore.Size = new System.Drawing.Size(81, 16);
+			this.LBLBestScore.TabIndex = 12;
+			this.LBLBestScore.Text = "Melhor Score:";
+			this.LBLBestScore.Visible = false;
+			// 
 			// UserControlMainMenu
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.Transparent;
+			this.Controls.Add(this.LBLBestScore);
 			this.Controls.Add(this.PBSearch);
 			this.Controls.Add(this.PBLeaderBoard);
 			this.Controls.Add(this.LBLStatus);
@@ -192,5 +206,6 @@
 		private System.Windows.Forms.PictureBox PBPerfil;
 		private System.Windows.Forms.PictureBox PBLeaderBoard;
 		private System.Windows.Forms.PictureBox PBSearch;
+		private System.Windows.Forms.Label LBLBestScore;
 	}
 }

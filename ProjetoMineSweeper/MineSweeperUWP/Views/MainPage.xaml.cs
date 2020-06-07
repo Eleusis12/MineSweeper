@@ -1,4 +1,6 @@
-﻿using Library.Interfaces;
+﻿using Library.Helpers;
+using Library.Interfaces;
+using Library.Models;
 using MineSweeperUWP.Controller;
 using MineSweeperUWP.View;
 using MineSweeperUWP.Views;
@@ -7,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
@@ -31,6 +34,8 @@ namespace MineSweeperUWP
 	{
 		private App Program;
 
+		private List<Entry> HighScores;
+
 		public MainPage()
 		{
 			Program = App.Current as App;
@@ -45,6 +50,33 @@ namespace MineSweeperUWP
 			{
 				LBLStatus.Text = "Offline";
 				BTOnline.Content = "Online";
+			}
+		}
+
+		public void ShowBestScore()
+		{
+			HighScores = new List<Entry>();
+			TryAddToList(Program.M_BestScores.EasyBestScore);
+			TryAddToList(Program.M_BestScores.MediumBestScore);
+			TryAddToList(Program.M_BestScores.HardBestScore);
+
+			void TryAddToList(Entry entrada)
+			{
+				if (entrada != null)
+					HighScores.Add(entrada);
+			}
+			LBLBestScore.Visibility = Visibility.Visible;
+
+			for (int i = 0; i < HighScores.Count(); i++)
+			{
+				LBLBestScore.Text += $"Melhor Score({HighScores[i].Nivel}): " + HighScores[i].Tempo + "\n";
+
+				TPShowUsername.Content = "Este score foi atingido por: " + HighScores[i].Username;
+				//TPShowUsername.ToolTipIcon = ToolTipIcon.Info;
+				//TPShowUsername.IsBalloon = true;
+				//TPShowUsername.ShowAlways = true;
+
+				//TPShowUsername.SetToolTip(LBLBestScore, "Este score foi atingido por: " + HighScores[i].Username);
 			}
 		}
 

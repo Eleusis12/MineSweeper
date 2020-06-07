@@ -12,7 +12,7 @@ namespace MineSweeperUWP.Controller
 {
 	public partial class GameController
 	{
-		private async void V_RegisterForm_RegisterThisUser(Library.Model.User temp)
+		private async void V_RegisterForm_RegisterThisUser(Library.Models.User temp)
 		{
 			string resposta;
 

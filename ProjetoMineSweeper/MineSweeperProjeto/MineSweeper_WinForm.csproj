@@ -58,7 +58,7 @@
     <Compile Include="Controller\ConstructorController.cs" />
     <Compile Include="Controller\ControllerGameCode.cs" />
     <Compile Include="Controller\ControllerOptions.cs" />
-    <Compile Include="Controller\ControllerSaveResult.cs" />
+    <Compile Include="Controller\ControllerResultHandling.cs" />
     <Compile Include="Controller\ControllerServerConnection.cs" />
     <Compile Include="Controller\ControllerModelHandling.cs" />
     <Compile Include="Controller\ControllerTimer.cs" />

@@ -1,5 +1,5 @@
 ﻿using Library.Interfaces;
-using Library.Model;
+using Library.Models;
 using MineSweeperProjeto.Controller;
 using MineSweeperProjeto.Model;
 using MineSweeperProjeto.View;
@@ -18,6 +18,8 @@ namespace MineSweeperProjeto
 
 		public static ConnectionToServer M_Status { get; private set; }
 		public static Options M_Options { get; private set; }
+
+		public static BestScores M_BestScores { get; private set; }
 
 		//V
 		public static FormMinesweeper V_MineSweeperGame { get; private set; }
@@ -44,6 +46,7 @@ namespace MineSweeperProjeto
 			M_Grelha = new TileGrid();
 			M_Status = new ConnectionToServer();
 			M_Options = new Options();
+			M_BestScores = new BestScores();
 
 			// View
 			V_StartForm = new FormStart();

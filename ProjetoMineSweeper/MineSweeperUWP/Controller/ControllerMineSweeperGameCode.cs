@@ -1,5 +1,5 @@
 ﻿using Library.Helpers;
-using Library.Model;
+using Library.Models;
 using Library.ServerEndpoint;
 using MineSweeperProjeto.Helpers;
 using MineSweeperUWP.Helpers;
@@ -480,10 +480,13 @@ namespace MineSweeperUWP.Controller
 
 			var dlg = new ContentDialog2();
 			var result = await dlg.ShowAsync();
+			string text = string.Empty;
 			if (result == ContentDialogResult.Primary)
 			{
-				var text = dlg.Text;
+				text = dlg.Text;
 			}
+
+			V_vencedor_SendUsername(text);
 		}
 
 		/// <summary>

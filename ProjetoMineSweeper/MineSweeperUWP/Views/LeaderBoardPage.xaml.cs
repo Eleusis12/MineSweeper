@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -27,28 +28,20 @@ namespace MineSweeperUWP.View
 	/// <summary>
 	/// An empty page that can be used on its own or navigated to within a Frame.
 	/// </summary>
-	public sealed partial class LeaderBoardPage : Page, LeaderBoardView
+	public sealed partial class LeaderBoardPage : Page
 	{
 		public App Program { get; }
-
-		public event NotificationTaskHandler AskListViewItems;
 
 		public LeaderBoardPage()
 		{
 			Program = App.Current as App;
-
-			this.InitializeComponent();
-
-			if (AskListViewItems != null)
-			{
-				AskListViewItems();
-			}
 		}
 
 		public void ShowTop10AccordingtoDifficulty(Dificuldade dificuldade)
 		{
 			List<Top10Resultado> listaTop10 = Program.M_Status.top10Resultados;
-			IEnumerable<Top10Resultado> data = listaTop10.Where(e => (e.dificuldade == dificuldade.ToString()));
+			IEnumerable<Top10Resultado> data = listaTop10.Where(e => e.dificuldade == dificuldade.ToString());
+
 			DataTable table = new DataTable();
 			using (var reader = ObjectReader.Create(data))
 			{
@@ -65,7 +58,7 @@ namespace MineSweeperUWP.View
 
 		public static void FillDataGrid(DataTable table, DataGrid grid)
 		{
-			grid.Columns.Clear();
+			//grid.Columns.Clear();
 			grid.AutoGenerateColumns = false;
 			for (int i = 0; i < table.Columns.Count; i++)
 			{
