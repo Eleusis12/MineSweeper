@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MineSweeperUWP.Controller
 {
-	public partial class ControllerMineSweeperGameCode
+	public partial class GameController
 	{
 		// Efetua Prepara o Model para permitir o Jogo
 		public void SetupModel()

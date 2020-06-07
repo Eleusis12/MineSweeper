@@ -354,7 +354,7 @@ namespace MineSweeperProjeto.Controller
 				Server.RegistarResultado(Program.M_Grelha.dificuldade.ToString(), Program.M_Grelha.timerCounter.ToString(), "true", Program.M_Status.ID);
 				//Server.RegistarResultado(Program.M_Grelha.dificuldade.ToString(), Program.M_Grelha.timerCounter.ToString(), "True", Program.M_Status.ID);
 			}
-			if (V_vencedor.ShowDialog() == DialogResult.OK)
+			if (V_Vencedor.ShowDialog() == DialogResult.OK)
 				// O jogo acaba
 				V_MineSweeperGame.Close();
 		}

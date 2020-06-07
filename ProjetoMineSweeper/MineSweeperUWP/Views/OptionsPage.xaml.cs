@@ -1,4 +1,5 @@
 ﻿using Library.Helpers;
+using Library.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,9 +22,9 @@ namespace MineSweeperUWP.View
 	/// <summary>
 	/// An empty page that can be used on its own or navigated to within a Frame.
 	/// </summary>
-	public sealed partial class OptionsPage : Page
+	public sealed partial class OptionsPage : Page, OptionsView
 	{
-		public event NotificationTaskHandler WarnMainFormSoundEffectsChoice;
+		public event NotificationTaskHandler TurnSoundEffectsInGame;
 
 		public OptionsPage()
 		{
@@ -47,9 +48,9 @@ namespace MineSweeperUWP.View
 
 		private void BTSoundEffects_Click(object sender, RoutedEventArgs e)
 		{
-			if (WarnMainFormSoundEffectsChoice != null)
+			if (TurnSoundEffectsInGame != null)
 			{
-				WarnMainFormSoundEffectsChoice();
+				TurnSoundEffectsInGame();
 			}
 			if (BTSoundEffects.Content.ToString() == "Efeitos Sonoros: Desligado")
 			{

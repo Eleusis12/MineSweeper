@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace MineSweeperUWP.Controller
 {
-	public partial class ControllerMineSweeperGameCode
+	public partial class GameController
 	{
 		private void V_vencedor_SendUsername(string username)
 		{

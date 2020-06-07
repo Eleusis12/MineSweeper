@@ -1,4 +1,5 @@
 ﻿using Library.Helpers;
+using Library.Interfaces;
 using Library.Model;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace MineSweeperUWP.View
 	/// <summary>
 	/// An empty page that can be used on its own or navigated to within a Frame.
 	/// </summary>
-	public sealed partial class Register : Page
+	public sealed partial class RegisterPage : Page, RegisterView
 	{
 		private List<string> cultureList = new List<string>();
 		private CultureInfo[] cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
@@ -38,7 +39,7 @@ namespace MineSweeperUWP.View
 
 		private User temp;
 
-		public Register()
+		public RegisterPage()
 		{
 			this.InitializeComponent();
 			GetCountryList();

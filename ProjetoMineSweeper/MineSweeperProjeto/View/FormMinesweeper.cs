@@ -15,10 +15,11 @@ using System.Runtime.InteropServices;
 using static MineSweeperProjeto.Program;
 using Library;
 using Library.Helpers;
+using Library.Interfaces;
 
 namespace MineSweeperProjeto
 {
-	public partial class FormMinesweeper : Form
+	public partial class FormMinesweeper : Form, MineSweeperView
 	{
 		public event NotificationTaskHandler AskToRevealAllPieces;
 

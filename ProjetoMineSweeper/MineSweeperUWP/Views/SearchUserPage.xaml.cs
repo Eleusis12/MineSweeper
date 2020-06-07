@@ -1,4 +1,5 @@
 ﻿using Library.Helpers;
+using Library.Interfaces;
 using Library.Model;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace MineSweeperUWP.Views
 	/// <summary>
 	/// An empty page that can be used on its own or navigated to within a Frame.
 	/// </summary>
-	public sealed partial class SearchUserPage : Page
+	public sealed partial class SearchUserPage : Page, SearchUserView
 	{
 		public event UsernameExtractionHandler AskUserData;
 
@@ -42,7 +43,7 @@ namespace MineSweeperUWP.Views
 			}
 		}
 
-		internal void ShowProfile(User temp)
+		public void ShowProfile(User temp)
 		{
 			if (temp != null)
 			{

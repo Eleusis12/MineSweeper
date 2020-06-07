@@ -11,17 +11,8 @@ using Windows.UI.Popups;
 
 namespace MineSweeperUWP.Controller
 {
-	public class ControllerSearchUser
+	public partial class GameController
 	{
-		public App Program { get; }
-
-		public ControllerSearchUser()
-		{
-			Program = App.Current as App;
-
-			Program.V_SearchPage.AskUserData += V_SearchPage_AskUserData;
-		}
-
 		private async void V_SearchPage_AskUserData(string username)
 		{
 			string resposta;
@@ -57,13 +48,6 @@ namespace MineSweeperUWP.Controller
 				await ShowErrorDialog(ex.Message);
 			}
 			Program.V_SearchPage.ShowProfile(temp);
-		}
-
-		private async Task ShowErrorDialog(string _string)
-		{
-			var dlg = new MessageDialog(_string);
-
-			await dlg.ShowAsync();
 		}
 	}
 }

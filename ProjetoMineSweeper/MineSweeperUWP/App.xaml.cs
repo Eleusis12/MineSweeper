@@ -20,6 +20,7 @@ using Library.Model;
 using MineSweeperUWP.Controller;
 using MineSweeperProjeto.Helpers;
 using MineSweeperUWP.Views;
+using Library.Interfaces;
 
 namespace MineSweeperUWP
 {
@@ -41,27 +42,29 @@ namespace MineSweeperUWP
 		public Options M_Options { get; private set; }
 
 		//Views
+
 		public MineSweeper V_MineSweeperGame { get; set; }
 
-		public MainPage V_StartForm { get; set; }
-		public DificuldadePage V_DifficultyForm { get; set; }
+		//public MainView V_StartForm { get; set; }
+		//public DifficultyView V_DifficultyForm { get; set; }
 
 		public LeaderBoardPage V_LeaderBoard { get; set; }
 		public OptionsPage V_OptionsForm { get; set; }
-		public Register V_RegisterForm { get; set; }
-		public Login V_LoginPage { get; set; }
+		public RegisterPage V_RegisterForm { get; set; }
+		public LoginPage V_LoginPage { get; set; }
 
 		public SearchUserPage V_SearchPage { get; set; }
 
 		// Controller
+		public GameController C_Master { get; }
 
-		public ControllerMineSweeperGameCode C_MineSweeperGame { get; set; }
-		public ControllerLeaderBoard C_LeaderBoard { get; set; }
-		public ControllerOptions C_OptionsForm { get; set; }
-		public ControllerRegister C_RegisterForm { get; set; }
-		public ControllerLogin C_LoginPage { get; set; }
+		//public ControllerMineSweeperGameCode C_MineSweeperGame { get; set; }
+		//public ControllerLeaderBoard C_LeaderBoard { get; set; }
+		//public ControllerOptions C_OptionsForm { get; set; }
+		//public ControllerRegister C_RegisterForm { get; set; }
+		//public ControllerLogin C_LoginPage { get; set; }
 
-		public ControllerSearchUser C_SearchPage { get; set; }
+		//public ControllerSearchUser C_SearchPage { get; set; }
 
 		// Controllers
 
@@ -83,6 +86,8 @@ namespace MineSweeperUWP
 
 			// class que vai permitir a reprodução de audio
 			SoundPlayer = new SoundEffects();
+
+			C_Master = new GameController();
 		}
 
 		/// <summary>
@@ -102,6 +107,8 @@ namespace MineSweeperUWP
 				rootFrame = new Frame();
 
 				rootFrame.NavigationFailed += OnNavigationFailed;
+
+				rootFrame.Navigated += this.RootFrame_FirstNavigated;
 
 				if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
 				{
@@ -125,8 +132,6 @@ namespace MineSweeperUWP
 				// Ensure the current window is active
 				Window.Current.Activate();
 			}
-			//No final do método OnLaunched instanciam-se as Views os Controllers//Views
-			V_StartForm = rootFrame.Content as MainPage;
 
 			//V_MineSweeperGame = rootFrame.Content as MineSweeper;
 			//V_LeaderBoard = rootFrame.Content as LeaderBoardPage;
@@ -145,9 +150,56 @@ namespace MineSweeperUWP
 			//C_Vencedor = new ControllerVencedor();
 		}
 
-		internal void V_MineSweeperGame_AskToResetBoard()
+		private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e)
 		{
-			throw new NotImplementedException();
+			var rootFrame = sender as Frame;
+
+			//rootFrame.ContentTransitions = this.transitions ?? new TransitionCollection() { new NavigationThemeTransition() };
+			//rootFrame.Navigated -= this.RootFrame_FirstNavigated;
+
+			//if (rootFrame.Content is DifficultyView)
+			//{
+			//	V_DifficultyForm = rootFrame.Content as DifficultyView;
+			//	C_Master.SetupEventsDifficultyView();
+			//}
+
+			//if (rootFrame.Content is MainView)
+			//{
+			//	V_StartForm = rootFrame.Content as MainView;
+			//	C_Master.SetupEventsMainView();
+			//}
+
+			if (rootFrame.Content is LeaderBoardView)
+			{
+				V_LeaderBoard = rootFrame.Content as LeaderBoardPage;
+				C_Master.SetupEventsLeaderBoardView();
+			}
+			if (rootFrame.Content is LoginView)
+			{
+				V_LoginPage = rootFrame.Content as LoginPage;
+				C_Master.SetupEventsLoginView();
+			}
+
+			if (rootFrame.Content is MineSweeperView)
+			{
+				V_MineSweeperGame = rootFrame.Content as MineSweeper;
+				C_Master.SetupEventsMineSweeperView();
+			}
+			if (rootFrame.Content is OptionsView)
+			{
+				V_OptionsForm = rootFrame.Content as OptionsPage;
+				C_Master.SetupEventsOptionsView();
+			}
+			if (rootFrame.Content is RegisterView)
+			{
+				V_RegisterForm = rootFrame.Content as RegisterPage;
+				C_Master.SetupEventsRegisterView();
+			}
+			if (rootFrame.Content is SearchUserView)
+			{
+				V_SearchPage = rootFrame.Content as SearchUserPage;
+				C_Master.SetupEventsSearchUserView();
+			}
 		}
 
 		/// <summary>

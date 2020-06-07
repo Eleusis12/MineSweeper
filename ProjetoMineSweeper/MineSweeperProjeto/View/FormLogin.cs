@@ -1,4 +1,5 @@
 ﻿using Library.Helpers;
+using Library.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +12,7 @@ using System.Windows.Forms;
 
 namespace MineSweeperProjeto.View
 {
-	public partial class FormLogin : Form
+	public partial class FormLogin : Form, LoginView
 	{
 		public event AccountCredentialsExtractionHandler SendCredentials;
 
@@ -50,6 +51,11 @@ namespace MineSweeperProjeto.View
 		{
 			TBUsername.Text = Properties.Settings.Default.Username;
 			TBPassword.Text = Properties.Settings.Default.Password;
+		}
+
+		public void Response(bool resposta)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

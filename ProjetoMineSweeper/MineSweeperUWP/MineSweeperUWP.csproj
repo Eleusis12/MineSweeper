@@ -119,6 +119,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controller\ConstructorController.cs" />
     <Compile Include="Controller\ControllerLeaderBoard.cs" />
     <Compile Include="Controller\ControllerLogin.cs" />
     <Compile Include="Controller\ControllerMineSweeperGameCode.cs" />

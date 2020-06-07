@@ -1,4 +1,5 @@
-﻿using Library.Model;
+﻿using Library.Interfaces;
+using Library.Model;
 using MineSweeperProjeto.Controller;
 using MineSweeperProjeto.Model;
 using MineSweeperProjeto.View;
@@ -22,10 +23,10 @@ namespace MineSweeperProjeto
 		public static FormMinesweeper V_MineSweeperGame { get; private set; }
 
 		public static FormStart V_StartForm { get; private set; }
-		public static FormVencedor V_Vencedor { get; private set; }
+
 		public static FormLogin V_Login { get; private set; }
 		public static FormRegister V_Register { get; private set; }
-		public static FormVencedor V_vencedor { get; private set; }
+		public static FormVencedor V_Vencedor { get; private set; }
 
 		//C
 		public static GameController C_Master { get; private set; }
@@ -47,10 +48,9 @@ namespace MineSweeperProjeto
 			// View
 			V_StartForm = new FormStart();
 			V_MineSweeperGame = new FormMinesweeper();
-			V_Vencedor = new FormVencedor();
 			V_Login = new FormLogin();
 			V_Register = new FormRegister();
-			V_vencedor = new FormVencedor();
+			V_Vencedor = new FormVencedor();
 
 			// Controlador
 			C_Master = new GameController();

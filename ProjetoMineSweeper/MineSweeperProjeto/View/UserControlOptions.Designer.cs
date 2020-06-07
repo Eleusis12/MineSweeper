@@ -40,7 +40,7 @@
 			this.BTSoundEffects.ForeColor = System.Drawing.SystemColors.Control;
 			this.BTSoundEffects.Location = new System.Drawing.Point(67, 86);
 			this.BTSoundEffects.Name = "BTSoundEffects";
-			this.BTSoundEffects.Size = new System.Drawing.Size(190, 27);
+			this.BTSoundEffects.Size = new System.Drawing.Size(232, 27);
 			this.BTSoundEffects.TabIndex = 7;
 			this.BTSoundEffects.Text = "Efeitos Sonoros: Ligado";
 			this.BTSoundEffects.UseVisualStyleBackColor = false;

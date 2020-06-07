@@ -10,18 +10,8 @@ using Windows.UI.Popups;
 
 namespace MineSweeperUWP.Controller
 {
-	public class ControllerLeaderBoard
+	public partial class GameController
 	{
-		public App Program { get; }
-
-		public ControllerLeaderBoard()
-		{
-			Program = App.Current as App;
-
-			V_LeaderBoard_AskListViewItems();
-			Program.V_LeaderBoard.PressEasyButton();
-		}
-
 		private async void V_LeaderBoard_AskListViewItems()
 		{
 			List<Top10Resultado> listaTop10 = new List<Top10Resultado>();
@@ -61,13 +51,6 @@ namespace MineSweeperUWP.Controller
 				Program.M_Status.top10Resultados = listaTop10;
 				Program.V_LeaderBoard.ShowTop10AccordingtoDifficulty(Dificuldade.Facil);
 			}
-		}
-
-		private async Task ShowErrorDialog(string _string)
-		{
-			var dlg = new MessageDialog(_string);
-
-			await dlg.ShowAsync();
 		}
 	}
 }

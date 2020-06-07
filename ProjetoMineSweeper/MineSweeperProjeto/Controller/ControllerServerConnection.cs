@@ -144,7 +144,7 @@ namespace MineSweeperProjeto.Controller
 			if (listaTop10 != null)
 			{
 				Program.M_Status.top10Resultados = listaTop10;
-				V_StartForm.ShowTop10(Dificuldade.Facil);
+				V_StartForm.ShowTop10AccordingtoDifficulty(Dificuldade.Facil);
 			}
 			//}
 		}

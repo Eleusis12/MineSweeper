@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Library.Helpers;
+using Library.Interfaces;
 
 namespace MineSweeperProjeto.View
 {

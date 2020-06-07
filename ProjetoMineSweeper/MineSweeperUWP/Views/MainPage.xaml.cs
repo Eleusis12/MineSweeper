@@ -1,4 +1,5 @@
-﻿using MineSweeperUWP.Controller;
+﻿using Library.Interfaces;
+using MineSweeperUWP.Controller;
 using MineSweeperUWP.View;
 using MineSweeperUWP.Views;
 using System;
@@ -26,7 +27,7 @@ namespace MineSweeperUWP
 	/// <summary>
 	/// An empty page that can be used on its own or navigated to within a Frame.
 	/// </summary>
-	public sealed partial class MainPage : Page
+	public sealed partial class MainPage : Page, MainView
 	{
 		private App Program;
 
@@ -51,8 +52,7 @@ namespace MineSweeperUWP
 
 		{
 			this.Frame.Navigate(typeof(DificuldadePage));
-			Frame rootFrame = GetCurrentWindow();
-			Program.V_DifficultyForm = rootFrame.Content as DificuldadePage;
+
 			//C_DifficultyForm = new ControllerDificuldade();
 		}
 
@@ -62,50 +62,31 @@ namespace MineSweeperUWP
 			{
 				Program.M_Status.PlayingWithTheOnlineBoard = true;
 				this.Frame.Navigate(typeof(DificuldadePage));
-				Frame rootFrame = GetCurrentWindow();
-				Program.V_DifficultyForm = rootFrame.Content as DificuldadePage;
 			}
 			else
 			{
-				this.Frame.Navigate(typeof(Login));
-				Frame rootFrame = GetCurrentWindow();
-				Program.V_LoginPage = rootFrame.Content as Login;
-				Program.C_LoginPage = new ControllerLogin();
+				this.Frame.Navigate(typeof(LoginPage));
 			}
 		}
 
 		private void BTOptions_Click(object sender, RoutedEventArgs e)
 		{
 			this.Frame.Navigate(typeof(OptionsPage));
-			Frame rootFrame = GetCurrentWindow();
-			Program.V_OptionsForm = rootFrame.Content as OptionsPage;
-			Program.C_OptionsForm = new ControllerOptions();
 		}
 
 		private void BTLeaderBoard_Click(object sender, RoutedEventArgs e)
 		{
 			this.Frame.Navigate(typeof(LeaderBoardPage));
-			Frame rootFrame = GetCurrentWindow();
-			Program.V_LeaderBoard = rootFrame.Content as LeaderBoardPage;
-			Program.C_LeaderBoard = new ControllerLeaderBoard();
 		}
 
 		private void BTSearch_Click(object sender, RoutedEventArgs e)
 		{
 			this.Frame.Navigate(typeof(SearchUserPage));
-			Frame rootFrame = GetCurrentWindow();
-			Program.V_SearchPage = rootFrame.Content as SearchUserPage;
-			Program.C_SearchPage = new ControllerSearchUser();
 		}
 
 		private void BTExit_Click(object sender, RoutedEventArgs e)
 		{
 			CoreApplication.Exit();
-		}
-
-		private static Frame GetCurrentWindow()
-		{
-			return Window.Current.Content as Frame;
 		}
 	}
 }

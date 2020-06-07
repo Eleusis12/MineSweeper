@@ -10,17 +10,8 @@ using Windows.UI.Popups;
 
 namespace MineSweeperUWP.Controller
 {
-	public class ControllerRegister
+	public partial class GameController
 	{
-		public App Program { get; }
-
-		public ControllerRegister()
-		{
-			Program = App.Current as App;
-
-			Program.V_RegisterForm.RegisterThisUser += V_RegisterForm_RegisterThisUser;
-		}
-
 		private async void V_RegisterForm_RegisterThisUser(Library.Model.User temp)
 		{
 			string resposta;
@@ -80,13 +71,6 @@ namespace MineSweeperUWP.Controller
 			//{
 			//	Program.V_RegisterForm.ResultOfRegistration("Erro");
 			//}
-		}
-
-		private async Task ShowErrorDialog(string _string)
-		{
-			var dlg = new MessageDialog(_string);
-
-			await dlg.ShowAsync();
 		}
 	}
 }

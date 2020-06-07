@@ -1,4 +1,5 @@
-﻿using MineSweeperUWP.Controller;
+﻿using Library.Interfaces;
+using MineSweeperUWP.Controller;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,7 +22,7 @@ namespace MineSweeperUWP.View
 	/// <summary>
 	/// An empty page that can be used on its own or navigated to within a Frame.
 	/// </summary>
-	public sealed partial class DificuldadePage : Page
+	public sealed partial class DificuldadePage : Page, DifficultyView
 	{
 		internal App Program { get; }
 
@@ -34,9 +35,6 @@ namespace MineSweeperUWP.View
 		private void BTClick(object sender, RoutedEventArgs e)
 		{
 			this.Frame.Navigate(typeof(MineSweeper), (sender as Button).Content);
-			Frame rootFrame = Window.Current.Content as Frame;
-			Program.V_MineSweeperGame = rootFrame.Content as MineSweeper;
-			Program.C_MineSweeperGame = new ControllerMineSweeperGameCode();
 		}
 
 		private void Back_Button(object sender, RoutedEventArgs e)

@@ -15,10 +15,9 @@ using Windows.UI.Xaml.Controls;
 
 namespace MineSweeperUWP.Controller
 {
-	public partial class ControllerMineSweeperGameCode
+	public partial class GameController
 	{
 		public Dificuldade dificuldade { get; set; }
-		public App Program { get; set; }
 
 		public readonly Point[] adjacentCoords =
 				{
@@ -31,25 +30,6 @@ namespace MineSweeperUWP.Controller
 			new Point (-1,1),
 			new Point (-1, 0)
 		};
-
-		public ControllerMineSweeperGameCode()
-		{
-			Program = App.Current as App;
-			// Jogador prime botao durante o jogo
-			Program.V_MineSweeperGame.LeftButtonPressed += V_MineSweeperGame_LeftButtonPressed;
-
-			// O jogador tenta colocar uma flag
-			Program.V_MineSweeperGame.RightButtonPressed += V_MineSweeperGame_RightButtonPressed;
-
-			//// Para debug: Jogador prime no botao que revela todos os botoes
-			//Program.V_MineSweeperGame.AskToRevealAllPieces += Reveal;
-
-			// Jogador pede um reset ao jogo
-			Program.V_MineSweeperGame.AskToResetBoard += V_MineSweeperGame_AskToResetBoard;
-
-			Program.V_MineSweeperGame.UpdateTimer += V_MineSweeperGame_UpdateTimer;
-			SetupModel();
-		}
 
 		private void V_MineSweeperGame_UpdateTimer(int tempo)
 		{

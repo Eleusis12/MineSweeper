@@ -11,16 +11,8 @@ using Windows.UI.Popups;
 
 namespace MineSweeperUWP.Controller
 {
-	public class ControllerLogin
+	public partial class GameController
 	{
-		public App Program { get; }
-
-		public ControllerLogin()
-		{
-			Program = App.Current as App;
-			Program.V_LoginPage.SendCredentials += V_Login_SendCredentials;
-		}
-
 		public async void V_Login_SendCredentials(string username, string password)
 		{
 			string id = string.Empty;
@@ -64,11 +56,5 @@ namespace MineSweeperUWP.Controller
 		}
 
 		// Apresenta uma Mensagem de Erro
-		private static async Task ShowErrorDialog(string message)
-		{
-			var dlg = new MessageDialog(message);
-
-			await dlg.ShowAsync();
-		}
 	}
 }

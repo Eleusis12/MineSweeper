@@ -21,6 +21,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using Library;
 using System.Drawing;
 using Library.Helpers;
+using Library.Interfaces;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -29,7 +30,8 @@ namespace MineSweeperUWP.View
 	/// <summary>
 	/// An empty page that can be used on its own or navigated to within a Frame.
 	/// </summary>
-	public sealed partial class MineSweeper : Page
+
+	public sealed partial class MineSweeper : Page, MineSweeperView
 	{
 		//public event NotificationTaskHandler AskToRevealAllPieces;
 
@@ -466,7 +468,7 @@ namespace MineSweeperUWP.View
 		public SolidColorBrush tile4 = new SolidColorBrush(Colors.DarkBlue);
 		public SolidColorBrush tile5 = new SolidColorBrush(Colors.DarkRed);
 		public SolidColorBrush tile6 = new SolidColorBrush(Colors.MediumAquamarine);
-		public SolidColorBrush tile7 = new SolidColorBrush(Colors.Black	);
+		public SolidColorBrush tile7 = new SolidColorBrush(Colors.Black);
 		public SolidColorBrush tile8 = new SolidColorBrush(Colors.DarkGray);
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using Library.Helpers;
+using Library.Interfaces;
 using MineSweeperUWP.Controller;
 using System;
 using System.Collections.Generic;
@@ -25,13 +26,13 @@ namespace MineSweeperUWP.View
 	/// <summary>
 	/// An empty page that can be used on its own or navigated to within a Frame.
 	/// </summary>
-	public sealed partial class Login : Page
+	public sealed partial class LoginPage : Page, LoginView
 	{
 		public App Program { get; }
 
 		public event AccountCredentialsExtractionHandler SendCredentials;
 
-		public Login()
+		public LoginPage()
 		{
 			Program = App.Current as App;
 			this.InitializeComponent();
@@ -42,10 +43,7 @@ namespace MineSweeperUWP.View
 
 		private void BTRegister_Click(object sender, RoutedEventArgs e)
 		{
-			this.Frame.Navigate(typeof(Register));
-			Frame rootFrame = Window.Current.Content as Frame;
-			Program.V_RegisterForm = rootFrame.Content as Register;
-			Program.C_RegisterForm = new ControllerRegister();
+			this.Frame.Navigate(typeof(RegisterPage));
 		}
 
 		private void BTLogin_Click(object sender, RoutedEventArgs e)

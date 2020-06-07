@@ -40,7 +40,7 @@ namespace MineSweeperProjeto.Controller
 			V_MineSweeperGame.AskToResetBoard += V_MineSweeperGame_AskToResetBoard;
 
 			// Jogador termina o jogo numa vitória
-			V_vencedor.SendUsername += V_vencedor_SendUsername;
+			V_Vencedor.SendUsername += V_vencedor_SendUsername;
 			//Server Connetion
 			V_StartForm.AskListViewItems += V_StartForm_AskListViewItems;
 			V_StartForm.AskUserData += V_StartForm_AskUserData;

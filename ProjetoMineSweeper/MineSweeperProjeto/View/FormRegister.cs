@@ -1,4 +1,5 @@
 ﻿using Library.Helpers;
+using Library.Interfaces;
 using Library.Model;
 using MineSweeperProjeto.Model;
 using System;
@@ -14,7 +15,7 @@ using System.Windows.Forms;
 
 namespace MineSweeperProjeto.View
 {
-	public partial class FormRegister : Form
+	public partial class FormRegister : Form, RegisterView
 	{
 		private List<string> cultureList = new List<string>();
 		private CultureInfo[] cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
@@ -70,7 +71,7 @@ namespace MineSweeperProjeto.View
 			GetCountryList();
 		}
 
-		internal void ResultOfRegistration(string resposta)
+		public void ResultOfRegistration(string resposta)
 		{
 			if (resposta.ToLower() == "OK".ToLower())
 			{

@@ -12,10 +12,11 @@ using Library;
 using MineSweeperProjeto.Model;
 using Library.Helpers;
 using Library.Model;
+using Library.Interfaces;
 
 namespace MineSweeperProjeto.View
 {
-	public partial class FormStart : Form
+	public partial class FormStart : Form, DifficultyView, LeaderBoardView, MainView, OptionsView, SearchUserView
 	{
 		public event DifficultyChangedHandler ChangeDifficultyInGame;
 
@@ -55,7 +56,7 @@ namespace MineSweeperProjeto.View
 			//gameMode1.ChangeDifficulty += GameMode1_ChangeDifficulty;
 		}
 
-		internal void ShowTop10(Dificuldade dificuldade)
+		public void ShowTop10AccordingtoDifficulty(Dificuldade dificuldade)
 		{
 			int i, rank = 0;
 			UCLeaderBoard.ListViewTop10.Items.Clear();
@@ -126,10 +127,10 @@ namespace MineSweeperProjeto.View
 
 		private void UCLeaderBoard_ShowTop10AccordingtoDifficulty(Dificuldade dificuldade)
 		{
-			ShowTop10(dificuldade);
+			ShowTop10AccordingtoDifficulty(dificuldade);
 		}
 
-		internal void ShowProfile(User temp)
+		public void ShowProfile(User temp)
 		{
 			if (temp != null)
 			{

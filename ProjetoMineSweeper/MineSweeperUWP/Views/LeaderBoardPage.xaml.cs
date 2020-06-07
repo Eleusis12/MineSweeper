@@ -1,5 +1,6 @@
 ﻿using FastMember;
 using Library.Helpers;
+using Library.Interfaces;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using System.Collections.Generic;
@@ -26,18 +27,25 @@ namespace MineSweeperUWP.View
 	/// <summary>
 	/// An empty page that can be used on its own or navigated to within a Frame.
 	/// </summary>
-	public sealed partial class LeaderBoardPage : Page
+	public sealed partial class LeaderBoardPage : Page, LeaderBoardView
 	{
 		public App Program { get; }
+
+		public event NotificationTaskHandler AskListViewItems;
 
 		public LeaderBoardPage()
 		{
 			Program = App.Current as App;
 
 			this.InitializeComponent();
+
+			if (AskListViewItems != null)
+			{
+				AskListViewItems();
+			}
 		}
 
-		internal void ShowTop10AccordingtoDifficulty(Dificuldade dificuldade)
+		public void ShowTop10AccordingtoDifficulty(Dificuldade dificuldade)
 		{
 			List<Top10Resultado> listaTop10 = Program.M_Status.top10Resultados;
 			IEnumerable<Top10Resultado> data = listaTop10.Where(e => (e.dificuldade == dificuldade.ToString()));
