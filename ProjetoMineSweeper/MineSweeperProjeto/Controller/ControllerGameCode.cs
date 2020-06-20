@@ -53,6 +53,33 @@ namespace MineSweeperProjeto.Controller
 			}
 		}
 
+		public void RevealPiecesWithAdjacentMines()
+		{
+			foreach (Button Botao in V_MineSweeperGame.GetButtons())
+			{
+				GetCoordinates(Botao, out int x, out int y);
+				Tile currentTile = GetTile(new System.Drawing.Point(x, y));
+
+				if (currentTile.Vazio == false && currentTile.TemMina == false)
+				{
+					currentTile.Aberto = true;
+					SwitchBackground(Botao, currentTile);
+				}
+				else
+				{
+					continue;
+				}
+			}
+		}
+
+		private void V_StartForm_StartReverseMode(Dificuldade dificuldade)
+		{
+			Program.M_Grelha._Dificuldade = dificuldade;
+			AlteraDificuldade(Program.M_Grelha._Dificuldade);
+			V_MineSweeperGame.AtualizaNumeroMinasDisponiveis(M_Grelha.NumMinasTotal);
+			RevealPiecesWithAdjacentMines();
+		}
+
 		// Dá um Reset ao Jogo
 		public void V_MineSweeperGame_AskToResetBoard()
 		{
@@ -62,108 +89,177 @@ namespace MineSweeperProjeto.Controller
 			Temporizador = new Timer();
 			SetupTimer();
 			V_MineSweeperGame.AtualizaNumeroMinasDisponiveis(M_Grelha.NumMinasTotal);
+
+			if (Program.M_Options.ModoJogo == GameMode.Inverso)
+			{
+				RevealPiecesWithAdjacentMines();
+			}
 			//SetupTimer();
 		}
 
 		public void V_GameMode_ChangeDifficulty(Dificuldade dificuldade)
 		{
-			Program.M_Grelha.dificuldade = dificuldade;
-			AlteraDificuldade(Program.M_Grelha.dificuldade);
+			Program.M_Grelha._Dificuldade = dificuldade;
+			AlteraDificuldade(Program.M_Grelha._Dificuldade);
 			V_MineSweeperGame.AtualizaNumeroMinasDisponiveis(M_Grelha.NumMinasTotal);
 		}
 
 		public void OnButtonClicked(object sender, MouseEventArgs e)
 		{
-			// Botão esquerdo, abre espaço
-			if (e.Button == MouseButtons.Left)
+			// Se o Jogador se encontra a jogar no Modo normal, os botões funcionam desta maneira...
+			if (Program.M_Options.ModoJogo == GameMode.Normal)
 			{
-				Temporizador.Start();
-				//// Obter Botão premido e guardar
-				var botaoAtual = (sender as Button);
-
-				// Obtém as Coordenadas do Tile
-				GetCoordinates(botaoAtual, out int x, out int y);
-
-				Tile currentTile = GetTile(new System.Drawing.Point(x, y));
-
-				if (currentTile.TemMina == true)
+				// Botão esquerdo, abre espaço
+				if (e.Button == MouseButtons.Left)
 				{
-					//	Jogo perdido
-					Temporizador.Stop();
+					Temporizador.Start();
+					//// Obter Botão premido e guardar
+					var botaoAtual = (sender as Button);
 
-					V_MineSweeperGame.ChangeButtonBackGround(botaoAtual, Resources.bomb);
-					RevealAllPieces();
-					BombaFimJogo();
+					// Obtém as Coordenadas do Tile
+					GetCoordinates(botaoAtual, out int x, out int y);
 
-					// O jogo acaba
-					V_MineSweeperGame_AskToResetBoard();
-				}
-				else if (currentTile.Vazio == false && currentTile.Aberto == false)
-				{
-					SwitchBackground(botaoAtual, currentTile);
+					Tile currentTile = GetTile(new System.Drawing.Point(x, y));
 
-					currentTile.Aberto = true;
-					if (M_Options.SoundOnOrOFF == true)
+					if (currentTile.TemMina == true)
 					{
-						Thread soundThread = new Thread(Sound.PlayOpenTile)
+						//	Jogo perdido
+						Temporizador.Stop();
+
+						V_MineSweeperGame.ChangeButtonBackGround(botaoAtual, Resources.bomb);
+						RevealAllPieces();
+						BombaFimJogo();
+
+						// O jogo acaba
+						V_MineSweeperGame_AskToResetBoard();
+					}
+					else if (currentTile.Vazio == false && currentTile.Aberto == false)
+					{
+						SwitchBackground(botaoAtual, currentTile);
+
+						currentTile.Aberto = true;
+						if (M_Options.SoundOnOrOFF == true)
 						{
-							IsBackground = true
-						};
-						soundThread.Start();
-					}
+							Thread soundThread = new Thread(Sound.PlayOpenTile)
+							{
+								IsBackground = true
+							};
+							soundThread.Start();
+						}
 
-					// Se a condição for verdadeira a condição acaba
-					if (TestarFim(currentTile) == true)
-					{
-						GanhouJogo();
+						// Se a condição for verdadeira a condição acaba
+						if (TestarFim(currentTile) == true)
+						{
+							GanhouJogo();
+						}
+						//soundThread.Abort();
 					}
-					//soundThread.Abort();
+					// O jogo tem que abrir todos os vazios adjacentes.
+					// Primeira Questão: Como pedir os botões adjacentes ao view?
+					else if (currentTile.Vazio == true && currentTile.Aberto == false)
+					{
+						Flood_Fill(currentTile, V_MineSweeperGame.GetButton(currentTile.Ponto));
+					}
 				}
-				// O jogo tem que abrir todos os vazios adjacentes.
-				// Primeira Questão: Como pedir os botões adjacentes ao view?
-				else if (currentTile.Vazio == true && currentTile.Aberto == false)
+
+				// Botão direito, coloca flag
+				else if (e.Button == MouseButtons.Right)
 				{
-					Flood_Fill(currentTile, V_MineSweeperGame.GetButton(currentTile.Ponto));
+					Button botaoAtual = sender as Button;
+					GetCoordinates(botaoAtual, out int x, out int y);
+
+					// Obtém as Coordenadas do Tile
+					Tile currentTile = GetTile(new System.Drawing.Point(x, y));
+
+					if (currentTile.Aberto != true)
+					{
+						if (M_Options.SoundOnOrOFF == true)
+						{
+							Thread soundThread = new Thread(Sound.PlayPutFlag)
+							{
+								IsBackground = true
+							};
+							soundThread.Start();
+						}
+
+						if (currentTile.Flagged == true)
+						{
+							V_MineSweeperGame.ChangeButtonBackGround(botaoAtual, Resources.unopened);
+							currentTile.Flagged = false;
+							M_Grelha.NumFlags--;
+							V_MineSweeperGame.AtualizaNumeroMinasDisponiveis(M_Grelha.NumMinasTotal - M_Grelha.NumFlags);
+						}
+						else if (currentTile.Flagged == false)
+						{
+							V_MineSweeperGame.ChangeButtonBackGround(botaoAtual, Resources.flag1);
+							currentTile.Flagged = true;
+							M_Grelha.NumFlags++;
+							V_MineSweeperGame.AtualizaNumeroMinasDisponiveis(M_Grelha.NumMinasTotal - M_Grelha.NumFlags);
+						}
+						//soundThread.Abort();
+					}
+					else
+					{
+						return;
+					}
 				}
 			}
 
-			// Botão direito, coloca flag
-			else if (e.Button == MouseButtons.Right)
+			// O jogo funciona em modo inverso, o jogador tem que detetar o posicionamento das minas
+			else if (Program.M_Options.ModoJogo == GameMode.Inverso)
 			{
-				Button botaoAtual = (sender as Button);
-				GetCoordinates(botaoAtual, out int x, out int y);
-
-				// Obtém as Coordenadas do Tile
-				Tile currentTile = GetTile(new System.Drawing.Point(x, y));
-
-				if (currentTile.Aberto != true)
+				if (e.Button == MouseButtons.Left)
 				{
-					if (M_Options.SoundOnOrOFF == true)
+					Temporizador.Start();
+
+					Button botaoAtual = sender as Button;
+					GetCoordinates(botaoAtual, out int x, out int y);
+
+					// Obtém as Coordenadas do Tile
+					Tile currentTile = GetTile(new System.Drawing.Point(x, y));
+
+					if (currentTile.Aberto != true)
 					{
-						Thread soundThread = new Thread(Sound.PlayPutFlag)
+						if (M_Options.SoundOnOrOFF == true)
 						{
-							IsBackground = true
-						};
-						soundThread.Start();
+							Thread soundThread = new Thread(Sound.PlayPutFlag)
+							{
+								IsBackground = true
+							};
+							soundThread.Start();
+						}
+
+						if (currentTile.Flagged == true)
+						{
+							V_MineSweeperGame.ChangeButtonBackGround(botaoAtual, Resources.unopened);
+							currentTile.Flagged = false;
+							M_Grelha.NumFlags--;
+							V_MineSweeperGame.AtualizaNumeroMinasDisponiveis(M_Grelha.NumMinasTotal - M_Grelha.NumFlags);
+						}
+						else if (currentTile.Flagged == false)
+						{
+							if (Program.M_Grelha.NumMinasTotal == M_Grelha.NumFlags)
+							{
+								return;
+							}
+							V_MineSweeperGame.ChangeButtonBackGround(botaoAtual, Resources.flag1);
+							currentTile.Flagged = true;
+							M_Grelha.NumFlags++;
+							V_MineSweeperGame.AtualizaNumeroMinasDisponiveis(M_Grelha.NumMinasTotal - M_Grelha.NumFlags);
+						}
+						//soundThread.Abort();
 					}
 
-					if (currentTile.Flagged == true)
+					if (TestarFimModoInverso(currentTile) == true)
 					{
-						V_MineSweeperGame.ChangeButtonBackGround(botaoAtual, Resources.unopened);
-						currentTile.Flagged = false;
-						M_Grelha.NumFlags--;
-						V_MineSweeperGame.AtualizaNumeroMinasDisponiveis(M_Grelha.NumMinasTotal - M_Grelha.NumFlags);
+						GanhouJogo();
 					}
-					else if (currentTile.Flagged == false)
+					else
 					{
-						V_MineSweeperGame.ChangeButtonBackGround(botaoAtual, Resources.flag1);
-						currentTile.Flagged = true;
-						M_Grelha.NumFlags++;
-						V_MineSweeperGame.AtualizaNumeroMinasDisponiveis(M_Grelha.NumMinasTotal - M_Grelha.NumFlags);
+						return;
 					}
-					//soundThread.Abort();
 				}
-				else
+				else if (e.Button == MouseButtons.Right)
 				{
 					return;
 				}
@@ -334,6 +430,26 @@ namespace MineSweeperProjeto.Controller
 			}
 		}
 
+		public bool TestarFimModoInverso(Tile currentTile)
+		{
+			if (currentTile.TemMina == true && currentTile.Flagged == true)
+			{
+				Program.M_Grelha.NumFlagsPosicionadosEmMinas++;
+			}
+			else if (currentTile.TemMina == true && currentTile.Flagged == false)
+			{
+				Program.M_Grelha.NumFlagsPosicionadosEmMinas--;
+			}
+
+			if (Program.M_Grelha.NumFlagsPosicionadosEmMinas == Program.M_Grelha.NumMinasTotal)
+			{
+				M_Grelha.Fim = true;
+				return true;
+			}
+
+			return false;
+		}
+
 		// Fim do jogo
 		public void GanhouJogo()
 		{
@@ -351,7 +467,7 @@ namespace MineSweeperProjeto.Controller
 
 			if (M_Status.PlayingWithTheOnlineBoard == true)
 			{
-				Server.RegistarResultado(Program.M_Grelha.dificuldade.ToString(), Program.M_Grelha.timerCounter.ToString(), "true", Program.M_Status.ID);
+				Server.RegistarResultado(Program.M_Grelha._Dificuldade.ToString(), Program.M_Grelha.TimerCounter.ToString(), "true", Program.M_Status.ID);
 				//Server.RegistarResultado(Program.M_Grelha.dificuldade.ToString(), Program.M_Grelha.timerCounter.ToString(), "True", Program.M_Status.ID);
 			}
 			if (V_Vencedor.ShowDialog() == DialogResult.OK)
@@ -376,7 +492,7 @@ namespace MineSweeperProjeto.Controller
 			// Abre uma messabox que informa o utilizador que perdeu o jogo
 			if (M_Status.PlayingWithTheOnlineBoard == true)
 			{
-				Server.RegistarResultado(Program.M_Grelha.dificuldade.ToString(), Program.M_Grelha.timerCounter.ToString(), "False", Program.M_Status.ID);
+				Server.RegistarResultado(Program.M_Grelha._Dificuldade.ToString(), Program.M_Grelha.TimerCounter.ToString(), "False", Program.M_Status.ID);
 			}
 			MessageBox.Show("BOOOM!", "Perdeu o jogo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 			//soundThread.Abort();

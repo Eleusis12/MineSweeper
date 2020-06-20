@@ -58,7 +58,7 @@ namespace MineSweeperProjeto
 
 		public void AlteraDificuldadeNoView(Dificuldade _dificuldade)
 		{
-			this.dificuldade = M_Grelha.dificuldade;
+			this.dificuldade = M_Grelha._Dificuldade;
 			Tamanho = classDificuldade.GetTamanho(this.dificuldade);
 			if (Tamanho.Width == 30 && Tamanho.Height == 16)
 			{

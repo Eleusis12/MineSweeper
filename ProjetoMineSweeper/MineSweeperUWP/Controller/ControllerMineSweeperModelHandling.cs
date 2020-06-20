@@ -19,7 +19,7 @@ namespace MineSweeperUWP.Controller
 			Program.M_Grelha.Matriz = new Dictionary<Point, Tile>();
 			Program.M_Grelha.Abertos = new HashSet<Tile>();
 
-			SetModel(Program.M_Grelha.dificuldade);
+			SetModel(Program.M_Grelha._Dificuldade);
 		}
 
 		public void SetModel(Dificuldade dificuldade)
@@ -77,19 +77,19 @@ namespace MineSweeperUWP.Controller
 			// Gerar Minas
 			if (Program.M_Status.PlayingWithTheOnlineBoard == true)
 			{
-				Program.M_Grelha.indexMinas = Server.NovoJogo(Program.M_Grelha.dificuldade.ToString(), Program.M_Status.ID);
+				Program.M_Grelha.IndexMinas = Server.NovoJogo(Program.M_Grelha._Dificuldade.ToString(), Program.M_Status.ID);
 			}
 			else
 			{
-				Program.M_Grelha.indexMinas = new List<Point>();
+				Program.M_Grelha.IndexMinas = new List<Point>();
 				Point minaPonto;
 				for (int i = 0; i < Program.M_Grelha.NumMinasTotal; i++)
 				{
 					do
 					{
 						minaPonto = new Point(Program.M_Grelha.NumeroAleatorio.Next(Program.M_Grelha.Tamanho.Height), Program.M_Grelha.NumeroAleatorio.Next(Program.M_Grelha.Tamanho.Width));
-					} while (Program.M_Grelha.indexMinas.Contains(minaPonto) == true);
-					Program.M_Grelha.indexMinas.Add(minaPonto);
+					} while (Program.M_Grelha.IndexMinas.Contains(minaPonto) == true);
+					Program.M_Grelha.IndexMinas.Add(minaPonto);
 				}
 			}
 			int index = 0;
@@ -102,7 +102,7 @@ namespace MineSweeperUWP.Controller
 					Point location = new Point(i, j);
 
 					// Se a mina foi gerada para este lugar
-					if (Program.M_Grelha.indexMinas.Contains(new Point(i, j)))
+					if (Program.M_Grelha.IndexMinas.Contains(new Point(i, j)))
 					{
 						// Adiciona um elemento com mina
 						Tile elemento = new Tile(location);
@@ -156,6 +156,8 @@ namespace MineSweeperUWP.Controller
 			Program.M_Grelha.Abertos = new HashSet<Tile>();
 			Program.M_Grelha.NumeroElementosAbertos = 0;
 			Program.M_Grelha.Fim = false;
+			Program.M_Grelha.NumFlagsPosicionadosEmMinas = 0;
+			Program.M_Grelha.NumFlags = 0;
 
 			SetModel(dificuldade);
 

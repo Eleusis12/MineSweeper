@@ -25,14 +25,13 @@ namespace MineSweeperProjeto.Controller
 
 		public void AlteraDificuldade(Dificuldade _dificuldade)
 		{
-			Program.M_Grelha.dificuldade = _dificuldade;
 			SetModel();
-			V_MineSweeperGame.AlteraDificuldadeNoView(Program.M_Grelha.dificuldade);
+			V_MineSweeperGame.AlteraDificuldadeNoView(Program.M_Grelha._Dificuldade);
 		}
 
 		public void SetModel()
 		{
-			M_Grelha.Tamanho = classDificuldade.GetTamanho(Program.M_Grelha.dificuldade);
+			M_Grelha.Tamanho = classDificuldade.GetTamanho(Program.M_Grelha._Dificuldade);
 			SetAmountOfMines();
 			LoadTileGrid();
 			LoadAdjacentsMines();
@@ -85,19 +84,19 @@ namespace MineSweeperProjeto.Controller
 			// Gerar Minas
 			if (M_Status.PlayingWithTheOnlineBoard == true)
 			{
-				Program.M_Grelha.indexMinas = Server.NovoJogo(Program.M_Grelha.dificuldade.ToString(), Program.M_Status.ID);
+				Program.M_Grelha.IndexMinas = Server.NovoJogo(Program.M_Grelha._Dificuldade.ToString(), Program.M_Status.ID);
 			}
 			else
 			{
-				M_Grelha.indexMinas = new List<Point>();
+				M_Grelha.IndexMinas = new List<Point>();
 				Point minaPonto;
 				for (int i = 0; i < M_Grelha.NumMinasTotal; i++)
 				{
 					do
 					{
 						minaPonto = new Point(M_Grelha.NumeroAleatorio.Next(M_Grelha.Tamanho.Height), M_Grelha.NumeroAleatorio.Next(M_Grelha.Tamanho.Width));
-					} while (Program.M_Grelha.indexMinas.Contains(minaPonto) == true);
-					Program.M_Grelha.indexMinas.Add(minaPonto);
+					} while (Program.M_Grelha.IndexMinas.Contains(minaPonto) == true);
+					Program.M_Grelha.IndexMinas.Add(minaPonto);
 				}
 			}
 
@@ -111,7 +110,7 @@ namespace MineSweeperProjeto.Controller
 					Point location = new Point(i, j);
 
 					// Se a mina foi gerada para este lugar
-					if (Program.M_Grelha.indexMinas.Contains(new Point(i, j)))
+					if (Program.M_Grelha.IndexMinas.Contains(new Point(i, j)))
 					{
 						// Adiciona um elemento com mina
 						Tile elemento = new Tile(location);
@@ -138,7 +137,7 @@ namespace MineSweeperProjeto.Controller
 
 		public void SetAmountOfMines()
 		{
-			switch (Program.M_Grelha.dificuldade)
+			switch (Program.M_Grelha._Dificuldade)
 			{
 				case Dificuldade.Facil:
 
@@ -165,6 +164,8 @@ namespace MineSweeperProjeto.Controller
 			M_Grelha.Abertos = new HashSet<Tile>();
 			M_Grelha.NumeroElementosAbertos = 0;
 			M_Grelha.Fim = false;
+			M_Grelha.NumFlagsPosicionadosEmMinas = 0;
+			M_Grelha.NumFlags = 0;
 
 			SetModel();
 

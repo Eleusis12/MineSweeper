@@ -86,6 +86,8 @@ namespace MineSweeperUWP.Controller
 			// O jogador tenta colocar uma flag
 			Program.V_MineSweeperGame.RightButtonPressed += V_MineSweeperGame_RightButtonPressed;
 
+			Program.V_MineSweeperGame.StartReverseMode += V_MineSweeperGame_StartReverseMode;
+
 			//// Para debug: Jogador prime no botao que revela todos os botoes
 			//Program.V_MineSweeperGame.AskToRevealAllPieces += Reveal;
 
@@ -94,6 +96,11 @@ namespace MineSweeperUWP.Controller
 
 			Program.V_MineSweeperGame.UpdateTimer += V_MineSweeperGame_UpdateTimer;
 			SetupModel();
+		}
+
+		private void V_MineSweeperGame_StartReverseMode()
+		{
+			RevealPiecesWithAdjacentMines();
 		}
 
 		internal void SetupEventsOptionsView()

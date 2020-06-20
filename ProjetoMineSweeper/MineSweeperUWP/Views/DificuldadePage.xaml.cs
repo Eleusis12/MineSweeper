@@ -51,5 +51,10 @@ namespace MineSweeperUWP.View
 			}
 			return false;
 		}
+
+		private void BTReverseMode_Click(object sender, RoutedEventArgs e)
+		{
+			this.Frame.Navigate(typeof(MineSweeper), "Inverso");
+		}
 	}
 }

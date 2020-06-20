@@ -33,45 +33,52 @@ namespace MineSweeperUWP.Controller
 
 		private void V_MineSweeperGame_UpdateTimer(int tempo)
 		{
-			Program.M_Grelha.timerCounter = tempo;
+			Program.M_Grelha.TimerCounter = tempo;
 		}
 
 		private async void V_MineSweeperGame_RightButtonPressed(object sender, Windows.UI.Xaml.Input.RightTappedRoutedEventArgs e)
 		{
-			Button botaoAtual = (sender as Button);
-			GetCoordinates(botaoAtual, out int x, out int y);
-
-			// Obtém as Coordenadas do Tile
-			Tile currentTile = GetTile(new System.Drawing.Point(x, y));
-
-			if (currentTile.Aberto != true)
+			if (Program.M_Options.ModoJogo == GameMode.Normal)
 			{
-				if (Program.M_Options.SoundOnOrOFF == true)
-				{
-					if (Program.M_Grelha.SoundOnOrOFF == true)
-					{
-						await App.SoundPlayer.Play(SoundEfxEnum.FLAG);
-					}
-				}
+				Button botaoAtual = (sender as Button);
+				GetCoordinates(botaoAtual, out int x, out int y);
 
-				if (currentTile.Flagged == true)
+				// Obtém as Coordenadas do Tile
+				Tile currentTile = GetTile(new System.Drawing.Point(x, y));
+
+				if (currentTile.Aberto != true)
 				{
-					//Program.V_MineSweeperGame.ChangeButtonBackGround(botaoAtual, "Assets/tiles/unopened.jpg");
-					Program.V_MineSweeperGame.ChangeButtonBackGround(botaoAtual, "fechado");
-					currentTile.Flagged = false;
-					Program.M_Grelha.NumFlags--;
-					Program.V_MineSweeperGame.AtualizaNumeroMinasDisponiveis(Program.M_Grelha.NumMinasTotal - Program.M_Grelha.NumFlags);
+					if (Program.M_Options.SoundOnOrOFF == true)
+					{
+						if (Program.M_Grelha.SoundOnOrOFF == true)
+						{
+							await App.SoundPlayer.Play(SoundEfxEnum.FLAG);
+						}
+					}
+
+					if (currentTile.Flagged == true)
+					{
+						//Program.V_MineSweeperGame.ChangeButtonBackGround(botaoAtual, "Assets/tiles/unopened.jpg");
+						Program.V_MineSweeperGame.ChangeButtonBackGround(botaoAtual, "fechado");
+						currentTile.Flagged = false;
+						Program.M_Grelha.NumFlags--;
+						Program.V_MineSweeperGame.AtualizaNumeroMinasDisponiveis(Program.M_Grelha.NumMinasTotal - Program.M_Grelha.NumFlags);
+					}
+					else if (currentTile.Flagged == false)
+					{
+						Program.V_MineSweeperGame.ChangeButtonBackGround(botaoAtual, "bandeira");
+						currentTile.Flagged = true;
+						Program.M_Grelha.NumFlags++;
+						Program.V_MineSweeperGame.AtualizaNumeroMinasDisponiveis(Program.M_Grelha.NumMinasTotal - Program.M_Grelha.NumFlags);
+					}
+					//soundThread.Abort();
 				}
-				else if (currentTile.Flagged == false)
+				else
 				{
-					Program.V_MineSweeperGame.ChangeButtonBackGround(botaoAtual, "bandeira");
-					currentTile.Flagged = true;
-					Program.M_Grelha.NumFlags++;
-					Program.V_MineSweeperGame.AtualizaNumeroMinasDisponiveis(Program.M_Grelha.NumMinasTotal - Program.M_Grelha.NumFlags);
+					return;
 				}
-				//soundThread.Abort();
 			}
-			else
+			else if (Program.M_Options.ModoJogo == GameMode.Inverso)
 			{
 				return;
 			}
@@ -79,52 +86,123 @@ namespace MineSweeperUWP.Controller
 
 		private async void V_MineSweeperGame_LeftButtonPressed(object sender, RoutedEventArgs e)
 		{
-			//Temporizador.Start();
-			//// Obter Botão premido e guardar
-			var botaoAtual = (sender as Button);
-
-			// Obtém as Coordenadas do Tile
-			GetCoordinates(botaoAtual, out int x, out int y);
-
-			Tile currentTile = GetTile(new System.Drawing.Point(x, y));
-
-			if (currentTile.TemMina == true)
+			if (Program.M_Options.ModoJogo == GameMode.Normal)
 			{
-				//	Jogo perdido
-				//Temporizador.Stop();
+				//Temporizador.Start();
+				//// Obter Botão premido e guardar
+				var botaoAtual = (sender as Button);
 
-				Program.V_MineSweeperGame.ChangeButtonBackGround(botaoAtual, "bomba");
-				Reveal();
-				BombaFimJogo();
+				// Obtém as Coordenadas do Tile
+				GetCoordinates(botaoAtual, out int x, out int y);
 
-				await Task.Delay(TimeSpan.FromSeconds(2));
+				Tile currentTile = GetTile(new System.Drawing.Point(x, y));
 
-				// O jogo acaba
-				V_MineSweeperGame_AskToResetBoard();
-			}
-			else if (currentTile.Vazio == false && currentTile.Aberto == false)
-			{
-				SwitchBackground(botaoAtual, currentTile);
-
-				currentTile.Aberto = true;
-				if (Program.M_Options.SoundOnOrOFF == true)
+				if (currentTile.TemMina == true)
 				{
-					await App.SoundPlayer.Play(SoundEfxEnum.CLICK);
-				}
+					//	Jogo perdido
+					//Temporizador.Stop();
 
-				// Se a condição for verdadeira a condição acaba
-				if (TestarFim(currentTile) == true)
+					Program.V_MineSweeperGame.ChangeButtonBackGround(botaoAtual, "bomba");
+					Reveal();
+					BombaFimJogo();
+
+					await Task.Delay(TimeSpan.FromSeconds(2));
+
+					// O jogo acaba
+					V_MineSweeperGame_AskToResetBoard();
+				}
+				else if (currentTile.Vazio == false && currentTile.Aberto == false)
+				{
+					SwitchBackground(botaoAtual, currentTile);
+
+					currentTile.Aberto = true;
+					if (Program.M_Options.SoundOnOrOFF == true)
+					{
+						await App.SoundPlayer.Play(SoundEfxEnum.CLICK);
+					}
+
+					// Se a condição for verdadeira a condição acaba
+					if (TestarFim(currentTile) == true)
+					{
+						GanhouJogo();
+					}
+					//soundThread.Abort();
+				}
+				// O jogo tem que abrir todos os vazios adjacentes.
+				// Primeira Questão: Como pedir os botões adjacentes ao view?
+				else if (currentTile.Vazio == true && currentTile.Aberto == false)
+				{
+					Flood_Fill(currentTile, Program.V_MineSweeperGame.GetButton(currentTile.Ponto));
+				}
+			}
+			else if (Program.M_Options.ModoJogo == GameMode.Inverso)
+			{
+				Button botaoAtual = (sender as Button);
+				GetCoordinates(botaoAtual, out int x, out int y);
+
+				// Obtém as Coordenadas do Tile
+				Tile currentTile = GetTile(new System.Drawing.Point(x, y));
+
+				if (currentTile.Aberto != true)
+				{
+					if (Program.M_Options.SoundOnOrOFF == true)
+					{
+						if (Program.M_Grelha.SoundOnOrOFF == true)
+						{
+							await App.SoundPlayer.Play(SoundEfxEnum.FLAG);
+						}
+					}
+
+					if (currentTile.Flagged == true)
+					{
+						//Program.V_MineSweeperGame.ChangeButtonBackGround(botaoAtual, "Assets/tiles/unopened.jpg");
+						Program.V_MineSweeperGame.ChangeButtonBackGround(botaoAtual, "fechado");
+						currentTile.Flagged = false;
+						Program.M_Grelha.NumFlags--;
+						Program.V_MineSweeperGame.AtualizaNumeroMinasDisponiveis(Program.M_Grelha.NumMinasTotal - Program.M_Grelha.NumFlags);
+					}
+					else if (currentTile.Flagged == false)
+					{
+						if (Program.M_Grelha.NumMinasTotal == Program.M_Grelha.NumFlags)
+						{
+							return;
+						}
+						Program.V_MineSweeperGame.ChangeButtonBackGround(botaoAtual, "bandeira");
+						currentTile.Flagged = true;
+						Program.M_Grelha.NumFlags++;
+						Program.V_MineSweeperGame.AtualizaNumeroMinasDisponiveis(Program.M_Grelha.NumMinasTotal - Program.M_Grelha.NumFlags);
+					}
+					//soundThread.Abort();
+				}
+				if (TestarFimModoInverso(currentTile) == true)
 				{
 					GanhouJogo();
 				}
-				//soundThread.Abort();
+				else
+				{
+					return;
+				}
 			}
-			// O jogo tem que abrir todos os vazios adjacentes.
-			// Primeira Questão: Como pedir os botões adjacentes ao view?
-			else if (currentTile.Vazio == true && currentTile.Aberto == false)
+		}
+
+		public bool TestarFimModoInverso(Tile currentTile)
+		{
+			if (currentTile.TemMina == true && currentTile.Flagged == true)
 			{
-				Flood_Fill(currentTile, Program.V_MineSweeperGame.GetButton(currentTile.Ponto));
+				Program.M_Grelha.NumFlagsPosicionadosEmMinas++;
 			}
+			else if (currentTile.TemMina == true && currentTile.Flagged == false)
+			{
+				Program.M_Grelha.NumFlagsPosicionadosEmMinas--;
+			}
+
+			if (Program.M_Grelha.NumFlagsPosicionadosEmMinas == Program.M_Grelha.NumMinasTotal)
+			{
+				Program.M_Grelha.Fim = true;
+				return true;
+			}
+
+			return false;
 		}
 
 		public void Reveal()
@@ -149,6 +227,25 @@ namespace MineSweeperUWP.Controller
 			}
 		}
 
+		public void RevealPiecesWithAdjacentMines()
+		{
+			foreach (Button Botao in Program.V_MineSweeperGame.GetButtons())
+			{
+				GetCoordinates(Botao, out int x, out int y);
+				Tile currentTile = GetTile(new System.Drawing.Point(x, y));
+
+				if (currentTile.Vazio == false && currentTile.TemMina == false)
+				{
+					currentTile.Aberto = true;
+					SwitchBackground(Botao, currentTile);
+				}
+				else
+				{
+					continue;
+				}
+			}
+		}
+
 		// Dá um Reset ao Jogo
 		public void V_MineSweeperGame_AskToResetBoard()
 		{
@@ -159,6 +256,10 @@ namespace MineSweeperUWP.Controller
 			//SetupTimer();
 			Program.V_MineSweeperGame.AtualizaNumeroMinasDisponiveis(Program.M_Grelha.NumMinasTotal);
 			//SetupTimer();
+			if (Program.M_Options.ModoJogo == GameMode.Inverso)
+			{
+				RevealPiecesWithAdjacentMines();
+			}
 		}
 
 		//public void V_GameMode_ChangeDifficulty(Dificuldade dificuldade)
@@ -474,7 +575,7 @@ namespace MineSweeperUWP.Controller
 			//	Program.V_MineSweeperGame.Close();
 			if (Program.M_Status.PlayingWithTheOnlineBoard == true)
 			{
-				Server.RegistarResultado(Program.M_Grelha.dificuldade.ToString(), Program.M_Grelha.timerCounter.ToString(), "true", Program.M_Status.ID);
+				Server.RegistarResultado(Program.M_Grelha._Dificuldade.ToString(), Program.M_Grelha.TimerCounter.ToString(), "true", Program.M_Status.ID);
 				//Server.RegistarResultado(Program.M_Grelha.dificuldade.ToString(), Program.M_Grelha.timerCounter.ToString(), "True", Program.M_Status.ID);
 			}
 
@@ -507,7 +608,7 @@ namespace MineSweeperUWP.Controller
 
 			if (Program.M_Status.PlayingWithTheOnlineBoard == true)
 			{
-				Server.RegistarResultado(Program.M_Grelha.dificuldade.ToString(), Program.M_Grelha.timerCounter.ToString(), "False", Program.M_Status.ID);
+				Server.RegistarResultado(Program.M_Grelha._Dificuldade.ToString(), Program.M_Grelha.TimerCounter.ToString(), "False", Program.M_Status.ID);
 			}
 
 			var dlg = new MessageDialog("Perdeu. Tente Novamente");

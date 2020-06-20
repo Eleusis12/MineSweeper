@@ -21,7 +21,7 @@ namespace MineSweeperProjeto.View
 	{
 		public event DifficultyChangedHandler ChangeDifficultyInGame;
 
-		public event DifficultyChangedHandler ChangeDifficultyInGameComingFromOnline;
+		public event DifficultyChangedHandler StartReverseMode;
 
 		public event NotificationTaskHandler TurnSoundEffectsInGame;
 
@@ -176,6 +176,8 @@ namespace MineSweeperProjeto.View
 			UCSearch = new UserControlSearch();
 
 			UCDifficulty.WarnMainFormDifficultyChoice += UCDifficulty_WarnMainFormDifficultyChoice;
+			UCDifficulty.WarnMainFormReverseModeChoice += UCDifficulty_WarnMainFormReverseModeChoice;
+
 			UCOptions.WarnMainFormSoundEffectsChoice += UCOptions_WarnMainFormSoundEffectsChoice;
 			UCLeaderBoard.AskTop10 += UCLeaderBoard_AskTop10;
 			UCLeaderBoard.ShowTop10AccordingtoDifficulty += UCLeaderBoard_ShowTop10AccordingtoDifficulty;
@@ -194,12 +196,14 @@ namespace MineSweeperProjeto.View
 			}
 		}
 
-		private void UCOnlineDifficulty_WarnMainFormDifficultyChoiceOnline(Dificuldade _dificuldade)
+		private void UCDifficulty_WarnMainFormReverseModeChoice(Dificuldade dificuldade)
 		{
-			if (ChangeDifficultyInGameComingFromOnline != null)
-				ChangeDifficultyInGameComingFromOnline(_dificuldade);
+			if (StartReverseMode != null)
+				StartReverseMode(dificuldade);
 
+			Program.M_Options.ModoJogo = GameMode.Inverso;
 			this.Hide();
+			thread.Abort();
 			Program.V_MineSweeperGame.ShowDialog();
 			this.Close();
 		}

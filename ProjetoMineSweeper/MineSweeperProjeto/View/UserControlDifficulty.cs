@@ -19,6 +19,7 @@ namespace MineSweeperProjeto.View
 	public partial class UserControlDifficulty : UserControl
 	{
 		public event DifficultyChangedHandler WarnMainFormDifficultyChoice;
+		public event DifficultyChangedHandler WarnMainFormReverseModeChoice;
 
 		public UserControlDifficulty()
 		{
@@ -29,6 +30,15 @@ namespace MineSweeperProjeto.View
 		{
 			if (WarnMainFormDifficultyChoice != null)
 				WarnMainFormDifficultyChoice((Dificuldade)Enum.Parse(typeof(Dificuldade), (sender as Button).Tag.ToString()));
+		}
+
+		private void BTReverseMode_Click(object sender, EventArgs e)
+		{
+			if(WarnMainFormReverseModeChoice!= null)
+			{
+				WarnMainFormReverseModeChoice((Dificuldade.Facil));
+
+			}
 		}
 	}
 }

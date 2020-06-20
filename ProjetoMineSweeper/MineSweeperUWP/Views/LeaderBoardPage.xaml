@@ -74,13 +74,6 @@
         RowDetailsVisibilityMode="Collapsed"
         SelectionMode="Extended"
         RowGroupHeaderPropertyNameAlternative="Range">
-            <controls:DataGrid.Columns>
-                <controls:DataGridTextColumn Header="Rank" Binding="{Binding Rank}" Tag="Rank" />
-                <controls:DataGridTextColumn Header="Nome" Binding="{Binding Nome}" Tag="Nome" />
-                <controls:DataGridTextColumn Header="Tempo" Binding="{Binding Tempo}" Tag="Tempo" />
-                <controls:DataGridTextColumn Header="Quando" Binding="{Binding Quando}" Tag="Quando" />
-                <controls:DataGridTextColumn Header="Dificuldade" Binding="{Binding Dificuldade}" Tag="Dificuldade" />
-            </controls:DataGrid.Columns>
         </controls:DataGrid>
         <Button Style="{StaticResource NavigationBackButtonNormalStyle}"  Click="Back_Button" VerticalAlignment="Top" />
     </Grid>

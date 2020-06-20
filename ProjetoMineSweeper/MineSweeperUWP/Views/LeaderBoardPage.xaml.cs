@@ -1,12 +1,10 @@
 ﻿using FastMember;
 using Library.Helpers;
-using Library.Interfaces;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -35,13 +33,14 @@ namespace MineSweeperUWP.View
 		public LeaderBoardPage()
 		{
 			Program = App.Current as App;
+
+			this.InitializeComponent();
 		}
 
-		public void ShowTop10AccordingtoDifficulty(Dificuldade dificuldade)
+		internal void ShowTop10AccordingtoDifficulty(Dificuldade dificuldade)
 		{
 			List<Top10Resultado> listaTop10 = Program.M_Status.top10Resultados;
-			IEnumerable<Top10Resultado> data = listaTop10.Where(e => e.dificuldade == dificuldade.ToString());
-
+			IEnumerable<Top10Resultado> data = listaTop10.Where(e => (e.dificuldade == dificuldade.ToString()));
 			DataTable table = new DataTable();
 			using (var reader = ObjectReader.Create(data))
 			{
@@ -58,7 +57,7 @@ namespace MineSweeperUWP.View
 
 		public static void FillDataGrid(DataTable table, DataGrid grid)
 		{
-			//grid.Columns.Clear();
+			grid.Columns.Clear();
 			grid.AutoGenerateColumns = false;
 			for (int i = 0; i < table.Columns.Count; i++)
 			{

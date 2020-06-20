@@ -32,6 +32,7 @@
 			this.BTMedio = new System.Windows.Forms.Button();
 			this.label9 = new System.Windows.Forms.Label();
 			this.button1 = new System.Windows.Forms.Button();
+			this.BTReverseMode = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// BTFácil
@@ -57,7 +58,7 @@
 			this.BTMedio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.BTMedio.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.BTMedio.ForeColor = System.Drawing.SystemColors.Control;
-			this.BTMedio.Location = new System.Drawing.Point(121, 130);
+			this.BTMedio.Location = new System.Drawing.Point(121, 133);
 			this.BTMedio.Name = "BTMedio";
 			this.BTMedio.Size = new System.Drawing.Size(75, 27);
 			this.BTMedio.TabIndex = 6;
@@ -84,7 +85,7 @@
 			this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.button1.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.button1.ForeColor = System.Drawing.SystemColors.Control;
-			this.button1.Location = new System.Drawing.Point(121, 172);
+			this.button1.Location = new System.Drawing.Point(121, 178);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(75, 27);
 			this.button1.TabIndex = 13;
@@ -93,11 +94,28 @@
 			this.button1.UseVisualStyleBackColor = false;
 			this.button1.Click += new System.EventHandler(this.BTClick);
 			// 
+			// BTReverseMode
+			// 
+			this.BTReverseMode.BackColor = System.Drawing.Color.IndianRed;
+			this.BTReverseMode.FlatAppearance.BorderSize = 0;
+			this.BTReverseMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.BTReverseMode.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.BTReverseMode.ForeColor = System.Drawing.SystemColors.Control;
+			this.BTReverseMode.Location = new System.Drawing.Point(58, 242);
+			this.BTReverseMode.Name = "BTReverseMode";
+			this.BTReverseMode.Size = new System.Drawing.Size(203, 27);
+			this.BTReverseMode.TabIndex = 13;
+			this.BTReverseMode.Tag = "Inverso";
+			this.BTReverseMode.Text = "Modo Especial: Inverso";
+			this.BTReverseMode.UseVisualStyleBackColor = false;
+			this.BTReverseMode.Click += new System.EventHandler(this.BTReverseMode_Click);
+			// 
 			// UserControlDifficulty
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.Transparent;
+			this.Controls.Add(this.BTReverseMode);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.label9);
 			this.Controls.Add(this.BTMedio);
@@ -115,5 +133,6 @@
 		private System.Windows.Forms.Button BTMedio;
 		private System.Windows.Forms.Label label9;
 		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button BTReverseMode;
 	}
 }

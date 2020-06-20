@@ -32,6 +32,8 @@ namespace MineSweeperProjeto.Controller
 
 			V_StartForm.AskBestScoreData += V_StartForm_AskBestScoreData;
 
+			V_StartForm.StartReverseMode += V_StartForm_StartReverseMode;
+
 			// Jogador prime botao durante o jogo
 			V_MineSweeperGame.ButtonPressed += OnButtonClicked;
 

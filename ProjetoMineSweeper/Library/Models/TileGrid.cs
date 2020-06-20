@@ -36,12 +36,14 @@ namespace Library.Models
 
 		public Random NumeroAleatorio { get; set; }
 
-		public Dificuldade dificuldade { get; set; }
+		public Dificuldade _Dificuldade { get; set; }
 
-		public int timerCounter { get; set; } = 0;
+		public int TimerCounter { get; set; } = 0;
 
 		public bool SoundOnOrOFF { get; set; } = true;
 
-		public List<Point> indexMinas { get; set; }
+		public List<Point> IndexMinas { get; set; }
+
+		public int NumFlagsPosicionadosEmMinas { get; set; }
 	}
 }

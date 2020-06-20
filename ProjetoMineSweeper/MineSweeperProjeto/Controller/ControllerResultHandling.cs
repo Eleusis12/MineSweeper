@@ -17,7 +17,7 @@ namespace MineSweeperProjeto.Controller
 	{
 		private void V_vencedor_SendUsername(string username)
 		{
-			string pathFile = GetPathFile(Program.M_Grelha.dificuldade);
+			string pathFile = GetPathFile(Program.M_Grelha._Dificuldade);
 
 			// O ficheiro está vazio
 			if (File.Exists(pathFile) == false)
@@ -38,9 +38,9 @@ namespace MineSweeperProjeto.Controller
 											new XElement("resultado_jogo",
 									new XElement("Username", username),
 
-									new XElement("Nivel", M_Grelha.dificuldade.ToString()),
+									new XElement("Nivel", M_Grelha._Dificuldade.ToString()),
 
-									new XElement("Tempo", M_Grelha.timerCounter)
+									new XElement("Tempo", M_Grelha.TimerCounter)
 								)
 							);
 		}
@@ -49,11 +49,11 @@ namespace MineSweeperProjeto.Controller
 		{
 			XDocument doc = XDocument.Load(pathFile);
 
-			if (M_Grelha.timerCounter < Convert.ToInt32(doc.Element("resultado_jogo").Element("Tempo").Value.ToString()))
+			if (M_Grelha.TimerCounter < Convert.ToInt32(doc.Element("resultado_jogo").Element("Tempo").Value.ToString()))
 			{
 				doc.Element("resultado_jogo").Element("Username").Value = username;
-				doc.Element("resultado_jogo").Element("Nivel").Value = M_Grelha.dificuldade.ToString();
-				doc.Element("resultado_jogo").Element("Tempo").Value = M_Grelha.timerCounter.ToString();
+				doc.Element("resultado_jogo").Element("Nivel").Value = M_Grelha._Dificuldade.ToString();
+				doc.Element("resultado_jogo").Element("Tempo").Value = M_Grelha.TimerCounter.ToString();
 			}
 			doc.Save(pathFile);
 		}

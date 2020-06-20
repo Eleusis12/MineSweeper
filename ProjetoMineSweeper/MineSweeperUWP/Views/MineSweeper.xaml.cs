@@ -35,6 +35,8 @@ namespace MineSweeperUWP.View
 	{
 		//public event NotificationTaskHandler AskToRevealAllPieces;
 
+		public event NotificationTaskHandler StartReverseMode;
+
 		public event NotificationTaskHandler AskToResetBoard;
 
 		public event RoutedEventHandler LeftButtonPressed;
@@ -79,8 +81,6 @@ namespace MineSweeperUWP.View
 		   ;
 
 			this.InitializeComponent();
-
-			GenerateControls();
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -88,26 +88,39 @@ namespace MineSweeperUWP.View
 			base.OnNavigatedTo(e);
 			if (e.Parameter.ToString() == "Fácil")
 			{
-				Program.M_Grelha.dificuldade = Dificuldade.Facil;
+				Program.M_Grelha._Dificuldade = Dificuldade.Facil;
 			}
 			else if (e.Parameter.ToString() == "Médio")
 			{
-				Program.M_Grelha.dificuldade = Dificuldade.Medio;
+				Program.M_Grelha._Dificuldade = Dificuldade.Medio;
+			}
+			else if (e.Parameter.ToString() == "Inverso")
+			{
+				Program.M_Grelha._Dificuldade = Dificuldade.Facil;
+				Program.M_Options.ModoJogo = Library.Models.GameMode.Inverso;
 			}
 			else
 			{
 				throw new ArgumentOutOfRangeException();
 			}
 
-			SetSizeAccordingToDifficulty(Program.M_Grelha.dificuldade);
+			SetSizeAccordingToDifficulty(Program.M_Grelha._Dificuldade);
 			SetLabelDifficulty();
 			GenerateGrid();
 			GenerateControls();
+
+			if (Program.M_Options.ModoJogo == Library.Models.GameMode.Inverso)
+			{
+				if (StartReverseMode != null)
+				{
+					StartReverseMode();
+				}
+			}
 		}
 
 		private void SetLabelDifficulty()
 		{
-			LBLDificuldade.Text = Program.M_Grelha.dificuldade.ToString() + " " + Tamanho.Width.ToString() + "x" + Tamanho.Height.ToString();
+			LBLDificuldade.Text = Program.M_Grelha._Dificuldade.ToString() + " " + Tamanho.Width.ToString() + "x" + Tamanho.Height.ToString();
 		}
 
 		private void SetSizeAccordingToDifficulty(Dificuldade dificuldade)

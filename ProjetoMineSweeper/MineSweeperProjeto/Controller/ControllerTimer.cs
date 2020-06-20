@@ -19,13 +19,13 @@ namespace MineSweeperProjeto.Controller
 			// Temporizador
 			Temporizador.Interval = 1000; //1 sec
 			Temporizador.Tick += TimerTick;
-			M_Grelha.timerCounter = 0;
+			M_Grelha.TimerCounter = 0;
 		}
 
 		public string GetTimeString()
 		{
 			//create time span from our counter
-			TimeSpan time = TimeSpan.FromSeconds(M_Grelha.timerCounter);
+			TimeSpan time = TimeSpan.FromSeconds(M_Grelha.TimerCounter);
 
 			//format that into a string
 			string timeString = time.ToString(@"mm\:ss");
@@ -36,7 +36,7 @@ namespace MineSweeperProjeto.Controller
 
 		public void TimerTick(object sender, EventArgs e)
 		{
-			M_Grelha.timerCounter++;
+			M_Grelha.TimerCounter++;
 			V_MineSweeperGame.AtualizaTempo(GetTimeString());
 		}
 	}
