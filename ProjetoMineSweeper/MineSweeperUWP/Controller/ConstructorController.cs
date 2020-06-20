@@ -95,7 +95,6 @@ namespace MineSweeperUWP.Controller
 			Program.V_MineSweeperGame.AskToResetBoard += V_MineSweeperGame_AskToResetBoard;
 
 			Program.V_MineSweeperGame.UpdateTimer += V_MineSweeperGame_UpdateTimer;
-			SetupModel();
 		}
 
 		private void V_MineSweeperGame_StartReverseMode()

@@ -129,7 +129,7 @@ namespace MineSweeperUWP.Controller
 
 		public void SetAmountOfMines()
 		{
-			switch (dificuldade)
+			switch (Program.M_Grelha._Dificuldade)
 			{
 				case Dificuldade.Facil:
 
@@ -150,7 +150,36 @@ namespace MineSweeperUWP.Controller
 			}
 		}
 
+		//public void ResetModel()
+		//{
+		//	Program.M_Grelha.Matriz = new Dictionary<Point, Tile>();
+		//	Program.M_Grelha.Abertos = new HashSet<Tile>();
+		//	Program.M_Grelha.NumeroElementosAbertos = 0;
+		//	Program.M_Grelha.Fim = false;
+		//	Program.M_Grelha.NumFlagsPosicionadosEmMinas = 0;
+		//	Program.M_Grelha.NumFlags = 0;
+
+		//	SetModel(dificuldade);
+
+		//	Program.V_MineSweeperGame.ResetBoardView();
+		//	Program.V_MineSweeperGame.ResetTimer();
+		//}
+
+		private void V_StartForm_DestroyModel()
+		{
+			ResetTileGridProperties();
+		}
+
 		public void ResetModel()
+		{
+			ResetTileGridProperties();
+
+			SetModel(Program.M_Grelha._Dificuldade);
+
+			Program.V_MineSweeperGame.ResetBoardView();
+		}
+
+		public void ResetTileGridProperties()
 		{
 			Program.M_Grelha.Matriz = new Dictionary<Point, Tile>();
 			Program.M_Grelha.Abertos = new HashSet<Tile>();
@@ -158,11 +187,7 @@ namespace MineSweeperUWP.Controller
 			Program.M_Grelha.Fim = false;
 			Program.M_Grelha.NumFlagsPosicionadosEmMinas = 0;
 			Program.M_Grelha.NumFlags = 0;
-
-			SetModel(dificuldade);
-
-			Program.V_MineSweeperGame.ResetBoardView();
-			Program.V_MineSweeperGame.ResetTimer();
+			Program.M_Grelha.TimerCounter = 0;
 		}
 	}
 }

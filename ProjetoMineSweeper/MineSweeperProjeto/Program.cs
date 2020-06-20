@@ -14,7 +14,7 @@ namespace MineSweeperProjeto
 	public static class Program
 	{
 		//M
-		public static TileGrid M_Grelha { get; private set; }
+		public static TileGrid M_Grelha { get; set; }
 
 		public static ConnectionToServer M_Status { get; private set; }
 		public static Options M_Options { get; private set; }
@@ -22,7 +22,7 @@ namespace MineSweeperProjeto
 		public static BestScores M_BestScores { get; private set; }
 
 		//V
-		public static FormMinesweeper V_MineSweeperGame { get; private set; }
+		public static FormMinesweeper V_MineSweeperGame { get; set; }
 
 		public static FormStart V_StartForm { get; private set; }
 

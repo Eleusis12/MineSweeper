@@ -17,8 +17,6 @@ namespace MineSweeperUWP.Controller
 {
 	public partial class GameController
 	{
-		public Dificuldade dificuldade { get; set; }
-
 		public readonly Point[] adjacentCoords =
 				{
 			new Point (-1, -1),

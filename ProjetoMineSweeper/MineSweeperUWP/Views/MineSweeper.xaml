@@ -50,5 +50,6 @@
                 </StackPanel.Background>
             </StackPanel>
         </controls:DockPanel>
+        <Button Style="{StaticResource NavigationBackButtonNormalStyle}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,1460,960" Click="Back_Button" />
     </Grid>
 </Page>

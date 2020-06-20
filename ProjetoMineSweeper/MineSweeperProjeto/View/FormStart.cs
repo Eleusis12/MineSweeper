@@ -27,9 +27,13 @@ namespace MineSweeperProjeto.View
 
 		public event NotificationTaskHandler AskListViewItems;
 
+		public event NotificationTaskHandler SetupEventsMineSweeper;
+
 		public event UsernameExtractionHandler AskUserData;
 
 		public event NotificationTaskHandler AskBestScoreData;
+
+		public event NotificationTaskHandler DestroyModel;
 
 		public UserControlDifficulty UCDifficulty { get; set; }
 		public UserControlMainMenu UCMainMenu { get; set; }
@@ -157,13 +161,60 @@ namespace MineSweeperProjeto.View
 		// Informa o Controlador a dificuldade escolhida
 		private void UCDifficulty_WarnMainFormDifficultyChoice(Dificuldade dificuldade)
 		{
+			Program.M_Options.ModoJogo = GameMode.Normal;
+
+			if (Program.V_MineSweeperGame.IsDisposed)
+			{
+				Program.V_MineSweeperGame = new FormMinesweeper();
+				if (SetupEventsMineSweeper != null)
+				{
+					SetupEventsMineSweeper();
+				}
+			}
+			this.Hide();
+			thread.Abort();
+
 			if (ChangeDifficultyInGame != null)
 				ChangeDifficultyInGame(dificuldade);
 
+			Program.V_MineSweeperGame.ShowDialog();
+
+			Program.V_MineSweeperGame.Dispose();
+
+			if (DestroyModel != null)
+			{
+				DestroyModel();
+			}
+			this.Show();
+		}
+
+		private void UCDifficulty_WarnMainFormReverseModeChoice(Dificuldade dificuldade)
+		{
+			Program.M_Options.ModoJogo = GameMode.Inverso;
+
+			if (Program.V_MineSweeperGame.IsDisposed)
+			{
+				Program.V_MineSweeperGame = new FormMinesweeper();
+				if (SetupEventsMineSweeper != null)
+				{
+					SetupEventsMineSweeper();
+				}
+			}
 			this.Hide();
 			thread.Abort();
+
+			if (StartReverseMode != null)
+				StartReverseMode(dificuldade);
+
 			Program.V_MineSweeperGame.ShowDialog();
-			this.Close();
+
+			Program.V_MineSweeperGame.Dispose();
+
+			if (DestroyModel != null)
+			{
+				DestroyModel();
+			}
+			this.Show();
 		}
 
 		private void FormStart_Load(object sender, EventArgs e)
@@ -194,18 +245,6 @@ namespace MineSweeperProjeto.View
 			{
 				AskBestScoreData();
 			}
-		}
-
-		private void UCDifficulty_WarnMainFormReverseModeChoice(Dificuldade dificuldade)
-		{
-			if (StartReverseMode != null)
-				StartReverseMode(dificuldade);
-
-			Program.M_Options.ModoJogo = GameMode.Inverso;
-			this.Hide();
-			thread.Abort();
-			Program.V_MineSweeperGame.ShowDialog();
-			this.Close();
 		}
 
 		private void UCLeaderBoard_ShowTop10AccordingtoDifficulty(Dificuldade dificuldade)

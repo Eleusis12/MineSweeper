@@ -158,7 +158,21 @@ namespace MineSweeperProjeto.Controller
 			}
 		}
 
+		private void V_StartForm_DestroyModel()
+		{
+			ResetTileGridProperties();
+		}
+
 		public void ResetModel()
+		{
+			ResetTileGridProperties();
+
+			SetModel();
+
+			V_MineSweeperGame.ResetBoardView();
+		}
+
+		public void ResetTileGridProperties()
 		{
 			M_Grelha.Matriz = new Dictionary<Point, Tile>();
 			M_Grelha.Abertos = new HashSet<Tile>();
@@ -166,10 +180,7 @@ namespace MineSweeperProjeto.Controller
 			M_Grelha.Fim = false;
 			M_Grelha.NumFlagsPosicionadosEmMinas = 0;
 			M_Grelha.NumFlags = 0;
-
-			SetModel();
-
-			V_MineSweeperGame.ResetBoardView();
+			M_Grelha.TimerCounter = 0;
 		}
 	}
 }

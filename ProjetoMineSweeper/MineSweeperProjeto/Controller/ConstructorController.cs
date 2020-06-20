@@ -34,14 +34,11 @@ namespace MineSweeperProjeto.Controller
 
 			V_StartForm.StartReverseMode += V_StartForm_StartReverseMode;
 
-			// Jogador prime botao durante o jogo
-			V_MineSweeperGame.ButtonPressed += OnButtonClicked;
+			V_StartForm.DestroyModel += V_StartForm_DestroyModel;
 
-			// Para debug: Jogador prime no botao que revela todos os botoes
-			V_MineSweeperGame.AskToRevealAllPieces += RevealAllPieces;
+			V_StartForm.SetupEventsMineSweeper += SetupEventsMineSweeper;
 
-			// Jogador pede um reset ao jogo
-			V_MineSweeperGame.AskToResetBoard += V_MineSweeperGame_AskToResetBoard;
+			SetupEventsMineSweeper();
 
 			// Jogador termina o jogo numa vitória
 			V_Vencedor.SendUsername += V_vencedor_SendUsername;
@@ -57,6 +54,18 @@ namespace MineSweeperProjeto.Controller
 			// Prepara o temporizador para cronometrar a partida do jogador
 			Temporizador = new Timer();
 			SetupTimer();
+		}
+
+		private void SetupEventsMineSweeper()
+		{
+			// Jogador prime botao durante o jogo
+			V_MineSweeperGame.ButtonPressed += OnButtonClicked;
+
+			// Para debug: Jogador prime no botao que revela todos os botoes
+			V_MineSweeperGame.AskToRevealAllPieces += RevealAllPieces;
+
+			// Jogador pede um reset ao jogo
+			V_MineSweeperGame.AskToResetBoard += V_MineSweeperGame_AskToResetBoard;
 		}
 	}
 }

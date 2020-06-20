@@ -89,10 +89,12 @@ namespace MineSweeperUWP.View
 			if (e.Parameter.ToString() == "Fácil")
 			{
 				Program.M_Grelha._Dificuldade = Dificuldade.Facil;
+				Program.M_Options.ModoJogo = Library.Models.GameMode.Normal;
 			}
 			else if (e.Parameter.ToString() == "Médio")
 			{
 				Program.M_Grelha._Dificuldade = Dificuldade.Medio;
+				Program.M_Options.ModoJogo = Library.Models.GameMode.Normal;
 			}
 			else if (e.Parameter.ToString() == "Inverso")
 			{
@@ -104,6 +106,8 @@ namespace MineSweeperUWP.View
 				throw new ArgumentOutOfRangeException();
 			}
 
+			firstTimeClickingAButton = true;
+			Program.C_Master.SetupModel();
 			SetSizeAccordingToDifficulty(Program.M_Grelha._Dificuldade);
 			SetLabelDifficulty();
 			GenerateGrid();
@@ -461,6 +465,22 @@ namespace MineSweeperUWP.View
 						 where (item.Name == string.Format($"{_point.X}-{_point.Y}"))
 						 select item).First();
 			return Botao;
+		}
+
+		private void Back_Button(object sender, RoutedEventArgs e)
+		{
+			Program.C_Master.ResetTileGridProperties();
+			On_BackRequested();
+		}
+
+		private bool On_BackRequested()
+		{
+			if (this.Frame.CanGoBack)
+			{
+				this.Frame.GoBack();
+				return true;
+			}
+			return false;
 		}
 	}
 
