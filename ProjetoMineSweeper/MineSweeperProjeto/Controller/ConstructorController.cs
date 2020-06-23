@@ -49,20 +49,23 @@ namespace MineSweeperProjeto.Controller
 			V_Register.RegisterThisUser += V_Register_RegisterThisUser;
 
 			// Prepara o model para permitir o jogo
-			SetupModel();
+			InitModel();
 
 			// Prepara o temporizador para cronometrar a partida do jogador
 			Temporizador = new Timer();
 			SetupTimer();
 		}
 
+		/// <summary>
+		/// Esta função é chamada quando se pretende que o Controlador subscreva aos eventos do objeto da classe MineSweeper
+		/// </summary>
 		private void SetupEventsMineSweeper()
 		{
 			// Jogador prime botao durante o jogo
 			V_MineSweeperGame.ButtonPressed += OnButtonClicked;
 
 			// Para debug: Jogador prime no botao que revela todos os botoes
-			V_MineSweeperGame.AskToRevealAllPieces += RevealAllPieces;
+			V_MineSweeperGame.AskToRevealAllPieces += Reveal;
 
 			// Jogador pede um reset ao jogo
 			V_MineSweeperGame.AskToResetBoard += V_MineSweeperGame_AskToResetBoard;

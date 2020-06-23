@@ -95,18 +95,26 @@ namespace MineSweeperUWP.Controller
 		private string GetPathFile(Dificuldade dificuldade)
 		{
 			string pathFile = string.Empty;
-			if (dificuldade == Dificuldade.Facil)
+			if (Program.M_Options.ModoJogo == GameMode.Normal)
 			{
-				pathFile = "BestTimeEasyMode.xml";
-			}
-			else if (dificuldade == Dificuldade.Medio)
-			{
-				pathFile = "BestTimeMediumMode.xml";
+				if (dificuldade == Dificuldade.Facil)
+				{
+					pathFile = "BestTimeEasyMode.xml";
+				}
+				else if (dificuldade == Dificuldade.Medio)
+				{
+					pathFile = "BestTimeMediumMode.xml";
+				}
+				else if (dificuldade == Dificuldade.Dificil)
+				{
+					pathFile = "BestTimeHardMode.xml";
+				}
 			}
 			else
 			{
-				pathFile = "BestTimeHardMode.xml";
+				pathFile = "BestTimeReverseMode.xml";
 			}
+
 			if (File.Exists(pathFile) == false)
 			{
 				return null;

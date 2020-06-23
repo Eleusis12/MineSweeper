@@ -13,6 +13,10 @@ namespace MineSweeperUWP.Controller
 {
 	public partial class GameController
 	{
+		/// <summary>
+		/// Pede Dados ao servidor acerca de um username
+		/// </summary>
+		/// <param name="username"></param>
 		private async void V_SearchPage_AskUserData(string username)
 		{
 			string resposta;

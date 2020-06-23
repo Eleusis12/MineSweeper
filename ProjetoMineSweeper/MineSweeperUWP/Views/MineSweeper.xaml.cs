@@ -107,7 +107,7 @@ namespace MineSweeperUWP.View
 			}
 
 			firstTimeClickingAButton = true;
-			Program.C_Master.SetupModel();
+			Program.C_Master.InitModel();
 			SetSizeAccordingToDifficulty(Program.M_Grelha._Dificuldade);
 			SetLabelDifficulty();
 			GenerateGrid();

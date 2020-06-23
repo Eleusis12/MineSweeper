@@ -22,6 +22,10 @@ namespace MineSweeperProjeto.Controller
 			M_Grelha.TimerCounter = 0;
 		}
 
+		/// <summary>
+		/// Formata temporizador para uma string de forma legível
+		/// </summary>
+		/// <returns></returns>
 		public string GetTimeString()
 		{
 			//create time span from our counter

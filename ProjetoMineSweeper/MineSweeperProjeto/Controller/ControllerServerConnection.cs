@@ -14,6 +14,10 @@ namespace MineSweeperProjeto.Controller
 {
 	public partial class GameController
 	{
+		/// <summary>
+		/// Faz pedido ao servidor para registar utilizador
+		/// </summary>
+		/// <param name="temp">Dados do Utilizador</param>
 		public void V_Register_RegisterThisUser(User temp)
 		{
 			string resposta;
@@ -51,6 +55,10 @@ namespace MineSweeperProjeto.Controller
 			}
 		}
 
+		/// <summary>
+		/// Pede Dados ao servidor acerca de um username
+		/// </summary>
+		/// <param name="username"></param>
 		public void V_StartForm_AskUserData(string username)
 		{
 			string resposta;
@@ -78,6 +86,11 @@ namespace MineSweeperProjeto.Controller
 			V_StartForm.ShowProfile(temp);
 		}
 
+		/// <summary>
+		/// Faz Pedido ao servidor para se autenticar
+		/// </summary>
+		/// <param name="username">Credencial: Username</param>
+		/// <param name="password">Credencial: PassWord</param>
 		public void V_Login_SendCredentials(string username, string password)
 		{
 			string id = string.Empty;
@@ -116,7 +129,9 @@ namespace MineSweeperProjeto.Controller
 			V_Login.Close();
 		}
 
-		// Efetua Operrações com o server
+		/// <summary>
+		/// Faz pedido ao servidor do top 10 online
+		/// </summary>
 		public void V_StartForm_AskListViewItems()
 		{
 			List<Top10Resultado> listaTop10 = new List<Top10Resultado>();
@@ -149,11 +164,19 @@ namespace MineSweeperProjeto.Controller
 			//}
 		}
 
+		/// <summary>
+		/// Apresenta mensagem de erro
+		/// </summary>
+		/// <param name="ex"></param>
 		private void ShowErrorDialog(Exception ex)
 		{
 			MessageBox.Show("Não possível concluir a operação dado o erro: " + ex.Message);
 		}
 
+		/// <summary>
+		/// Throw erro
+		/// </summary>
+		/// <param name="ex"></param>
 		private void HandleWebException(WebException ex)
 		{
 			if (ex.Status == WebExceptionStatus.ProtocolError)

@@ -8,6 +8,7 @@ namespace MineSweeperUWP.Controller
 {
 	public partial class GameController
 	{
+		// Switch do botão de áudio
 		private void V_OptionsForm_WarnMainFormSoundEffectsChoice()
 		{
 			Program.M_Options.SoundOnOrOFF = !Program.M_Options.SoundOnOrOFF;

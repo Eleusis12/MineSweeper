@@ -12,6 +12,10 @@ namespace MineSweeperUWP.Controller
 {
 	public partial class GameController
 	{
+		/// <summary>
+		/// Faz pedido ao servidor do top 10 online
+		/// </summary>
+
 		private async void V_LeaderBoard_AskListViewItems()
 		{
 			List<Top10Resultado> listaTop10 = new List<Top10Resultado>();

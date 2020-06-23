@@ -31,7 +31,10 @@ namespace MineSweeperProjeto.Controller
 			new Point (-1, 0)
 		};
 
-		public void RevealAllPieces()
+		/// <summary>
+		/// Mostra visualmente todas as peças no jogo
+		/// </summary>
+		public void Reveal()
 		{
 			foreach (Button Botao in V_MineSweeperGame.GetButtons())
 			{
@@ -40,7 +43,7 @@ namespace MineSweeperProjeto.Controller
 
 				if (currentTile.Vazio == false && currentTile.TemMina == false)
 				{
-					SwitchBackground(Botao, currentTile);
+					ButtonChangeBackground(Botao, currentTile);
 				}
 				else if (currentTile.TemMina == true)
 				{
@@ -53,6 +56,9 @@ namespace MineSweeperProjeto.Controller
 			}
 		}
 
+		/// <summary>
+		/// Mostra visualmente todas as peças que possuem número de adjacência; função chamada apenas no modo jogo inverso
+		/// </summary>
 		public void RevealPiecesWithAdjacentMines()
 		{
 			foreach (Button Botao in V_MineSweeperGame.GetButtons())
@@ -63,7 +69,7 @@ namespace MineSweeperProjeto.Controller
 				if (currentTile.Vazio == false && currentTile.TemMina == false)
 				{
 					currentTile.Aberto = true;
-					SwitchBackground(Botao, currentTile);
+					ButtonChangeBackground(Botao, currentTile);
 				}
 				else
 				{
@@ -72,15 +78,19 @@ namespace MineSweeperProjeto.Controller
 			}
 		}
 
+		/// <summary>
+		/// Inicia Modo Inverso
+		/// </summary>
+		/// <param name="dificuldade"></param>
 		private void V_StartForm_StartReverseMode(Dificuldade dificuldade)
 		{
-			Program.M_Grelha._Dificuldade = dificuldade;
-			AlteraDificuldade(Program.M_Grelha._Dificuldade);
-			V_MineSweeperGame.AtualizaNumeroMinasDisponiveis(M_Grelha.NumMinasTotal);
+			V_GameMode_ChangeDifficulty(dificuldade);
 			RevealPiecesWithAdjacentMines();
 		}
 
-		// Dá um Reset ao Jogo
+		/// <summary>
+		/// Reset ao jogo
+		/// </summary>
 		public void V_MineSweeperGame_AskToResetBoard()
 		{
 			ResetModel();
@@ -97,13 +107,24 @@ namespace MineSweeperProjeto.Controller
 			//SetupTimer();
 		}
 
+		/// <summary>
+		/// Altera as definições do jogo consoante a decisão de escolha pelo utilizador na dificuldade
+		/// </summary>
+		/// <param name="dificuldade">Dificuldade do jogo escolhida pelo utilizador</param>
 		public void V_GameMode_ChangeDifficulty(Dificuldade dificuldade)
 		{
 			Program.M_Grelha._Dificuldade = dificuldade;
-			AlteraDificuldade(Program.M_Grelha._Dificuldade);
+			SetupModel();
+			V_MineSweeperGame.AlteraDificuldadeNoView(Program.M_Grelha._Dificuldade);
 			V_MineSweeperGame.AtualizaNumeroMinasDisponiveis(M_Grelha.NumMinasTotal);
 		}
 
+		/// <summary>
+		/// Tratamento do evento clicar no botão, a função vai desencadear o fucionamento do jogo consoante o modo de jogo (Modo Normal ou Inverso).
+		/// Faz o tratamento do botão esquerdo assim como do botão direito.
+		/// </summary>
+		/// <param name="sender">Botão</param>
+		/// <param name="e">Foi premido rato esquerdo ou direito</param>
 		public void OnButtonClicked(object sender, MouseEventArgs e)
 		{
 			// Se o Jogador se encontra a jogar no Modo normal, os botões funcionam desta maneira...
@@ -127,7 +148,7 @@ namespace MineSweeperProjeto.Controller
 						Temporizador.Stop();
 
 						V_MineSweeperGame.ChangeButtonBackGround(botaoAtual, Resources.bomb);
-						RevealAllPieces();
+						Reveal();
 						BombaFimJogo();
 
 						// O jogo acaba
@@ -135,7 +156,7 @@ namespace MineSweeperProjeto.Controller
 					}
 					else if (currentTile.Vazio == false && currentTile.Aberto == false)
 					{
-						SwitchBackground(botaoAtual, currentTile);
+						ButtonChangeBackground(botaoAtual, currentTile);
 
 						currentTile.Aberto = true;
 						if (M_Options.SoundOnOrOFF == true)
@@ -266,9 +287,15 @@ namespace MineSweeperProjeto.Controller
 			}
 		}
 
+		/// <summary>
+		/// Função simula premir no botão, útil quando usada recursiva como nos exemplos de abrir consecutivamente os espaços brancos adjacentes
+		/// </summary>
+		/// <param name="botaoAtual"></param>
+		/// <param name="currentTile"></param>
+		/// <param name="left"></param>
 		public void OnButtonClicked(Button botaoAtual, Tile currentTile, MouseButtons left)
 		{
-			SwitchBackground(botaoAtual, currentTile);
+			ButtonChangeBackground(botaoAtual, currentTile);
 			currentTile.Aberto = true;
 			// Se a condição for verdadeira a condição acaba
 			if (TestarFim(currentTile) == true)
@@ -277,7 +304,12 @@ namespace MineSweeperProjeto.Controller
 			}
 		}
 
-		public static void SwitchBackground(Button botaoAtual, Tile currentTile)
+		/// <summary>
+		/// Altera imagem de fundo do botão enviado
+		/// </summary>
+		/// <param name="botaoAtual">Botão a alterar</param>
+		/// <param name="currentTile">Para obter o número de Minas</param>
+		public static void ButtonChangeBackground(Button botaoAtual, Tile currentTile)
 		{
 			switch (currentTile.NumeroMinas)
 			{
@@ -294,6 +326,11 @@ namespace MineSweeperProjeto.Controller
 			}
 		}
 
+		/// <summary>
+		/// Permite abrir recursivamente todos os espaços em branco adjacentes
+		/// </summary>
+		/// <param name="currentTile"></param>
+		/// <param name="botaoAtual"></param>
 		public void Flood_Fill(Tile currentTile, Button botaoAtual)
 		{
 			if (currentTile != null || botaoAtual != null)
@@ -387,7 +424,7 @@ namespace MineSweeperProjeto.Controller
 		/// <summary>
 		/// Função simples que retorna um bool que indica se o jogador já explorou todos elementos sem minas
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>True quando foi atingido o fim do jogo</returns>
 		public bool TestarFim(Tile currentTile)
 		{
 			// É suposto receber um tile que foi recentemente aberto
@@ -406,13 +443,6 @@ namespace MineSweeperProjeto.Controller
 			}
 			M_Grelha.Abertos.Add(currentTile);
 
-			//foreach (var item in M_Grelha.Matriz)
-			//{
-			//	Debug.WriteLine("Ponto:" + item.Value.Ponto + ":" + item.Value.Aberto);
-			//}
-			//Debug.WriteLine("Numero de elementos abertos: " + M_Grelha.NumeroElementosAbertos);
-			//Debug.WriteLine((M_Grelha.Matriz.Count - M_Grelha.NumMinasTotal));
-
 			//
 			if (M_Grelha.NumeroElementosAbertos < (M_Grelha.Matriz.Count - M_Grelha.NumMinasTotal))
 			{
@@ -430,6 +460,10 @@ namespace MineSweeperProjeto.Controller
 			}
 		}
 
+		/// <summary>
+		/// Função simples que retorna um bool que indica se o jogador já plantou flags em todas sobre as minas
+		/// </summary>
+		/// <returns>True quando foi atingido o fim do jogo</returns>
 		public bool TestarFimModoInverso(Tile currentTile)
 		{
 			if (currentTile.TemMina == true && currentTile.Flagged == true)
@@ -450,7 +484,9 @@ namespace MineSweeperProjeto.Controller
 			return false;
 		}
 
-		// Fim do jogo
+		/// <summary>
+		/// Apresenta mensagem de Fim do Jogo e pede para registar o score
+		/// </summary>
 		public void GanhouJogo()
 		{
 			Temporizador.Stop();
@@ -505,7 +541,5 @@ namespace MineSweeperProjeto.Controller
 			x = Convert.ToInt32(parts[0]);
 			y = Convert.ToInt32(parts[1]);
 		}
-
-		// -------------------------------------------------------------------------------------------------------
 	}
 }

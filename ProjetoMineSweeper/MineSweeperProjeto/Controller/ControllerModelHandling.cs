@@ -15,28 +15,30 @@ namespace MineSweeperProjeto.Controller
 {
 	public partial class GameController
 	{
-		// Efetua Prepara o Model para permitir o Jogo
-		public void SetupModel()
+		/// <summary>
+		/// Inicia as coleções do Model para permitir o bom funcionamento do Jogo
+		/// </summary>
+		public void InitModel()
 		{
 			M_Grelha.NumeroAleatorio = new Random();
 			M_Grelha.Matriz = new Dictionary<Point, Tile>();
 			M_Grelha.Abertos = new HashSet<Tile>();
 		}
 
-		public void AlteraDificuldade(Dificuldade _dificuldade)
-		{
-			SetModel();
-			V_MineSweeperGame.AlteraDificuldadeNoView(Program.M_Grelha._Dificuldade);
-		}
-
-		public void SetModel()
+		/// <summary>
+		/// Prepara o jogo funcionalmente consoante com a dificuldade escolhida
+		/// </summary>
+		public void SetupModel()
 		{
 			M_Grelha.Tamanho = classDificuldade.GetTamanho(Program.M_Grelha._Dificuldade);
-			SetAmountOfMines();
+			SetAmountOfMinesInPlay();
 			LoadTileGrid();
 			LoadAdjacentsMines();
 		}
 
+		/// <summary>
+		/// Atribui o número de minas adjacentes a cada quadrícula
+		/// </summary>
 		public void LoadAdjacentsMines()
 		{
 			Point _pontoTemporario;
@@ -73,12 +75,20 @@ namespace MineSweeperProjeto.Controller
 			}
 		}
 
+		/// <summary>
+		/// Verifica se o ponto faz sentido no contexto da matriz
+		/// </summary>
+		/// <param name="_pontoTemporario">Ponto que se pretende avaliar</param>
+		/// <returns></returns>
 		public bool PointIsValid(ref Point _pontoTemporario)
 		{
 			return (_pontoTemporario.X >= 0 && _pontoTemporario.X < M_Grelha.Tamanho.Height && _pontoTemporario.Y >= 0
 									&& _pontoTemporario.Y < M_Grelha.Tamanho.Width);
 		}
 
+		/// <summary>
+		/// Carrega a Matriz com todas Tiles (quadrículas) de acordo com o seu posicionamento (x,y)
+		/// </summary>
 		public void LoadTileGrid()
 		{
 			// Gerar Minas
@@ -135,7 +145,10 @@ namespace MineSweeperProjeto.Controller
 			//}
 		}
 
-		public void SetAmountOfMines()
+		/// <summary>
+		/// Determina o número de Minas a colocar em campo
+		/// </summary>
+		public void SetAmountOfMinesInPlay()
 		{
 			switch (Program.M_Grelha._Dificuldade)
 			{
@@ -158,20 +171,29 @@ namespace MineSweeperProjeto.Controller
 			}
 		}
 
+		/// <summary>
+		/// Função que pretende apagar todos os dados relativo ao jogo anterior (usa-se quando se pretende mudar de dificuldade por exemplo)
+		/// </summary>
 		private void V_StartForm_DestroyModel()
 		{
 			ResetTileGridProperties();
 		}
 
+		/// <summary>
+		/// Faz reset funcional ao jogo
+		/// </summary>
 		public void ResetModel()
 		{
 			ResetTileGridProperties();
 
-			SetModel();
+			SetupModel();
 
 			V_MineSweeperGame.ResetBoardView();
 		}
 
+		/// <summary>
+		/// Apaga dados presentes do Model
+		/// </summary>
 		public void ResetTileGridProperties()
 		{
 			M_Grelha.Matriz = new Dictionary<Point, Tile>();

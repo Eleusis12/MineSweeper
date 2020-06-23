@@ -15,6 +15,10 @@ namespace MineSweeperProjeto.Controller
 {
 	public partial class GameController
 	{
+		/// <summary>
+		/// Pede para registar resultado num ficheiro xml se as condições forem positivas
+		/// </summary>
+		/// <param name="username">Nome Introduzido pelo utilizador</param>
 		private void V_vencedor_SendUsername(string username)
 		{
 			string pathFile = GetPathFile(Program.M_Grelha._Dificuldade);
@@ -32,6 +36,11 @@ namespace MineSweeperProjeto.Controller
 			}
 		}
 
+		/// <summary>
+		/// Cria formato do ficheiro XML
+		/// </summary>
+		/// <param name="username">Nome Introduzido pelo utilizador</param>
+		/// <returns></returns>
 		private XDocument CreateXmlFile(string username)
 		{
 			return new XDocument(
@@ -45,6 +54,11 @@ namespace MineSweeperProjeto.Controller
 							);
 		}
 
+		/// <summary>
+		/// Atualiza ficheiro xml quando este já existe
+		/// </summary>
+		/// <param name="username">Nome Introduzido pelo utilizador</param>
+		/// <param name="pathFile">Caminho do ficheiro</param>
 		private void UpdateXMLFile(string username, string pathFile)
 		{
 			XDocument doc = XDocument.Load(pathFile);
@@ -58,6 +72,10 @@ namespace MineSweeperProjeto.Controller
 			doc.Save(pathFile);
 		}
 
+		/// <summary>
+		/// Faz o pedido ao server do top10
+		/// e pede ao view para apresentar os dados
+		/// </summary>
 		private void V_StartForm_AskBestScoreData()
 		{
 			LoadBestScores();
@@ -67,6 +85,9 @@ namespace MineSweeperProjeto.Controller
 			//Program.V_StartForm.UpdateBestScoreView();
 		}
 
+		/// <summary>
+		/// Pede e guarda o top 1 offline no Model
+		/// </summary>
 		private void LoadBestScores()
 		{
 			BestScores scores = new BestScores();
@@ -94,6 +115,11 @@ namespace MineSweeperProjeto.Controller
 			}
 		}
 
+		/// <summary>
+		/// Faz tratamento do ficheiro xml para obter melhor score
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <returns></returns>
 		private static Entry GetBestScore(XDocument doc)
 		{
 			return new Entry()
@@ -104,21 +130,34 @@ namespace MineSweeperProjeto.Controller
 			};
 		}
 
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="dificuldade"></param>
+		/// <returns>Caminho do ficheiro que depende da dificuldade</returns>
 		private string GetPathFile(Dificuldade dificuldade)
 		{
 			string pathFile = string.Empty;
-			if (dificuldade == Dificuldade.Facil)
+			if (Program.M_Options.ModoJogo == GameMode.Normal)
 			{
-				pathFile = "BestTimeEasyMode.xml";
-			}
-			else if (dificuldade == Dificuldade.Medio)
-			{
-				pathFile = "BestTimeMediumMode.xml";
+				if (dificuldade == Dificuldade.Facil)
+				{
+					pathFile = "BestTimeEasyMode.xml";
+				}
+				else if (dificuldade == Dificuldade.Medio)
+				{
+					pathFile = "BestTimeMediumMode.xml";
+				}
+				else if (dificuldade == Dificuldade.Dificil)
+				{
+					pathFile = "BestTimeHardMode.xml";
+				}
 			}
 			else
 			{
-				pathFile = "BestTimeHardMode.xml";
+				pathFile = "BestTimeReverseMode.xml";
 			}
+
 			if (File.Exists(pathFile) == false)
 			{
 				return null;

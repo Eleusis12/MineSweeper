@@ -12,6 +12,10 @@ namespace MineSweeperUWP.Controller
 {
 	public partial class GameController
 	{
+		/// <summary>
+		/// Faz pedido ao servidor para registar utilizador
+		/// </summary>
+		/// <param name="temp">Dados do Utilizador</param>
 		private async void V_RegisterForm_RegisterThisUser(Library.Models.User temp)
 		{
 			string resposta;

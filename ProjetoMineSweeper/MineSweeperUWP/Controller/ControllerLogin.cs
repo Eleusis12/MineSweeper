@@ -13,6 +13,12 @@ namespace MineSweeperUWP.Controller
 {
 	public partial class GameController
 	{
+		/// <summary>
+		/// Faz Pedido ao servidor para se autenticar
+		/// </summary>
+		/// <param name="username">Credencial: Username</param>
+		/// <param name="password">Credencial: PassWord</param>
+		///
 		public async void V_Login_SendCredentials(string username, string password)
 		{
 			string id = string.Empty;

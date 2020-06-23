@@ -29,11 +29,21 @@ namespace MineSweeperUWP.Controller
 			new Point (-1, 0)
 		};
 
+		/// <summary>
+		/// Atualiza variável temporizador
+		/// </summary>
+		/// <param name="tempo"></param>
 		private void V_MineSweeperGame_UpdateTimer(int tempo)
 		{
 			Program.M_Grelha.TimerCounter = tempo;
 		}
 
+		/// <summary>
+		/// Tratamento do evento clicar no botão, a função vai desencadear o fucionamento do jogo consoante o modo de jogo (Modo Normal ou Inverso).
+		/// Faz o tratamento apenas do botão direito.
+		/// </summary>
+		/// <param name="sender">Botão</param>
+		/// <param name="e">Foi premido rato direito</param>
 		private async void V_MineSweeperGame_RightButtonPressed(object sender, Windows.UI.Xaml.Input.RightTappedRoutedEventArgs e)
 		{
 			if (Program.M_Options.ModoJogo == GameMode.Normal)
@@ -82,6 +92,12 @@ namespace MineSweeperUWP.Controller
 			}
 		}
 
+		/// <summary>
+		/// Tratamento do evento clicar no botão, a função vai desencadear o fucionamento do jogo consoante o modo de jogo (Modo Normal ou Inverso).
+		/// Faz o tratamento apenas do botão esquerdo .
+		/// </summary>
+		/// <param name="sender">Botão</param>
+		/// <param name="e">Foi premido rato esquerdo </param>
 		private async void V_MineSweeperGame_LeftButtonPressed(object sender, RoutedEventArgs e)
 		{
 			if (Program.M_Options.ModoJogo == GameMode.Normal)
@@ -111,7 +127,7 @@ namespace MineSweeperUWP.Controller
 				}
 				else if (currentTile.Vazio == false && currentTile.Aberto == false)
 				{
-					SwitchBackground(botaoAtual, currentTile);
+					ButtonChangeBackground(botaoAtual, currentTile);
 
 					currentTile.Aberto = true;
 					if (Program.M_Options.SoundOnOrOFF == true)
@@ -183,6 +199,10 @@ namespace MineSweeperUWP.Controller
 			}
 		}
 
+		/// <summary>
+		/// Função simples que retorna um bool que indica se o jogador já plantou flags em todas sobre as minas
+		/// </summary>
+		/// <returns>True quando foi atingido o fim do jogo</returns>
 		public bool TestarFimModoInverso(Tile currentTile)
 		{
 			if (currentTile.TemMina == true && currentTile.Flagged == true)
@@ -203,6 +223,9 @@ namespace MineSweeperUWP.Controller
 			return false;
 		}
 
+		/// <summary>
+		/// Mostra visualmente todas as peças no jogo
+		/// </summary>
 		public void Reveal()
 		{
 			foreach (Button Botao in Program.V_MineSweeperGame.GetButtons())
@@ -212,7 +235,7 @@ namespace MineSweeperUWP.Controller
 
 				if (currentTile.Vazio == false && currentTile.TemMina == false)
 				{
-					SwitchBackground(Botao, currentTile);
+					ButtonChangeBackground(Botao, currentTile);
 				}
 				else if (currentTile.TemMina == true)
 				{
@@ -225,6 +248,9 @@ namespace MineSweeperUWP.Controller
 			}
 		}
 
+		/// <summary>
+		/// Mostra visualmente todas as peças que possuem número de adjacência; função chamada apenas no modo jogo inverso
+		/// </summary>
 		public void RevealPiecesWithAdjacentMines()
 		{
 			foreach (Button Botao in Program.V_MineSweeperGame.GetButtons())
@@ -235,7 +261,7 @@ namespace MineSweeperUWP.Controller
 				if (currentTile.Vazio == false && currentTile.TemMina == false)
 				{
 					currentTile.Aberto = true;
-					SwitchBackground(Botao, currentTile);
+					ButtonChangeBackground(Botao, currentTile);
 				}
 				else
 				{
@@ -244,7 +270,9 @@ namespace MineSweeperUWP.Controller
 			}
 		}
 
-		// Dá um Reset ao Jogo
+		/// <summary>
+		/// Reset ao jogo
+		/// </summary>
 		public void V_MineSweeperGame_AskToResetBoard()
 		{
 			ResetModel();
@@ -371,9 +399,15 @@ namespace MineSweeperUWP.Controller
 		//	}
 		//}
 
+		/// <summary>
+		/// Função simula premir no botão, útil quando usada recursiva como nos exemplos de abrir consecutivamente os espaços brancos adjacentes
+		/// </summary>
+		/// <param name="botaoAtual"></param>
+		/// <param name="currentTile"></param>
+		/// <param name="left"></param>
 		public void OnButtonClicked(Button botaoAtual, Tile currentTile)
 		{
-			SwitchBackground(botaoAtual, currentTile);
+			ButtonChangeBackground(botaoAtual, currentTile);
 			currentTile.Aberto = true;
 			// Se a condição for verdadeira a condição acaba
 			if (TestarFim(currentTile) == true)
@@ -400,7 +434,13 @@ namespace MineSweeperUWP.Controller
 		//	}
 		//}
 
-		public void SwitchBackground(Button botaoAtual, Tile currentTile)
+		/// <summary>
+		/// Altera imagem de fundo do botão enviado
+		/// </summary>
+		/// <param name="botaoAtual">Botão a alterar</param>
+		/// <param name="currentTile">Para obter o número de Minas</param>
+		///
+		public void ButtonChangeBackground(Button botaoAtual, Tile currentTile)
 		{
 			switch (currentTile.NumeroMinas)
 
@@ -418,6 +458,11 @@ namespace MineSweeperUWP.Controller
 			}
 		}
 
+		/// <summary>
+		/// Permite abrir recursivamente todos os espaços em branco adjacentes
+		/// </summary>
+		/// <param name="currentTile"></param>
+		/// <param name="botaoAtual"></param>
 		public void Flood_Fill(Tile currentTile, Button botaoAtual)
 		{
 			if (currentTile != null || botaoAtual != null)
@@ -555,7 +600,9 @@ namespace MineSweeperUWP.Controller
 			}
 		}
 
-		// Fim do jogo
+		/// <summary>
+		/// Apresenta mensagem de Fim do Jogo e pede para registar o score
+		/// </summary>
 		public async void GanhouJogo()
 		{
 			//Temporizador.Stop();
