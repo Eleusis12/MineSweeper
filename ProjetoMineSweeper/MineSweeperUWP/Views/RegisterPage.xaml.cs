@@ -13,6 +13,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.Storage.Streams;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -146,18 +147,38 @@ namespace MineSweeperUWP.View
 
 			StorageFile file = await openPicker.PickSingleFileAsync();
 
+			var image_1 = new Windows.UI.Xaml.Controls.Image();
+
 			if (file != null)
 			{
 				var stream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read);
 				var image = new BitmapImage();
 				image.SetSource(stream);
 
-				BTUploadPic.Content = image;
+				image_1.Source = image;
+				BTUploadPic.Content = image_1;
 
 				//BTUploadPic.Children.Add(new Image() { Source = image, Width = 300, Height = 300 });
 				//TODO: tratar de imagem
-				//temp.Perfil = stream;
+				temp.PerfilBase64 = await StorageFileToBase64(file);
 			}
+		}
+
+		private async Task<string> StorageFileToBase64(StorageFile file)
+		{
+			string Base64String = "";
+
+			if (file != null)
+			{
+				IRandomAccessStream fileStream = await file.OpenAsync(FileAccessMode.Read);
+				var reader = new DataReader(fileStream.GetInputStreamAt(0));
+				await reader.LoadAsync((uint)fileStream.Size);
+				byte[] byteArray = new byte[fileStream.Size];
+				reader.ReadBytes(byteArray);
+				Base64String = Convert.ToBase64String(byteArray);
+			}
+
+			return Base64String;
 		}
 
 		private void Back_Button(object sender, RoutedEventArgs e)

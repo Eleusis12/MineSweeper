@@ -232,6 +232,7 @@ namespace MineSweeperProjeto.View
 			UCOptions.WarnMainFormSoundEffectsChoice += UCOptions_WarnMainFormSoundEffectsChoice;
 			UCLeaderBoard.AskTop10 += UCLeaderBoard_AskTop10;
 			UCLeaderBoard.ShowTop10AccordingtoDifficulty += UCLeaderBoard_ShowTop10AccordingtoDifficulty;
+			UCLeaderBoard.ShowProfile += UCLeaderBoard_ShowProfile;
 			UCSearch.AskUserData += UCSearch_AskUserData;
 
 			// Apresenta o Main Menu ao utilizador
@@ -254,6 +255,24 @@ namespace MineSweeperProjeto.View
 
 		public void ShowProfile(User temp)
 		{
+			// Pesquisa é feita através da leaderboard
+			if (Program.M_Status.SearchingFromLeaderBoard == true)
+			{
+				if (!Program.V_StartForm.PanelContainer.Controls.ContainsKey("UserControlSearch"))
+				{
+					var UserControlSearchMode = Program.V_StartForm.UCSearch;
+					UserControlSearchMode.Dock = DockStyle.Fill;
+					UserControlSearchMode.Anchor = AnchorStyles.Top;
+					Program.V_StartForm.PanelContainer.Controls.Add(UserControlSearchMode);
+				}
+				Program.V_StartForm.PanelContainer.Controls["UserControlSearch"].BringToFront();
+				Program.V_StartForm.BackButton.Visible = true;
+				Program.V_StartForm.BackButton.BringToFront();
+
+				UCSearch.GroupBoxDados.Visible = true;
+				UCSearch.PictureBoxProfilePic.Visible = true;
+			}
+
 			if (temp != null)
 			{
 				UCSearch.GroupBoxDados.Controls["LBLNome"].Text = ("Nome Abreviado: " + temp.Username);
@@ -303,6 +322,14 @@ namespace MineSweeperProjeto.View
 			if (TurnSoundEffectsInGame != null)
 			{
 				TurnSoundEffectsInGame();
+			}
+		}
+
+		private void UCLeaderBoard_ShowProfile(string username)
+		{
+			if (AskUserData != null)
+			{
+				AskUserData(username);
 			}
 		}
 	}

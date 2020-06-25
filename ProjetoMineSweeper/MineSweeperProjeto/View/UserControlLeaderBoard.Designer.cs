@@ -48,6 +48,7 @@
             this.ColunaTempo,
             this.ColunaQuando,
             this.colunaDificuldade});
+			this.LVTop10.FullRowSelect = true;
 			this.LVTop10.HideSelection = false;
 			this.LVTop10.Location = new System.Drawing.Point(0, 52);
 			this.LVTop10.Name = "LVTop10";
@@ -55,6 +56,7 @@
 			this.LVTop10.TabIndex = 0;
 			this.LVTop10.UseCompatibleStateImageBehavior = false;
 			this.LVTop10.View = System.Windows.Forms.View.Details;
+			this.LVTop10.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LVTop10_MouseClick);
 			// 
 			// ColunaRank
 			// 

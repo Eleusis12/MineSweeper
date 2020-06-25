@@ -21,7 +21,7 @@ namespace MineSweeperProjeto.Controller
 		/// <param name="username">Nome Introduzido pelo utilizador</param>
 		private void V_vencedor_SendUsername(string username)
 		{
-			string pathFile = GetPathFile(Program.M_Grelha._Dificuldade);
+			string pathFile = GetPathFile(Program.M_Grelha._Dificuldade, false);
 
 			// O ficheiro está vazio
 			if (File.Exists(pathFile) == false)
@@ -135,7 +135,7 @@ namespace MineSweeperProjeto.Controller
 		/// </summary>
 		/// <param name="dificuldade"></param>
 		/// <returns>Caminho do ficheiro que depende da dificuldade</returns>
-		private string GetPathFile(Dificuldade dificuldade)
+		private string GetPathFile(Dificuldade dificuldade, bool checkIfExists = true)
 		{
 			string pathFile = string.Empty;
 			if (Program.M_Options.ModoJogo == GameMode.Normal)
@@ -158,10 +158,14 @@ namespace MineSweeperProjeto.Controller
 				pathFile = "BestTimeReverseMode.xml";
 			}
 
-			if (File.Exists(pathFile) == false)
+			if (checkIfExists == true)
 			{
-				return null;
+				if (File.Exists(pathFile) == false)
+				{
+					return null;
+				}
 			}
+
 			return pathFile;
 		}
 	}

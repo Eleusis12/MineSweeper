@@ -20,6 +20,10 @@ namespace Library.Models
 		public string Surname { get; set; }
 		public string Email { get; set; }
 		public System.Drawing.Image Perfil { get; set; }
+
+		// Para o UWP
+		public string PerfilBase64 { get; set; }
+
 		public int WinStats { get; set; }
 		public int LoseStats { get; set; }
 

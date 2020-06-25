@@ -3,17 +3,21 @@ using Library.Interfaces;
 using Library.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Graphics.Imaging;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -43,7 +47,7 @@ namespace MineSweeperUWP.Views
 			}
 		}
 
-		public void ShowProfile(User temp)
+		public async void ShowProfile(User temp)
 		{
 			if (temp != null)
 			{
@@ -66,6 +70,27 @@ namespace MineSweeperUWP.Views
 				LBLNumeroJogosPerdidos.Visibility = Visibility.Visible;
 				LBLBestTimeEasy.Visibility = Visibility.Visible;
 				LBLBestTimeMedium.Visibility = Visibility.Visible;
+
+				try
+				{
+					if (temp.PerfilBase64 != string.Empty)
+					{
+						var bitmap = new BitmapImage();
+						using (var stream = new MemoryStream(Convert.FromBase64String(temp.PerfilBase64.Substring(temp.PerfilBase64.LastIndexOf(',') + 1))))
+						{
+							//We're using WinRT (Windows Phone or Windows 8 app) in this example. Bitmaps in WinRT use an IRandomAccessStream as their source
+							await bitmap.SetSourceAsync(stream.AsRandomAccessStream());
+						}
+
+						ImagemPerfil.Source = bitmap;
+						ImagemPerfil.Visibility = Visibility.Visible;
+					}
+				}
+				catch (Exception)
+				{
+					ImagemPerfil.Visibility = Visibility.Collapsed;
+					return;
+				}
 			}
 		}
 

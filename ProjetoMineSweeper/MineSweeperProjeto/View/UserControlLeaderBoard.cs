@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Library.Helpers;
 using Library.Interfaces;
+using System.Diagnostics;
 
 namespace MineSweeperProjeto.View
 {
@@ -17,6 +18,8 @@ namespace MineSweeperProjeto.View
 		public event NotificationTaskHandler AskTop10;
 
 		public event DifficultyExtractionHandler ShowTop10AccordingtoDifficulty;
+
+		public event UsernameExtractionHandler ShowProfile;
 
 		public ListView ListViewTop10
 		{
@@ -42,6 +45,25 @@ namespace MineSweeperProjeto.View
 			if (ShowTop10AccordingtoDifficulty != null)
 			{
 				ShowTop10AccordingtoDifficulty((Dificuldade)Enum.Parse(typeof(Dificuldade), (sender as Button).Tag.ToString()));
+			}
+		}
+
+		private void LVTop10_MouseClick(object sender, MouseEventArgs e)
+		{
+			// Get the information of an item that is located in a given point (mouse location in this case).
+			ListViewHitTestInfo hit = LVTop10.HitTest(e.Location);
+			// hit.Item: Gets the ListViewItem.
+			// hit.SubItem: Get the ListViewItem.ListViewSubItem
+
+			int colNr = hit.Item.SubItems.IndexOf(hit.SubItem);
+			if (colNr == 1)
+			{
+				MessageBox.Show(hit.SubItem.Text);
+				if (ShowProfile != null)
+				{
+					Program.M_Status.SearchingFromLeaderBoard = true;
+					ShowProfile(hit.SubItem.Text);
+				}
 			}
 		}
 	}

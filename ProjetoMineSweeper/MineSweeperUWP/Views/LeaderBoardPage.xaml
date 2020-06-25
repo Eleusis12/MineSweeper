@@ -49,6 +49,7 @@
             <AppBarButton x:Name="BTMedio" Icon="ShowResults" Label="Médio" Click="ShowTop10Difficulty" Tag="Medio" />
         </StackPanel>
         <controls:DataGrid
+
       Grid.Row="1"
         x:Name="dataGrid"
         Margin="12"

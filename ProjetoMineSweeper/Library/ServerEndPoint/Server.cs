@@ -42,7 +42,15 @@ namespace Library.ServerEndpoint
 				xmlPedido.Element("registo").Element("email").Value = novoUtilizador.Email;
 				//xmlPedido.Element("registo").Element("fotografia").Value = novoUtilizador.Perfil;
 
-				xmlPedido.Element("registo").Element("fotografia").Value = Base64.ImageToBase64(novoUtilizador.Perfil);
+				if (novoUtilizador.PerfilBase64 != string.Empty)
+				{
+					xmlPedido.Element("registo").Element("fotografia").Value = novoUtilizador.PerfilBase64;
+				}
+				else
+				{
+					xmlPedido.Element("registo").Element("fotografia").Value = Base64.ImageToBase64(novoUtilizador.Perfil);
+				}
+
 				xmlPedido.Element("registo").Element("pais").Value = novoUtilizador.Country;
 
 				XDocument xmlResposta = PostService(xmlPedido, EndPoint.PostRegisto, new string[] { });
@@ -276,6 +284,7 @@ namespace Library.ServerEndpoint
 
 					if (base64Imagem != string.Empty)
 					{
+						consultado.PerfilBase64 = base64Imagem;
 						consultado.Perfil = Base64.Base64ToImage(base64Imagem);
 					}
 

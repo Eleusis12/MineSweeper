@@ -15,5 +15,7 @@ namespace Library.Models
 		public List<Top10Resultado> top10Resultados { get; set; }
 
 		public bool PlayingWithTheOnlineBoard { get; set; } = false;
+
+		public bool SearchingFromLeaderBoard { get; set; } = false;
 	}
 }

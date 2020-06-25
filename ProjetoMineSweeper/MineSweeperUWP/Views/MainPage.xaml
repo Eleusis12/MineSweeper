@@ -33,7 +33,7 @@
 
                 <!--<Image   x:Name="image1" Height="54" Width="69" Source="/Assets/Another Assets/icons8-pastel-64.png" />-->
             </Button>
-            <TextBlock  RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="BTSearch" x:Name="LBLBestScore" Text="Melhor Score:" Visibility="Collapsed">
+            <TextBlock  RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="BTSearch" x:Name="LBLBestScore"  Visibility="Collapsed">
                 <ToolTipService.ToolTip>
                             <ToolTip Name="TPShowUsername" />
                         </ToolTipService.ToolTip>

@@ -13,7 +13,7 @@ namespace Library.Helpers
 
 			try
 			{
-				byte[] imageBytes = Convert.FromBase64String(base64String);
+				byte[] imageBytes = Convert.FromBase64String(base64String.Substring(base64String.LastIndexOf(',') + 1));
 				// Convert byte[] to Image
 				using (var ms = new MemoryStream(imageBytes, 0, imageBytes.Length))
 				{
