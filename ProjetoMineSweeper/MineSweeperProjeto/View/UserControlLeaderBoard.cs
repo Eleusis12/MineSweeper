@@ -58,7 +58,6 @@ namespace MineSweeperProjeto.View
 			int colNr = hit.Item.SubItems.IndexOf(hit.SubItem);
 			if (colNr == 1)
 			{
-				MessageBox.Show(hit.SubItem.Text);
 				if (ShowProfile != null)
 				{
 					Program.M_Status.SearchingFromLeaderBoard = true;

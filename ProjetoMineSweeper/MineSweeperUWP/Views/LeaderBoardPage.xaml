@@ -10,34 +10,47 @@
     <Page.Background>
         <AcrylicBrush TintColor="#CC373737" />
     </Page.Background>
+    <Page.Resources>
+        <DataTemplate  x:Key="RowDetailsTemplate">
+            <StackPanel>
+                <TextBlock Margin="20" Text="Aqui estão os detalhes do Jogador:" />
+                <Grid Margin="20,10" Padding="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Nome Abreviado: " FontWeight="SemiBold" FontSize="13" />
+                    <TextBlock Grid.Row="1" Text="Email: " FontWeight="SemiBold" FontSize="13" />
+                    <TextBlock Grid.Row="2" Text="País: " FontWeight="SemiBold" FontSize="13" />
+                    <TextBlock Grid.Row="3" Text="Número de Jogos: " FontWeight="SemiBold" FontSize="13" />
+                    <TextBlock Grid.Row="4" Text="Ganhos: " FontWeight="SemiBold" FontSize="13" />
+                    <TextBlock Grid.Row="5" Text="Perdidos: " FontWeight="SemiBold" FontSize="13" />
+                    <TextBlock Grid.Row="6" Text="Melhor tempo, Fácil: " FontWeight="SemiBold" FontSize="13" />
+                    <TextBlock Grid.Row="7" Text="Melhor tempo, Médio: " FontWeight="SemiBold" FontSize="13" />
+                    <TextBlock x:Name="TBNomeAbreviado" Grid.Column="1" FontSize="13"  HorizontalAlignment="Right" />
+                    <TextBlock x:Name="TBEmail"  Grid.Row="1" Grid.Column="1" FontSize="13" HorizontalAlignment="Right" />
+                    <TextBlock x:Name="TBPais"  Grid.Row="2" Grid.Column="1" FontSize="13" HorizontalAlignment="Right" />
+                    <TextBlock x:Name="TBNumeroJogos"  Grid.Row="3" Grid.Column="1" FontSize="13" HorizontalAlignment="Right" />
+                    <TextBlock x:Name="TBNumeroJogosGanhos"  Grid.Row="4" Grid.Column="1" FontSize="13" HorizontalAlignment="Right" />
+                    <TextBlock x:Name="TBNumeroJogosPerdidos"  Grid.Row="5" Grid.Column="1" FontSize="13" HorizontalAlignment="Right" />
+                    <TextBlock x:Name="TBBestTimeEasyMode"  Grid.Row="6" Grid.Column="1" FontSize="13" HorizontalAlignment="Right" />
+                    <TextBlock x:Name="TBBestTimeMediumMode"  Grid.Row="7" Grid.Column="1" FontSize="13" HorizontalAlignment="Right" />
+                </Grid>
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
     <Grid>
-        <Grid.Resources>
-            <DataTemplate x:Key="RowDetailsTemplate">
-                <StackPanel>
 
-                    <Grid Margin="20,10" Padding="5">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="Coordinates: " FontWeight="SemiBold" FontSize="13" />
-                        <TextBlock Grid.Row="1" Text="Prominence (m): " FontWeight="SemiBold" FontSize="13" />
-                        <TextBlock Grid.Row="2" Text="First Ascent (year): " FontWeight="SemiBold" FontSize="13" />
-                        <TextBlock Grid.Row="3" Text="No. of ascents: " FontWeight="SemiBold" FontSize="13" />
-                        <TextBlock Grid.Column="1" FontSize="13" Text="{Binding Coordinates}" HorizontalAlignment="Right" />
-                        <TextBlock Grid.Row="1" Grid.Column="1" FontSize="13" Text="{Binding Prominence}" HorizontalAlignment="Right" />
-                        <TextBlock Grid.Row="2" Grid.Column="1" FontSize="13" Text="{Binding First_ascent}" HorizontalAlignment="Right" />
-                        <TextBlock Grid.Row="3" Grid.Column="1" FontSize="13" Text="{Binding Ascents}" HorizontalAlignment="Right" />
-                    </Grid>
-                </StackPanel>
-            </DataTemplate>
-        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -71,8 +84,7 @@
         GridLinesVisibility="Vertical"
         HeadersVisibility="Column"
         IsReadOnly="True"
-        RowDetailsTemplate="{StaticResource RowDetailsTemplate}"
-        RowDetailsVisibilityMode="Collapsed"
+        RowDetailsVisibilityMode="VisibleWhenSelected"
         SelectionMode="Extended"
         RowGroupHeaderPropertyNameAlternative="Range">
         </controls:DataGrid>

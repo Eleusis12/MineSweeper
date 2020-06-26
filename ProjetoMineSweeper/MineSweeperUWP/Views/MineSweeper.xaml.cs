@@ -450,6 +450,7 @@ namespace MineSweeperUWP.View
 
 		public void Reset_MouseClick(object sender, RoutedEventArgs e)
 		{
+			ResetTimer();
 			if (AskToResetBoard != null)
 			{
 				AskToResetBoard();

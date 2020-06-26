@@ -281,6 +281,7 @@ namespace MineSweeperUWP.Controller
 			//Temporizador = new Timer();
 			//SetupTimer();
 			Program.V_MineSweeperGame.AtualizaNumeroMinasDisponiveis(Program.M_Grelha.NumMinasTotal);
+			Program.V_MineSweeperGame.ResetTimer();
 			//SetupTimer();
 			if (Program.M_Options.ModoJogo == GameMode.Inverso)
 			{

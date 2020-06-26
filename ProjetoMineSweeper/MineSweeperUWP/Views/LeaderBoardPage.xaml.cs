@@ -9,8 +9,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -52,10 +54,11 @@ namespace MineSweeperUWP.View
 			table.Columns["Quando"].SetOrdinal(2);
 			table.Columns["dificuldade"].SetOrdinal(3);
 
+			dataGrid.RowDetailsTemplate = (DataTemplate)this.Resources["RowDetailsTemplate"];
 			FillDataGrid(table, dataGrid);
 		}
 
-		public static void FillDataGrid(DataTable table, DataGrid grid)
+		public void FillDataGrid(DataTable table, DataGrid grid)
 		{
 			grid.Columns.Clear();
 			grid.AutoGenerateColumns = false;
